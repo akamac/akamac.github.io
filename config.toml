@@ -1,4 +1,5 @@
-baseURL = "https://akamac.github.io/purple-screen/"
+#baseURL = "https://akamac.github.io/purple-screen/"
+baseURL = "https://purple-screen.com/"
 languageCode = "en-us"
 title = "Blog"
 theme = "lanyon"
