@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Esxi on Blog</title>
+    <link>https://purple-screen.com/categories/esxi/</link>
+    <description>Recent content in Esxi on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Jul 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/categories/esxi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Expand RDM in virtual compatibility mode</title>
+      <link>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</guid>
+      <description>As opposed to the physical RDM mode with the virtual one after expanding the LUN on the storage array side and rescanning HBA vm still can&amp;#8217;t see the increased capacity. The official VMware tutorial says to shutdown vm and re-add RDM. This isn&amp;#8217;t acceptable. The hint to make it happen with no downtime is to vMotion vm after rescanning HBA on the destination host. That&amp;#8217;s it!</description>
+    </item>
+    
+    <item>
+      <title>Restarting managements agents</title>
+      <link>https://purple-screen.com/2014/04/15/restarting-managements-agents/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
+      <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
+Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>Fast Suspend/Resume</title>
+      <link>https://purple-screen.com/2014/01/21/fast-suspend/resume/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/01/21/fast-suspend/resume/</guid>
+      <description>Have you ever come across the term in subj? It&amp;#8217;s time to reveal what it stands for.
+First, three examples when this action can be performed.
+To enable CBT for virtual machine in addition to make vm reconfiguration one need to perform so called stun/unstun cycle for vm. This could be power on/off, suspend/resume, create/remove snapshot, vm migration.
+Another example is changing the build type for running vm (release/debug/stats). This can be done in vm advanced settings tab or via command line utils.</description>
+    </item>
+    
+  </channel>
+</rss>

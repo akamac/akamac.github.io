@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scripting on Blog</title>
+    <link>https://purple-screen.com/categories/scripting/</link>
+    <description>Recent content in Scripting on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Jun 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/categories/scripting/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Manage Zip archives with PowerShell</title>
+      <link>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</guid>
+      <description>I know there are lots of examples and function implementations out there (for instance, the one from jaykul), nonetheless I&amp;#8217;d like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.
+For instance, to extract vmware.xml file from the archive&amp;#8217;s root and all the files from the vib folder stored in root also (yep, we&amp;#8217;re expanding metadata.</description>
+    </item>
+    
+    <item>
+      <title>OBN (Object By Name) transformation</title>
+      <link>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</guid>
+      <description>You might have known that most of PowerCLI cmdlets parameters accept objects or object names (with wildcard characters allowed). Take a look at New-VM cmdlet: you can pass strings to VMHost, ResourcePool, Datastore, etc. parameters as well as the objects itself. Or maybe you&amp;#8217;ve even never noticed this since it just works!
+Want the same behavior for your own functions? No problem! Use the function below to perform transparent transformation from any eligible object to the object you need (View or Impl).</description>
+    </item>
+    
+    <item>
+      <title>Retrieve CDP/LLDP info</title>
+      <link>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</guid>
+      <description>Search for an easy way to get CDP/LLDP info for any given ESXi physical port (vmnic)? Here it is!
+It relies on ObnTransformation from my previous post and also depends on PowerShell Community Extensions for ?? alias (Invoke-NullCoalescing). You can replace the latter with the simple if in case you don&amp;#8217;t have PSCX installed.
+Keep in mind that (some) devices return MAC instead of the management IP in LLDP info.</description>
+    </item>
+    
+    <item>
+      <title>Convert PSObject to hashtable</title>
+      <link>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</link>
+      <pubDate>Sat, 10 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</guid>
+      <description>function ConvertTo-Hashtable { Param ( [Parameter(Mandatory,ValueFromPipeline)] [PSObject[]] $Object ) Process { foreach ($obj in $Object) { $ht = [ordered]@{} $obj | Get-Member -MemberType *Property | % { $ht.($_.Name) = $obj.($_.Name) } $ht } } } &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>MySQL database manipulation from PowerShell</title>
+      <link>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</link>
+      <pubDate>Fri, 09 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</guid>
+      <description>Download MySQL Connector/NET first.
+Add-Type -Path &#39;C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assemblies\v4.5\MySql.Data.dll&#39; $Connection = [MySql.Data.MySqlClient.MySqlConnection]@{ConnectionString=&#39;server=&amp;lt;FQDN&amp;gt;;uid=&amp;lt;user&amp;gt;;pwd=&amp;lt;password&amp;gt;;database=&amp;lt;db&amp;gt;&#39;} $Connection.Open() $Command = $Connection.CreateCommand() $Command.CommandText = &#34;SELECT .. FROM .. WHERE ..&#34; $Reader = $Command.ExecuteReader() while ($Reader.Read()) { # $Reader array variable represents the table row } $Reader.Close() $Connection.Close() &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>Restarting managements agents</title>
+      <link>https://purple-screen.com/2014/04/15/restarting-managements-agents/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
+      <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
+Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>NetCmdlets</title>
+      <link>https://purple-screen.com/2014/01/07/netcmdlets/</link>
+      <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/01/07/netcmdlets/</guid>
+      <description>Use all the power of PowerShell with NetCmdlets. Out of box you can: gain SSH access to ESXi 5.x hosts from PowerShell, work with multiple internet protocols (IMAP/POP/WebDAV/DNS/FTP/etc), deploy portable syslog server in seconds and much more.
+Unfortunately community edition doesn&amp;#8217;t support encryption-enabled cmdlets. To use SSH, SFTP you need to upgrade to paid version.</description>
+    </item>
+    
+    <item>
+      <title>PowerShell scheduled job output redirection</title>
+      <link>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</guid>
+      <description>Scheduling the script execution is rather common task. You might know that it&amp;#8217;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&amp;#8217;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see TechNet about_Redirection help topic.
+To be able to run your scripts with -Verbose option you should leverage Advanced_Functions syntax (see another Core About topic).</description>
+    </item>
+    
+    <item>
+      <title>Esxcli namespace tree</title>
+      <link>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</link>
+      <pubDate>Sun, 27 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</guid>
+      <description>Every time a new ESXi version released I wonder what the functionality was added to esxcli. As you know all available namespaces and commands can be retrieved by typing esxcli command list in the console. To make the output look pretty I&amp;#8217;ve written a couple of lines of PoSH code that generates the handy namespaces tree view.
+$esxcli = Get-VMHost $Name | Get-EsxCli $EsxcliNamespaceFile = [IO.File]::CreateText(&#39;D:\esxcli.txt&#39;) $EsxcliNamespaceTree = $esxcli.esxcli.command.list() $Commands = @() foreach ($Namespace in $EsxcliNamespaceTree) { $Commands += @{Path = $Namespace.</description>
+    </item>
+    
+    <item>
+      <title>Dynamic parameters</title>
+      <link>https://purple-screen.com/2013/09/08/dynamic-parameters/</link>
+      <pubDate>Sun, 08 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/09/08/dynamic-parameters/</guid>
+      <description>Today we gonna touch on dynamic parameters available in advanced functions. These are parameters that are added at run-time depending on the environment. The great example is the parameters that are dynamically exposed to the current parameter set of Get-Item cmdlet based on PS provider (FileSystem, Registry) used.
+Faced it once you should have found out that simply adding such a parameter to the function means writing a bunch of code.</description>
+    </item>
+    
+    <item>
+      <title>Enumerating through hashtable in PoSH</title>
+      <link>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</link>
+      <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</guid>
+      <description>$ht = @{a=1; b=2; c=3} $ht.GetEnumerator() | % { $_.key; $_.value } </description>
+    </item>
+    
+    <item>
+      <title>Must read PoSH book</title>
+      <link>https://purple-screen.com/2013/07/19/must-read-posh-book/</link>
+      <pubDate>Fri, 19 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/07/19/must-read-posh-book/</guid>
+      <description>If you start learning PowerShell then reading Windows PowerShell in Action, 2nd Edition by Bruce Payette is a must! He is among the principal members of PowerShell team and explain guts of the language in detail.
+Again, MUST READ!</description>
+    </item>
+    
+  </channel>
+</rss>

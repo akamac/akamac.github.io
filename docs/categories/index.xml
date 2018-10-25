@@ -10,5 +10,50 @@
 	<atom:link href="https://purple-screen.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Esxi</title>
+      <link>https://purple-screen.com/categories/esxi/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/categories/esxi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Powercli</title>
+      <link>https://purple-screen.com/categories/powercli/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/categories/powercli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Powershell</title>
+      <link>https://purple-screen.com/categories/powershell/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/categories/powershell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scripting</title>
+      <link>https://purple-screen.com/categories/scripting/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/categories/scripting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vsphere</title>
+      <link>https://purple-screen.com/categories/vsphere/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/categories/vsphere/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

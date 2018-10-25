@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fsr on Blog</title>
+    <link>https://purple-screen.com/tags/fsr/</link>
+    <description>Recent content in Fsr on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Jan 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/tags/fsr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fast Suspend/Resume</title>
+      <link>https://purple-screen.com/2014/01/21/fast-suspend/resume/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/01/21/fast-suspend/resume/</guid>
+      <description>Have you ever come across the term in subj? It&amp;#8217;s time to reveal what it stands for.
+First, three examples when this action can be performed.
+To enable CBT for virtual machine in addition to make vm reconfiguration one need to perform so called stun/unstun cycle for vm. This could be power on/off, suspend/resume, create/remove snapshot, vm migration.
+Another example is changing the build type for running vm (release/debug/stats). This can be done in vm advanced settings tab or via command line utils.</description>
+    </item>
+    
+  </channel>
+</rss>

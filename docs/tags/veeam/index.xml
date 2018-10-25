@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Veeam on Blog</title>
+    <link>https://purple-screen.com/tags/veeam/</link>
+    <description>Recent content in Veeam on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Dec 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/tags/veeam/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Veeam slow backup</title>
+      <link>https://purple-screen.com/2013/12/01/veeam-slow-backup/</link>
+      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/12/01/veeam-slow-backup/</guid>
+      <description>One day I suddenly noticed that backup jobs could no longer fit the backup window. While investigating the issue I found tons of log records pointing that before processing every VM in the job Veeam tries to clean up all the snapshots created by its own for backup purposes. In some cases they were manually deleted or lost for some reason, but the records were still kept in the database.</description>
+    </item>
+    
+  </channel>
+</rss>

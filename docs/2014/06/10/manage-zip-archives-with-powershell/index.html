@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Manage Zip archives with PowerShell &middot; PurpleScreen
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://purple-screen.com/css/poole.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/syntax.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/lanyon.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://purple-screen.com/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://purple-screen.com/assets/favicon.png">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://purple-screen.com/atom.xml">
+</head>
+
+
+  
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Blog about IT</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://purple-screen.com/">Home</a>
+    <a class="sidebar-nav-item " href="https://purple-screen.com/post">Posts</a>
+
+    
+    
+      
+        <a class="sidebar-nav-item " href="https://purple-screen.com/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://cloudflare.com">CloudFlare</a>.</p>
+    <p>&copy; 2014</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://purple-screen.com/" title="Home">PurpleScreen</a>
+            <small>blog about open source</small>
+            
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Manage Zip archives with PowerShell</h1>
+  <span class="post-date">Jun 10 2014</span>
+  <p>I know there are lots of examples and function implementations out there (for instance, the one <a title="Jaykul" href="http://huddledmasses.org/a-new-way-to-zip-and-unzip-in-powershell-3-and-net-4-5/" target="_blank">from jaykul</a>), nonetheless I&#8217;d like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.</p>
+
+<p>For instance, to extract <em>vmware.xml</em> file from the archive&#8217;s root and all the files from the <em>vib</em> folder stored in root also (yep, we&#8217;re expanding metadata.zip), creating subfolder in the current directory (replacing if already exists), you need to run the following command:</p>
+
+<p><span class="lang:default decode:true  crayon-inline">Extract-ZipFile -ZipFilePath metadata.zip -FilesToExtract vmware.xml,vibs/ -CreateSubfolder -Force</span></p>
+
+<p>The slash character indicates that you&#8217;d like to expand the folder, not the file.</p>
+
+<pre class="expand:true lang:ps decode:true" title="Zip archives manipulation">Add-Type -As System.IO.Compression.FileSystem
+
+function New-ZipFile {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [string[]] $InputObject,
+        [Parameter(Mandatory)]
+        [string] $ZipFilePath,
+        [ValidateSet('Optimal','Fastest','NoCompression')]
+        [System.IO.Compression.CompressionLevel] $Compression = 'Optimal',
+        [switch] $Append,
+        [switch] $Force
+    )
+    Begin {
+        if (-not (Split-Path $ZipFilePath)) { $ZipFilePath = Join-Path $Pwd $ZipFilePath }
+        if (Test-Path $ZipFilePath) {
+            if ($Append.IsPresent) {
+                Write-Verbose 'Appending to the destination file'
+                $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,'Update')
+            } elseif ($Force.IsPresent) {
+                Write-Verbose 'Removing the destination file'
+                Remove-Item $ZipFilePath
+                $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,'Create')
+            } else {
+                Write-Error 'Output file already exists. Specify -Force option to replace it or -Append to add/replace files in existing archive'
+                break
+            }
+        } else {
+            $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,'Create')
+        }
+    }
+    Process {
+        foreach ($Obj in $InputObject) {
+            try {
+                switch ((Get-Item $Obj -ea Stop).GetType().Name) {
+                    FileInfo {
+                        $EntryName = Split-Path $Obj -Leaf
+                        $Entry = $Archive.Entries | ? FullName -eq $EntryName
+                        if ($Entry) {
+                            if ($Force.IsPresent) {
+                                Write-Verbose "Removing $EntryName from the archive"
+                                $Entry.Delete()
+                            } else {
+                                throw "File $EntryName already exists in the archive"
+                            }
+                        }
+                        $Verbose = [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($Archive,$Obj,$EntryName,$Compression)
+                        Write-Verbose $Verbose
+                    }
+                    DirectoryInfo {
+                        Push-Location $Obj
+                        (Get-ChildItem . -Recurse -File).FullName | % {
+                            $EntryName = (Join-Path (Split-Path $Obj -Leaf) (Resolve-Path $_ -Relative).TrimStart('.\')) -replace '\\','/'
+                            $Entry = $Archive.Entries | ? FullName -eq $EntryName 
+                            if ($Entry) {
+                                if ($Force.IsPresent) {
+                                    Write-Verbose "Removing $EntryName from the archive"
+                                    $Entry.Delete()
+                                } else {
+                                    throw "File $EntryName already exists in the archive"
+                                }
+                            }
+                            $Verbose = [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($Archive,$_,$EntryName,$Compression)
+                            Write-Verbose $Verbose
+                        }
+                        Pop-Location
+                    }
+                }
+            } catch {
+                Write-Error $_
+                $Archive.Dispose()
+                Pop-Location
+                if ($_.CategoryInfo.TargetType -ne [string] -and -not $Append.IsPresent) {
+                    Remove-Item $ZipFilePath
+                }
+                return
+            }
+        }
+    }
+    End {
+        $Archive.Dispose()
+        Get-Item $ZipFilePath
+    }
+}
+
+function Extract-ZipFile {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [string] $ZipFilePath,
+        [string] $OutputPath = $Pwd,
+        [string[]] $FilesToExtract = '*',
+        [switch] $CreateSubfolder,
+        [Parameter(HelpMessage='Replace files in destination if exist')]
+        [switch] $Force
+    )
+    try {
+        $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,'Read')
+        if ($CreateSubfolder.IsPresent) {
+            $Destination = New-Item (Join-Path $OutputPath (Get-Item $ZipFilePath).BaseName) -ItemType Directory -Force:($Force.IsPresent) -ea Stop
+        } elseif (Test-Path $OutputPath) {
+            $Destination = Get-Item $OutputPath
+        } else {
+            $Destination = New-Item $OutputPath -ItemType Directory -ea Stop
+        }
+        Write-Verbose "Destination path: $($Destination.FullName)"
+        Push-Location $Destination
+        $FilesToExtract = $FilesToExtract | % {
+            for ($FullPath = $_; $FullPath; $FullPath = (Split-Path $FullPath -Parent) -replace '\\','/') {$FullPath}
+        }
+        $FoldersToExtract = $FilesToExtract | ? {$_.EndsWith('/')}
+        $Entries = ?: {$FilesToExtract -ne '*'} { $Archive.Entries | ? {
+            $_.FullName.TrimEnd('/') -in $FilesToExtract -or
+            $_.FullName -like "$FoldersToExtract*"
+        } } { $Archive.Entries }
+        $Extracted = $false
+        $Entries | Sort Name,FullName | % {
+            if (-not $_.Name) {
+                $Verbose = New-Item -Path $_.FullName -ItemType Directory -Force:($Force.IsPresent) -ea Stop
+                Write-Verbose "$Verbose created"
+            } else {
+                Write-Verbose "Extracting $($_.FullName)"
+                $DestPath = Join-Path $Destination $_.FullName
+                if (-not (Test-Path (Split-Path $DestPath))) {
+                    $Verbose = New-Item -Path (Split-Path $DestPath) -ItemType Directory -Force:($Force.IsPresent) -ea Stop
+                    Write-Verbose "$Verbose created"
+                }
+                [System.IO.Compression.ZipFileExtensions]::ExtractToFile($_,$DestPath,$Force.IsPresent)
+                $Extracted = $true
+            }
+        }
+        #return $Extracted
+    } catch {
+        Write-Error $_
+        return
+    } finally {
+        Pop-Location
+        $Archive.Dispose()
+    }
+}</pre>
+
+<p>&nbsp;</p>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+  repo="akamac/purple-screen"
+  issue-term="pathname"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  </body>
+</html>
+

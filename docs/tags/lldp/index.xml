@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lldp on Blog</title>
+    <link>https://purple-screen.com/tags/lldp/</link>
+    <description>Recent content in Lldp on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Jun 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/tags/lldp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Retrieve CDP/LLDP info</title>
+      <link>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</guid>
+      <description>Search for an easy way to get CDP/LLDP info for any given ESXi physical port (vmnic)? Here it is!
+It relies on ObnTransformation from my previous post and also depends on PowerShell Community Extensions for ?? alias (Invoke-NullCoalescing). You can replace the latter with the simple if in case you don&amp;#8217;t have PSCX installed.
+Keep in mind that (some) devices return MAC instead of the management IP in LLDP info.</description>
+    </item>
+    
+  </channel>
+</rss>

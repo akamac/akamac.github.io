@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      VMware UUIDs &middot; PurpleScreen
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://purple-screen.com/css/poole.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/syntax.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/lanyon.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://purple-screen.com/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://purple-screen.com/assets/favicon.png">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://purple-screen.com/atom.xml">
+</head>
+
+
+  
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Blog about IT</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://purple-screen.com/">Home</a>
+    <a class="sidebar-nav-item " href="https://purple-screen.com/post">Posts</a>
+
+    
+    
+      
+        <a class="sidebar-nav-item " href="https://purple-screen.com/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://cloudflare.com">CloudFlare</a>.</p>
+    <p>&copy; 2014</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://purple-screen.com/" title="Home">PurpleScreen</a>
+            <small>blog about open source</small>
+            
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">VMware UUIDs</h1>
+  <span class="post-date">May 31 2013</span>
+  <p>Hi everybody! My first post is about UUIDs &#8211; identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:</p>
+
+<ul>
+<li>uuid.bios</li>
+<li>uuid.location</li>
+<li>vc.uuid</li>
+</ul>
+
+<p>Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&#8217;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&#8217;d like to share with you.</p>
+
+<p><strong>uuid.bios</strong> &#8211; this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export VM, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value:</p>
+
+<p><span style="padding-left: 10%"><em>uuid.action = &#8220;keep&#8221;</em></span></p>
+
+<p>It prevents player/workstation from asking whether you moved or copied VM with default answer &#8220;I moved it&#8221;. If the valid uuid.bios line is present in config file it will be preserved and the software license will be OK. Another option for uuid.action is &#8220;change&#8221;. In this case VMware will generate the value when you power on VM in new location (host or even folder). You can read <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1541">this KB article</a> to learn more about it. So the uuid.bios setting is done. Let&#8217;s look through others two.</p>
+
+<p><strong>uuid.location</strong> is generated every time VM is vMotion&#8217;ed to another host/storage. I guess it&#8217;s used by vCenter for some internal purposes like ..</p>
+
+<p><strong>vc.uuid</strong> is used by vCenter to identify VM together with MoRef ID you&#8217;ve seen while working with PowerCLI. It&#8217;s unique and is generated when you add VM to inventory (or create VM). If the value is already present in config file (and there is no duplicate in current inventory) it&#8217;s left intact.</p>
+
+<p>That&#8217;s enough for the first post. In the end &#8211; a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&#8217;s. It guarantees the persistence of all licenses that depends on GUID.</p>
+
+<pre class="expand:true lang:ps decode:true " title="Keep BIOS UUID for exported VM" >function Keep-BiosUuid {
+    Param (
+        [Parameter(Mandatory,HelpMessage='VM name',ValueFromPipelineByPropertyName)]
+        [string[]] $Name,
+        [Parameter(Mandatory)]
+        [string] $Datacenter,
+        [Parameter(Mandatory)]
+        [string] $ExportedPath
+    )
+    foreach ($VmName in $Name) {
+        $VM = Get-VM $VmName
+        $VmConfig = Copy-DatastoreItem -Destination $env:TEMP -PassThru `
+        -Item "vmstore:\\$Datacenter\\$($VM.ExtensionData.Config.Files.VmPathName -replace '\\[([^\\]]+)\\] ([^/]+)/(.*)','$1\\$2\\$3')"
+        Add-Content "$ExportedPath\\$VmName\\$VmName.vmx" ((cat $VmConfig | sls 'uuid.bios'), 'uuid.action = "keep"')
+        rm $VmConfig -Confirm:$False
+    }
+}</pre>
+
+<p>Hope you&#8217;ll find it useful. Stay tuned, keep learning!</p>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+  repo="akamac/purple-screen"
+  issue-term="pathname"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  </body>
+</html>
+

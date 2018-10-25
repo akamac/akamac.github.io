@@ -6,10 +6,121 @@
     <description>Recent content in Posts on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jan 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jul 2014 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://purple-screen.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Expand RDM in virtual compatibility mode</title>
+      <link>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</guid>
+      <description>As opposed to the physical RDM mode with the virtual one after expanding the LUN on the storage array side and rescanning HBA vm still can&amp;#8217;t see the increased capacity. The official VMware tutorial says to shutdown vm and re-add RDM. This isn&amp;#8217;t acceptable. The hint to make it happen with no downtime is to vMotion vm after rescanning HBA on the destination host. That&amp;#8217;s it!</description>
+    </item>
+    
+    <item>
+      <title>Manage Zip archives with PowerShell</title>
+      <link>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</guid>
+      <description>I know there are lots of examples and function implementations out there (for instance, the one from jaykul), nonetheless I&amp;#8217;d like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.
+For instance, to extract vmware.xml file from the archive&amp;#8217;s root and all the files from the vib folder stored in root also (yep, we&amp;#8217;re expanding metadata.</description>
+    </item>
+    
+    <item>
+      <title>OBN (Object By Name) transformation</title>
+      <link>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</guid>
+      <description>You might have known that most of PowerCLI cmdlets parameters accept objects or object names (with wildcard characters allowed). Take a look at New-VM cmdlet: you can pass strings to VMHost, ResourcePool, Datastore, etc. parameters as well as the objects itself. Or maybe you&amp;#8217;ve even never noticed this since it just works!
+Want the same behavior for your own functions? No problem! Use the function below to perform transparent transformation from any eligible object to the object you need (View or Impl).</description>
+    </item>
+    
+    <item>
+      <title>Retrieve CDP/LLDP info</title>
+      <link>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</guid>
+      <description>Search for an easy way to get CDP/LLDP info for any given ESXi physical port (vmnic)? Here it is!
+It relies on ObnTransformation from my previous post and also depends on PowerShell Community Extensions for ?? alias (Invoke-NullCoalescing). You can replace the latter with the simple if in case you don&amp;#8217;t have PSCX installed.
+Keep in mind that (some) devices return MAC instead of the management IP in LLDP info.</description>
+    </item>
+    
+    <item>
+      <title>Convert PSObject to hashtable</title>
+      <link>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</link>
+      <pubDate>Sat, 10 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</guid>
+      <description>function ConvertTo-Hashtable { Param ( [Parameter(Mandatory,ValueFromPipeline)] [PSObject[]] $Object ) Process { foreach ($obj in $Object) { $ht = [ordered]@{} $obj | Get-Member -MemberType *Property | % { $ht.($_.Name) = $obj.($_.Name) } $ht } } } &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>MySQL database manipulation from PowerShell</title>
+      <link>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</link>
+      <pubDate>Fri, 09 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</guid>
+      <description>Download MySQL Connector/NET first.
+Add-Type -Path &#39;C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assemblies\v4.5\MySql.Data.dll&#39; $Connection = [MySql.Data.MySqlClient.MySqlConnection]@{ConnectionString=&#39;server=&amp;lt;FQDN&amp;gt;;uid=&amp;lt;user&amp;gt;;pwd=&amp;lt;password&amp;gt;;database=&amp;lt;db&amp;gt;&#39;} $Connection.Open() $Command = $Connection.CreateCommand() $Command.CommandText = &#34;SELECT .. FROM .. WHERE ..&#34; $Reader = $Command.ExecuteReader() while ($Reader.Read()) { # $Reader array variable represents the table row } $Reader.Close() $Connection.Close() &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>Restarting managements agents</title>
+      <link>https://purple-screen.com/2014/04/15/restarting-managements-agents/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
+      <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
+Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>Tuning your ISE</title>
+      <link>https://purple-screen.com/2014/03/10/tuning-your-ise/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/03/10/tuning-your-ise/</guid>
+      <description>After being silent for a while it&amp;#8217;s time to explode with some really great stuff!
+Let&amp;#8217;s start with the environment you develop the scripts in. There are several options out of there: free PowerGUI &amp;#8211; very popular IDE but doesn&amp;#8217;t look nice for me, Sapiens PowerShell Studio &amp;#8211; seems to be a powerful tool but costs 389$ at the moment. So I look back to the ISE that is bundled with WMF 4.</description>
+    </item>
+    
+    <item>
+      <title>The power of Get-View</title>
+      <link>https://purple-screen.com/2014/02/05/the-power-of-get-view/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/02/05/the-power-of-get-view/</guid>
+      <description>Today we&amp;#8217;re going to discover very useful Get-View cmdlet. I&amp;#8217;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.
+First it&amp;#8217;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly.</description>
+    </item>
+    
+    <item>
+      <title>Fast Suspend/Resume</title>
+      <link>https://purple-screen.com/2014/01/21/fast-suspend/resume/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/01/21/fast-suspend/resume/</guid>
+      <description>Have you ever come across the term in subj? It&amp;#8217;s time to reveal what it stands for.
+First, three examples when this action can be performed.
+To enable CBT for virtual machine in addition to make vm reconfiguration one need to perform so called stun/unstun cycle for vm. This could be power on/off, suspend/resume, create/remove snapshot, vm migration.
+Another example is changing the build type for running vm (release/debug/stats). This can be done in vm advanced settings tab or via command line utils.</description>
+    </item>
+    
+    <item>
+      <title>NetCmdlets</title>
+      <link>https://purple-screen.com/2014/01/07/netcmdlets/</link>
+      <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/01/07/netcmdlets/</guid>
+      <description>Use all the power of PowerShell with NetCmdlets. Out of box you can: gain SSH access to ESXi 5.x hosts from PowerShell, work with multiple internet protocols (IMAP/POP/WebDAV/DNS/FTP/etc), deploy portable syslog server in seconds and much more.
+Unfortunately community edition doesn&amp;#8217;t support encryption-enabled cmdlets. To use SSH, SFTP you need to upgrade to paid version.</description>
+    </item>
     
     <item>
       <title>Introducing Lanyon</title>
@@ -40,6 +151,114 @@ Built on Poole Poole is the Jekyll Butler, serving as an upstanding and effectiv
       <guid>https://purple-screen.com/2013/12/31/whats-jekyll/</guid>
       <description>Jekyll is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From the project&amp;rsquo;s readme:
  Jekyll is a simple, blog aware, static site generator. It takes a template directory [&amp;hellip;] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.</description>
+    </item>
+    
+    <item>
+      <title>PowerShell scheduled job output redirection</title>
+      <link>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</guid>
+      <description>Scheduling the script execution is rather common task. You might know that it&amp;#8217;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&amp;#8217;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see TechNet about_Redirection help topic.
+To be able to run your scripts with -Verbose option you should leverage Advanced_Functions syntax (see another Core About topic).</description>
+    </item>
+    
+    <item>
+      <title>Veeam slow backup</title>
+      <link>https://purple-screen.com/2013/12/01/veeam-slow-backup/</link>
+      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/12/01/veeam-slow-backup/</guid>
+      <description>One day I suddenly noticed that backup jobs could no longer fit the backup window. While investigating the issue I found tons of log records pointing that before processing every VM in the job Veeam tries to clean up all the snapshots created by its own for backup purposes. In some cases they were manually deleted or lost for some reason, but the records were still kept in the database.</description>
+    </item>
+    
+    <item>
+      <title>vCenter Converter 5 low processing rate</title>
+      <link>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</guid>
+      <description>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between agent and server. To accomplish this open the file &amp;#8216;C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml&amp;#8217;, navigate to nfc section of xml and set false in useSSL tag. Restarting &amp;#8216;Converter Worker&amp;#8217; service is required. Hope this&amp;#8217;ll help!</description>
+    </item>
+    
+    <item>
+      <title>Esxcli namespace tree</title>
+      <link>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</link>
+      <pubDate>Sun, 27 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</guid>
+      <description>Every time a new ESXi version released I wonder what the functionality was added to esxcli. As you know all available namespaces and commands can be retrieved by typing esxcli command list in the console. To make the output look pretty I&amp;#8217;ve written a couple of lines of PoSH code that generates the handy namespaces tree view.
+$esxcli = Get-VMHost $Name | Get-EsxCli $EsxcliNamespaceFile = [IO.File]::CreateText(&#39;D:\esxcli.txt&#39;) $EsxcliNamespaceTree = $esxcli.esxcli.command.list() $Commands = @() foreach ($Namespace in $EsxcliNamespaceTree) { $Commands += @{Path = $Namespace.</description>
+    </item>
+    
+    <item>
+      <title>OmniTracker automation</title>
+      <link>https://purple-screen.com/2013/09/29/omnitracker-automation/</link>
+      <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/09/29/omnitracker-automation/</guid>
+      <description>Few words outside the virtualization world yet PoSH scripting related.
+I&amp;#8217;ve been working for a while in the company that uses Omnitracker as a helpdesk and incident management solution. Using its web interface as well as thick client isn&amp;#8217;t the best experience. And when it comes to do it on a regular basis it turns to a nightmare especially for a scripting guy like me. So what should we do in this situation?</description>
+    </item>
+    
+    <item>
+      <title>Dynamic parameters</title>
+      <link>https://purple-screen.com/2013/09/08/dynamic-parameters/</link>
+      <pubDate>Sun, 08 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/09/08/dynamic-parameters/</guid>
+      <description>Today we gonna touch on dynamic parameters available in advanced functions. These are parameters that are added at run-time depending on the environment. The great example is the parameters that are dynamically exposed to the current parameter set of Get-Item cmdlet based on PS provider (FileSystem, Registry) used.
+Faced it once you should have found out that simply adding such a parameter to the function means writing a bunch of code.</description>
+    </item>
+    
+    <item>
+      <title>Enumerating through hashtable in PoSH</title>
+      <link>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</link>
+      <pubDate>Sun, 21 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</guid>
+      <description>$ht = @{a=1; b=2; c=3} $ht.GetEnumerator() | % { $_.key; $_.value } </description>
+    </item>
+    
+    <item>
+      <title>Join-Object</title>
+      <link>https://purple-screen.com/2013/07/20/join-object/</link>
+      <pubDate>Sat, 20 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/07/20/join-object/</guid>
+      <description>If you ever wrote SQL queries and now use PowerShell for scripting maybe you missed &amp;#8216;Join&amp;#8217; possibility in PoSH. Here it is!
+Nothing special. I just tried to create Join-Object with the same functionality as inner/outer Join statements in SQL. My version of Join-Object uses standalone Merge-Object function for merging 2 arrays of custom objects / hashtables. Resulting object is an array of objects that contains all properties from joined objects except the ones with the same name, which are discarded.</description>
+    </item>
+    
+    <item>
+      <title>Must read PoSH book</title>
+      <link>https://purple-screen.com/2013/07/19/must-read-posh-book/</link>
+      <pubDate>Fri, 19 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/07/19/must-read-posh-book/</guid>
+      <description>If you start learning PowerShell then reading Windows PowerShell in Action, 2nd Edition by Bruce Payette is a must! He is among the principal members of PowerShell team and explain guts of the language in detail.
+Again, MUST READ!</description>
+    </item>
+    
+    <item>
+      <title>ForEach: cmdlet vs keyword</title>
+      <link>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</link>
+      <pubDate>Sat, 15 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</guid>
+      <description>Here is a little note about the difference of these two loop constructions.
+foreach is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop $foreach automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (.MoveNext() method).
+ForEach-Object is a cmdlet doing almost the same thing but the difference is the usecase.</description>
+    </item>
+    
+    <item>
+      <title>VMware UUIDs</title>
+      <link>https://purple-screen.com/2013/05/31/vmware-uuids/</link>
+      <pubDate>Fri, 31 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/05/31/vmware-uuids/</guid>
+      <description>Hi everybody! My first post is about UUIDs &amp;#8211; identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:
+ uuid.bios uuid.location vc.uuid  Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&amp;#8217;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&amp;#8217;d like to share with you.</description>
     </item>
     
   </channel>

@@ -6,9 +6,532 @@
     <description>Recent content in Tags on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Tue, 10 Jun 2014 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://purple-screen.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Add</title>
+      <link>https://purple-screen.com/tags/add/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/add/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Add On</title>
+      <link>https://purple-screen.com/tags/add-on/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/add-on/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Book</title>
+      <link>https://purple-screen.com/tags/book/</link>
+      <pubDate>Fri, 19 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/book/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cbt</title>
+      <link>https://purple-screen.com/tags/cbt/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/cbt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cdp</title>
+      <link>https://purple-screen.com/tags/cdp/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/cdp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Certificate</title>
+      <link>https://purple-screen.com/tags/certificate/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/certificate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Changed Block Tracking</title>
+      <link>https://purple-screen.com/tags/changed-block-tracking/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/changed-block-tracking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code Signing</title>
+      <link>https://purple-screen.com/tags/code-signing/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/code-signing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Connector</title>
+      <link>https://purple-screen.com/tags/connector/</link>
+      <pubDate>Fri, 09 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/connector/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Expand</title>
+      <link>https://purple-screen.com/tags/expand/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/expand/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Extend</title>
+      <link>https://purple-screen.com/tags/extend/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/extend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Extract</title>
+      <link>https://purple-screen.com/tags/extract/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/extract/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fast Suspend Resume</title>
+      <link>https://purple-screen.com/tags/fast-suspend-resume/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/fast-suspend-resume/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Filter</title>
+      <link>https://purple-screen.com/tags/filter/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/filter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fsr</title>
+      <link>https://purple-screen.com/tags/fsr/</link>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/fsr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Get View</title>
+      <link>https://purple-screen.com/tags/get-view/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/get-view/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://purple-screen.com/tags/github/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hba</title>
+      <link>https://purple-screen.com/tags/hba/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/hba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ise</title>
+      <link>https://purple-screen.com/tags/ise/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/ise/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Join Object</title>
+      <link>https://purple-screen.com/tags/join-object/</link>
+      <pubDate>Sat, 20 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/join-object/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linkedview</title>
+      <link>https://purple-screen.com/tags/linkedview/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/linkedview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lldp</title>
+      <link>https://purple-screen.com/tags/lldp/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/lldp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Management Agents</title>
+      <link>https://purple-screen.com/tags/management-agents/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/management-agents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Manager</title>
+      <link>https://purple-screen.com/tags/manager/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/manager/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Merge Object</title>
+      <link>https://purple-screen.com/tags/merge-object/</link>
+      <pubDate>Sat, 20 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/merge-object/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mysql</title>
+      <link>https://purple-screen.com/tags/mysql/</link>
+      <pubDate>Fri, 09 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Net</title>
+      <link>https://purple-screen.com/tags/net/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/net/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>No Downtime</title>
+      <link>https://purple-screen.com/tags/no-downtime/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/no-downtime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Object by Name</title>
+      <link>https://purple-screen.com/tags/object-by-name/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/object-by-name/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Obn</title>
+      <link>https://purple-screen.com/tags/obn/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/obn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Omnitracker</title>
+      <link>https://purple-screen.com/tags/omnitracker/</link>
+      <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/omnitracker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Output Redirection</title>
+      <link>https://purple-screen.com/tags/output-redirection/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/output-redirection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Payette</title>
+      <link>https://purple-screen.com/tags/payette/</link>
+      <pubDate>Fri, 19 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/payette/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Powercli</title>
+      <link>https://purple-screen.com/tags/powercli/</link>
+      <pubDate>Fri, 31 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/powercli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Powershell</title>
+      <link>https://purple-screen.com/tags/powershell/</link>
+      <pubDate>Sat, 20 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/powershell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prdm</title>
+      <link>https://purple-screen.com/tags/prdm/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/prdm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rdm</title>
+      <link>https://purple-screen.com/tags/rdm/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/rdm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Remote Session</title>
+      <link>https://purple-screen.com/tags/remote-session/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/remote-session/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rescan</title>
+      <link>https://purple-screen.com/tags/rescan/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/rescan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Restart</title>
+      <link>https://purple-screen.com/tags/restart/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/restart/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scheduled Task</title>
+      <link>https://purple-screen.com/tags/scheduled-task/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/scheduled-task/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Slow</title>
+      <link>https://purple-screen.com/tags/slow/</link>
+      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/slow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Snapshot</title>
+      <link>https://purple-screen.com/tags/snapshot/</link>
+      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/snapshot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Snippet</title>
+      <link>https://purple-screen.com/tags/snippet/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/snippet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ssl</title>
+      <link>https://purple-screen.com/tags/ssl/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/ssl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Store Password</title>
+      <link>https://purple-screen.com/tags/store-password/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/store-password/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Transformation</title>
+      <link>https://purple-screen.com/tags/transformation/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/transformation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Updateviewdata</title>
+      <link>https://purple-screen.com/tags/updateviewdata/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/updateviewdata/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Uuid</title>
+      <link>https://purple-screen.com/tags/uuid/</link>
+      <pubDate>Fri, 31 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/uuid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vcenter Converter</title>
+      <link>https://purple-screen.com/tags/vcenter-converter/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vcenter-converter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Veeam</title>
+      <link>https://purple-screen.com/tags/veeam/</link>
+      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/veeam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Verbose</title>
+      <link>https://purple-screen.com/tags/verbose/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/verbose/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Virtual Compatibility Mode</title>
+      <link>https://purple-screen.com/tags/virtual-compatibility-mode/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/virtual-compatibility-mode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vmnic</title>
+      <link>https://purple-screen.com/tags/vmnic/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vmnic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vmotion</title>
+      <link>https://purple-screen.com/tags/vmotion/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vmotion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vpxa</title>
+      <link>https://purple-screen.com/tags/vpxa/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vpxa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vrdm</title>
+      <link>https://purple-screen.com/tags/vrdm/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vrdm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zip</title>
+      <link>https://purple-screen.com/tags/zip/</link>
+      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/zip/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

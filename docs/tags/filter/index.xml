@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Filter on Blog</title>
+    <link>https://purple-screen.com/tags/filter/</link>
+    <description>Recent content in Filter on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Feb 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/tags/filter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The power of Get-View</title>
+      <link>https://purple-screen.com/2014/02/05/the-power-of-get-view/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/02/05/the-power-of-get-view/</guid>
+      <description>Today we&amp;#8217;re going to discover very useful Get-View cmdlet. I&amp;#8217;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.
+First it&amp;#8217;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly.</description>
+    </item>
+    
+  </channel>
+</rss>

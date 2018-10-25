@@ -6,9 +6,708 @@
     <language>en-us</language>
     <author>Mark Otto</author>
     <rights>(C) 2014</rights>
-    <updated>2014-01-02 00:00:00 &#43;0000 UTC</updated>
+    <updated>2014-07-23 00:00:00 &#43;0000 UTC</updated>
 
     
+      
+    
+      
+        <item>
+          <title>Expand RDM in virtual compatibility mode</title>
+          <link>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</link>
+          <pubDate>Wed, 23 Jul 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</guid>
+          <description>&lt;p&gt;As opposed to the physical RDM mode with the virtual one after expanding the LUN on the storage array side and rescanning HBA vm still can&amp;#8217;t see the increased capacity. The official VMware tutorial says to shutdown vm and re-add RDM. This isn&amp;#8217;t acceptable. The hint to make it happen with no downtime is to vMotion vm after rescanning HBA on the destination host. That&amp;#8217;s it!&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Manage Zip archives with PowerShell</title>
+          <link>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</link>
+          <pubDate>Tue, 10 Jun 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</guid>
+          <description>&lt;p&gt;I know there are lots of examples and function implementations out there (for instance, the one &lt;a title=&#34;Jaykul&#34; href=&#34;http://huddledmasses.org/a-new-way-to-zip-and-unzip-in-powershell-3-and-net-4-5/&#34; target=&#34;_blank&#34;&gt;from jaykul&lt;/a&gt;), nonetheless I&amp;#8217;d like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.&lt;/p&gt;
+
+&lt;p&gt;For instance, to extract &lt;em&gt;vmware.xml&lt;/em&gt; file from the archive&amp;#8217;s root and all the files from the &lt;em&gt;vib&lt;/em&gt; folder stored in root also (yep, we&amp;#8217;re expanding metadata.zip), creating subfolder in the current directory (replacing if already exists), you need to run the following command:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:default decode:true  crayon-inline&#34;&gt;Extract-ZipFile -ZipFilePath metadata.zip -FilesToExtract vmware.xml,vibs/ -CreateSubfolder -Force&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;The slash character indicates that you&amp;#8217;d like to expand the folder, not the file.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Zip archives manipulation&#34;&gt;Add-Type -As System.IO.Compression.FileSystem
+
+function New-ZipFile {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [string[]] $InputObject,
+        [Parameter(Mandatory)]
+        [string] $ZipFilePath,
+        [ValidateSet(&#39;Optimal&#39;,&#39;Fastest&#39;,&#39;NoCompression&#39;)]
+        [System.IO.Compression.CompressionLevel] $Compression = &#39;Optimal&#39;,
+        [switch] $Append,
+        [switch] $Force
+    )
+    Begin {
+        if (-not (Split-Path $ZipFilePath)) { $ZipFilePath = Join-Path $Pwd $ZipFilePath }
+        if (Test-Path $ZipFilePath) {
+            if ($Append.IsPresent) {
+                Write-Verbose &#39;Appending to the destination file&#39;
+                $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,&#39;Update&#39;)
+            } elseif ($Force.IsPresent) {
+                Write-Verbose &#39;Removing the destination file&#39;
+                Remove-Item $ZipFilePath
+                $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,&#39;Create&#39;)
+            } else {
+                Write-Error &#39;Output file already exists. Specify -Force option to replace it or -Append to add/replace files in existing archive&#39;
+                break
+            }
+        } else {
+            $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,&#39;Create&#39;)
+        }
+    }
+    Process {
+        foreach ($Obj in $InputObject) {
+            try {
+                switch ((Get-Item $Obj -ea Stop).GetType().Name) {
+                    FileInfo {
+                        $EntryName = Split-Path $Obj -Leaf
+                        $Entry = $Archive.Entries | ? FullName -eq $EntryName
+                        if ($Entry) {
+                            if ($Force.IsPresent) {
+                                Write-Verbose &#34;Removing $EntryName from the archive&#34;
+                                $Entry.Delete()
+                            } else {
+                                throw &#34;File $EntryName already exists in the archive&#34;
+                            }
+                        }
+                        $Verbose = [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($Archive,$Obj,$EntryName,$Compression)
+                        Write-Verbose $Verbose
+                    }
+                    DirectoryInfo {
+                        Push-Location $Obj
+                        (Get-ChildItem . -Recurse -File).FullName | % {
+                            $EntryName = (Join-Path (Split-Path $Obj -Leaf) (Resolve-Path $_ -Relative).TrimStart(&#39;.\&#39;)) -replace &#39;\\&#39;,&#39;/&#39;
+                            $Entry = $Archive.Entries | ? FullName -eq $EntryName 
+                            if ($Entry) {
+                                if ($Force.IsPresent) {
+                                    Write-Verbose &#34;Removing $EntryName from the archive&#34;
+                                    $Entry.Delete()
+                                } else {
+                                    throw &#34;File $EntryName already exists in the archive&#34;
+                                }
+                            }
+                            $Verbose = [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($Archive,$_,$EntryName,$Compression)
+                            Write-Verbose $Verbose
+                        }
+                        Pop-Location
+                    }
+                }
+            } catch {
+                Write-Error $_
+                $Archive.Dispose()
+                Pop-Location
+                if ($_.CategoryInfo.TargetType -ne [string] -and -not $Append.IsPresent) {
+                    Remove-Item $ZipFilePath
+                }
+                return
+            }
+        }
+    }
+    End {
+        $Archive.Dispose()
+        Get-Item $ZipFilePath
+    }
+}
+
+function Extract-ZipFile {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [string] $ZipFilePath,
+        [string] $OutputPath = $Pwd,
+        [string[]] $FilesToExtract = &#39;*&#39;,
+        [switch] $CreateSubfolder,
+        [Parameter(HelpMessage=&#39;Replace files in destination if exist&#39;)]
+        [switch] $Force
+    )
+    try {
+        $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath,&#39;Read&#39;)
+        if ($CreateSubfolder.IsPresent) {
+            $Destination = New-Item (Join-Path $OutputPath (Get-Item $ZipFilePath).BaseName) -ItemType Directory -Force:($Force.IsPresent) -ea Stop
+        } elseif (Test-Path $OutputPath) {
+            $Destination = Get-Item $OutputPath
+        } else {
+            $Destination = New-Item $OutputPath -ItemType Directory -ea Stop
+        }
+        Write-Verbose &#34;Destination path: $($Destination.FullName)&#34;
+        Push-Location $Destination
+        $FilesToExtract = $FilesToExtract | % {
+            for ($FullPath = $_; $FullPath; $FullPath = (Split-Path $FullPath -Parent) -replace &#39;\\&#39;,&#39;/&#39;) {$FullPath}
+        }
+        $FoldersToExtract = $FilesToExtract | ? {$_.EndsWith(&#39;/&#39;)}
+        $Entries = ?: {$FilesToExtract -ne &#39;*&#39;} { $Archive.Entries | ? {
+            $_.FullName.TrimEnd(&#39;/&#39;) -in $FilesToExtract -or
+            $_.FullName -like &#34;$FoldersToExtract*&#34;
+        } } { $Archive.Entries }
+        $Extracted = $false
+        $Entries | Sort Name,FullName | % {
+            if (-not $_.Name) {
+                $Verbose = New-Item -Path $_.FullName -ItemType Directory -Force:($Force.IsPresent) -ea Stop
+                Write-Verbose &#34;$Verbose created&#34;
+            } else {
+                Write-Verbose &#34;Extracting $($_.FullName)&#34;
+                $DestPath = Join-Path $Destination $_.FullName
+                if (-not (Test-Path (Split-Path $DestPath))) {
+                    $Verbose = New-Item -Path (Split-Path $DestPath) -ItemType Directory -Force:($Force.IsPresent) -ea Stop
+                    Write-Verbose &#34;$Verbose created&#34;
+                }
+                [System.IO.Compression.ZipFileExtensions]::ExtractToFile($_,$DestPath,$Force.IsPresent)
+                $Extracted = $true
+            }
+        }
+        #return $Extracted
+    } catch {
+        Write-Error $_
+        return
+    } finally {
+        Pop-Location
+        $Archive.Dispose()
+    }
+}&lt;/pre&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>OBN (Object By Name) transformation</title>
+          <link>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</link>
+          <pubDate>Tue, 10 Jun 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</guid>
+          <description>&lt;p&gt;You might have known that most of PowerCLI cmdlets parameters accept objects or object names (with wildcard characters allowed). Take a look at New-VM cmdlet: you can pass strings to VMHost, ResourcePool, Datastore, etc. parameters as well as the objects itself. Or maybe you&amp;#8217;ve even never noticed this since it just works!&lt;/p&gt;
+
+&lt;p&gt;Want the same behavior for your own functions? No problem! Use the function below to perform transparent transformation from any eligible object to the object you need (View or Impl). The neat feature it has is limiting the retrieved properties for view object, what considerably improves performance in some cases.&lt;/p&gt;
+
+&lt;p&gt;This is how to integrate it to your own function:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:default decode:true &#34; title=&#34;OBN usage example&#34;&gt;function Get-VMHostInfo {
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [PSObject[]] $VMHost
+    )
+    Process {
+        ObnTransform -Object $VMHost -ObjectType VMHost -View -Properties Config,ConfigManager,Hardware | % {
+            # $_ is your object!
+        }
+    }
+}&lt;/pre&gt;
+
+&lt;p&gt;The one thing you should be aware of is that it accepts wildcards, while you may think the regular expressions are more powerful tool (and I completely agree with you). The reason I had in mind was to not to confuse users who got used to the default PowerCLI behavior. It&amp;#8217;s up to you to remove &lt;em&gt;ConvertTo-Regex&lt;/em&gt; part from &lt;em&gt;-Filter&lt;/em&gt; parameter in &lt;em&gt;Get-View&lt;/em&gt; call. But in this case sometimes you might be puzzled when the script can&amp;#8217;t find an object with the name you are hundred percent sure exists. Doh! Any braces in the name? Use &lt;em&gt;[regex]::Escape()&lt;/em&gt; to escape them.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:default decode:true &#34; title=&#34;OBN (Object By Name) transformation&#34;&gt;function script:ObnTransform {
+    Param(
+        [Parameter(Mandatory)]
+        [PSObject[]] $Object,
+        [Parameter(Mandatory)]
+        [ValidateSet(
+            &#39;Datacenter&#39;,
+            &#39;Folder&#39;,
+            &#39;VMHost&#39;,
+            &#39;ComputeResource&#39;,
+            &#39;Cluster&#39;,
+            &#39;ResourcePool&#39;,
+            &#39;VM&#39;,
+            &#39;vApp&#39;,
+            &#39;Datastore&#39;,
+            &#39;DatastoreCluster&#39;,
+            &#39;DistributedVirtualSwitch&#39;,
+            &#39;DistributedPortGroup&#39;
+        )]
+        [string] $ObjectType,
+        [Parameter(Mandatory,ParameterSetName=&#39;Impl&#39;)]
+        [switch] $Impl,
+        [Parameter(Mandatory,ParameterSetName=&#39;View&#39;)]
+        [switch] $View,
+        [Parameter(ParameterSetName=&#39;View&#39;)]
+        [string[]] $Properties = &#39;Name&#39;,
+        [string[]] $VIServer = $global:DefaultVIServers
+    )
+    Begin {
+        $ViewImpl = @{
+            Datacenter = [PSCustomObject]@{View = &#39;Datacenter&#39;; Impl = &#39;DatacenterImpl&#39;};
+            Folder = [PSCustomObject]@{View = &#39;Folder&#39;; Impl = &#39;FolderImpl&#39;};
+            VMHost = [PSCustomObject]@{View = &#39;HostSystem&#39;; Impl = &#39;VMHostImpl&#39;};
+            ComputeResource = [PSCustomObject]@{View = &#39;ComputeResource&#39;; Impl = @(&#39;ClusterImpl&#39;,&#39;VMHostImpl&#39;)};
+            Cluster = [PSCustomObject]@{View = &#39;ClusterComputeResource&#39;; Impl = &#39;ClusterImpl&#39;};
+            ResourcePool = [PSCustomObject]@{View = &#39;ResourcePool&#39;; Impl = &#39;ResourcePoolImpl&#39;};
+            VM = [PSCustomObject]@{View = &#39;VirtualMachine&#39;; Impl = &#39;VirtualMachineImpl&#39;};
+            vApp = [PSCustomObject]@{View = &#39;VirtualApp&#39;; Impl = &#39;VAppImpl&#39;};
+            Datastore = [PSCustomObject]@{View = &#39;Datastore&#39;; Impl = @(&#39;VmfsDatastoreImpl&#39;,&#39;NasDatastoreImpl&#39;)};
+            DatastoreCluster = [PSCustomObject]@{View = &#39;StoragePod&#39;; Impl = &#39;DatastoreCluster&#39;};
+            DistributedVirtualSwitch = [PSCustomObject]@{View = &#39;VmwareDistributedVirtualSwitch&#39;; Impl = @(&#39;DistributedSwitchImpl&#39;,&#39;VmwareVDSwitchImpl&#39;)};
+            DistributedPortgroup = [PSCustomObject]@{View = &#39;DistributedVirtualPortgroup&#39;; Impl = &#39;DistributedPortGroupImpl&#39;}; # Network,OpaqueNetwork
+            #VirtualSwitchImpl,VirtualPortGroupImpl - no corresponding ViewTypes
+        }
+    }
+    Process {
+        foreach ($CurrentObject in $Object) {
+            switch ($CurrentObject.GetType().Name) {
+                &#39;string&#39; {
+                    $ObjectView = Get-View -ViewType $ViewImpl.$ObjectType.View -Property $Properties -Filter @{Name = ConvertTo-Regex $CurrentObject}
+                    if ($Impl.IsPresent) { $ObjectView | Get-VIObjectByVIView }
+                    else { $ObjectView }
+                    break
+                }
+                {$_ -in $ViewImpl.Values.View} {
+                    if ($Impl.IsPresent) { $CurrentObject | Get-VIObjectByVIView }
+                    else {
+                        $AbsentProperties = $Properties | ? { -not $CurrentObject.$_ }
+                        if ($AbsentProperties) {
+                            $CurrentObject.UpdateViewData($AbsentProperties)
+                        }
+                        $CurrentObject
+                    }
+                    break
+                }
+                {$_ -in $ViewImpl.Values.Impl} {
+                    if ($View.IsPresent) { $CurrentObject | Get-View -Property $Properties }
+                    else { $CurrentObject }
+                    break
+                }
+                default { throw &#39;Incorrect object type&#39; }
+            }
+        }
+    }
+}
+
+function ConvertTo-Regex {
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [string] $WildCardExpression
+    )
+    &#39;^&#39;+(($WildCardExpression -replace &#39;\*&#39;,&#39;.*&#39;) -replace &#39;\?&#39;,&#39;.{1}&#39;)+&#39;$&#39;
+}&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Retrieve CDP/LLDP info</title>
+          <link>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</link>
+          <pubDate>Tue, 10 Jun 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</guid>
+          <description>&lt;p&gt;Search for an easy way to get CDP/LLDP info for any given ESXi physical port (vmnic)? Here it is!&lt;/p&gt;
+
+&lt;p&gt;It relies on ObnTransformation from my &lt;a title=&#34;OBN transformation&#34; href=&#34;http://purple-screen.com/?p=447&#34; target=&#34;_blank&#34;&gt;previous post&lt;/a&gt; and also depends on &lt;a title=&#34;PowerShell Community Extensions&#34; href=&#34;http://pscx.codeplex.com/&#34; target=&#34;_blank&#34;&gt;PowerShell Community Extensions&lt;/a&gt; for ?? alias (Invoke-NullCoalescing). You can replace the latter with the simple &lt;em&gt;if&lt;/em&gt; in case you don&amp;#8217;t have PSCX installed.&lt;/p&gt;
+
+&lt;p&gt;Keep in mind that (some) devices return MAC instead of the management IP in LLDP info.&lt;/p&gt;
+
+&lt;p&gt;By default all vmnics are queried.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Get LLDP/CDP information&#34;&gt;function Get-DiscoveryProtocolInfo {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [PSObject[]] $VMHost,
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string[]] $vmnic,
+        [string[]] $VIServer = $global:DefaultVIServers
+    )
+    Process {
+        ObnTransform -Object $VMHost -ObjectType VMHost -View -Properties Name,ConfigManager -VIServer $VIServer | % {
+            $View = $_
+            $NetConfig = Get-View $View.ConfigManager.NetworkSystem -Server $View.Client.ServiceUrl.Split(&#39;/&#39;)[2]
+            $Device = ?? {$vmnic} {$NetConfig.NetworkInfo.Pnic.Device}
+            $NetConfig.QueryNetworkHint($Device) | % {
+                $Dev = $_.Device
+                $_ | Select @{N=&#39;VMHost&#39;; E={$View.Name}}, @{N=&#39;Pnic&#39;; E={$Dev}}, @{N=&#39;UplinkSwitch&#39;; E={$_.ConnectedSwitchPort.DevId}},
+                @{N=&#39;ObservedVlans&#39;; E={$_.Subnet.VlanId | Sort}}, @{N=&#39;Address&#39;; E={ ?? {$_.ConnectedSwitchPort.Address} {$_.LldpInfo.ChassisId} }},
+                @{N=&#39;PortId&#39;; E={ ?? {$_.ConnectedSwitchPort.PortId} {$_.LldpInfo.PortId} }} # HardwarePlatform, SoftwareVersion, FullDuplex, Mtu, VLAN (Native)
+            }
+        }
+    }
+}&lt;/pre&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Convert PSObject to hashtable</title>
+          <link>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</link>
+          <pubDate>Sat, 10 May 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</guid>
+          <description>&lt;pre class=&#34;expand:true lang:ps decode:true crayon-selected&#34; title=&#34;Convert PSObject to hashtable&#34;&gt;function ConvertTo-Hashtable {
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [PSObject[]] $Object
+    )
+    Process {
+        foreach ($obj in $Object) {
+            $ht = [ordered]@{}
+            $obj | Get-Member -MemberType *Property | % {
+                $ht.($_.Name) = $obj.($_.Name)
+            }
+            $ht
+        }
+    }
+}&lt;/pre&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>MySQL database manipulation from PowerShell</title>
+          <link>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</link>
+          <pubDate>Fri, 09 May 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</guid>
+          <description>&lt;p&gt;Download &lt;a title=&#34;MySQL Connector/NET&#34; href=&#34;http://dev.mysql.com/downloads/connector/net/&#34; target=&#34;_blank&#34;&gt;MySQL Connector/NET&lt;/a&gt; first.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Access MySQL db from PowerShell&#34;&gt;Add-Type -Path &#39;C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assemblies\v4.5\MySql.Data.dll&#39;
+$Connection = [MySql.Data.MySqlClient.MySqlConnection]@{ConnectionString=&#39;server=&amp;lt;FQDN&amp;gt;;uid=&amp;lt;user&amp;gt;;pwd=&amp;lt;password&amp;gt;;database=&amp;lt;db&amp;gt;&#39;}
+$Connection.Open()
+
+$Command = $Connection.CreateCommand()
+$Command.CommandText = &#34;SELECT .. FROM .. WHERE ..&#34;
+$Reader = $Command.ExecuteReader()
+
+while ($Reader.Read()) {
+    # $Reader array variable represents the table row
+}
+
+$Reader.Close()
+$Connection.Close()&lt;/pre&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Restarting managements agents</title>
+          <link>https://purple-screen.com/2014/04/15/restarting-managements-agents/</link>
+          <pubDate>Tue, 15 Apr 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
+          <description>&lt;p&gt;You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Restart management agents&#34;&gt;Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % {
+    (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;)
+} 2&amp;gt;$null&lt;/pre&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Tuning your ISE</title>
+          <link>https://purple-screen.com/2014/03/10/tuning-your-ise/</link>
+          <pubDate>Mon, 10 Mar 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/03/10/tuning-your-ise/</guid>
+          <description>&lt;p&gt;After being silent for a while it&amp;#8217;s time to explode with some really great stuff!&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s start with the environment you develop the scripts in. There are several options out of there: free PowerGUI &amp;#8211; very popular IDE but doesn&amp;#8217;t look nice for me, Sapiens PowerShell Studio &amp;#8211; seems to be a powerful tool but costs 389$ at the moment. So I look back to the ISE that is bundled with WMF 4.0. Some vital features missing, so we need to put in an effort to fill the blanks. But it&amp;#8217;s not as hard as you might think. That&amp;#8217;s the way to go!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;$Env:Path&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The first step is to customize your profile, which is loaded every time you start the ISE. The &lt;em&gt;$profile&lt;/em&gt; variable will suggest you the file location. Begin with filling the file by adding the necessary paths to $Env:Path variable, eg:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:ps decode:true  crayon-inline&#34;&gt;$env:Path += &amp;#8216;;C:\Program Files (x86)\EMC\Navisphere CLI;&amp;#8217;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;There is another way to modify environment variables. For instance, this is how to add the path where ISE will search for modules:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:ps decode:true  crayon-inline &#34;&gt;[System.Environment]::SetEnvironmentVariable(&amp;#8216;PSModulePath&amp;#8217;,$env:PSModulePath + &amp;#8220;;$ModuleDir&amp;#8221;,&amp;#8217;Machine&amp;#8217;)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Then you can Import all necessary modules and snap-ins, though in the recent PoSh versions they are auto-loaded.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Snippets&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You can hide the default snippets&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:ps decode:true  crayon-inline  crayon-selected&#34;&gt;$psISE.Options.ShowDefaultSnippets = $false&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;and import your own ones. If you wrapped them into the module, run this:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:ps decode:true  crayon-inline &#34;&gt;Import-IseSnippet -Module PurpleScreen&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Help&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To keep the help docs up to date (say, max 4-weeks old), check the file, where the last help update date stored, and run Update-Help if necessary:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Update-Help&#34;&gt;$LastHelpUpdateFilePath = (Split-Path $profile -Parent) + &#39;\Update-Help.date&#39;
+$UpdateHelpDate = Import-Clixml $LastHelpUpdateFilePath
+if ($UpdateHelpDate -lt (Get-Date).AddDays(-28)) {
+    Update-Help -ea SilentlyContinue
+    Get-Date | Export-Clixml $LastHelpUpdateFilePath
+}&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Passwords&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The next step is to take care of storing passwords in an easy yet secure way, so you have an access to them once ISE started. Windows provides you with the all necessary tools. First, execute the line below and enter your password. That will store the encrypted password string in the $PassDir folder (needs to be done only once). Windows handles the private key, which is your &amp;#8216;profile&amp;#8217;, thus the password can be decrypted only after you are authenticated.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Save password&#34;&gt;ConvertFrom-SecureString (Read-Host -Prompt &#39;Enter password:&#39; -AsSecureString) |
+Out-File -FilePath &#34;$PassDir\resource-pass.txt&#34;&lt;/pre&gt;
+
+&lt;p&gt;Then you can load the password in the current session and compile the Credential object:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Compiling credential object&#34;&gt;$SecurePassword = ConvertTo-SecureString (gc &#34;$PassDir\resource-pass.txt&#34;)
+$ResourceCred = New-Object System.Management.Automation.PSCredential(&#39;DOMAIN\username&#39;, $SecurePassword)&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Text processing&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Next is to add some text-processing capabilities for some reason missing in the standard bundle and expose them with hotkey combinations (the functions&amp;#8217; source code will be revealed in the next blog posts introducing my module). You may change hotkeys at your discretion, but keep in mind that some of them are already occupied with built-in ISE commands.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Text processing&#34;&gt;$CommentsMenu = $psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.Add(&#39;Comments&#39;,$null,$null)
+$CommentsMenu.Submenus.Add(&#39;Comment inline&#39;, {Comment-Inline}, &#39;Ctrl+Alt+I&#39;) | Out-Null
+$CommentsMenu.Submenus.Add(&#39;Uncomment inline&#39;, {Uncomment-Inline}, &#39;Ctrl+Shift+I&#39;) | Out-Null
+$CommentsMenu.Submenus.Add(&#39;Comment block&#39;, {Comment-Block}, &#39;Ctrl+Alt+B&#39;) | Out-Null
+$CommentsMenu.Submenus.Add(&#39;Uncomment block&#39;, {Uncomment-Block}, &#39;Ctrl+Shift+B&#39;) | Out-Null
+
+$LinesMenu = $psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.Add(&#39;Lines&#39;,$null,$null)
+$LinesMenu.Submenus.Add(&#39;Move line up&#39;, {MoveUp-Line}, &#39;Ctrl+Alt+Up&#39;) | Out-Null
+$LinesMenu.Submenus.Add(&#39;Move line down&#39;, {MoveDown-Line}, &#39;Ctrl+Alt+Down&#39;) | Out-Null
+$LinesMenu.Submenus.Add(&#39;Duplicate Line&#39;, {Duplicate-Line}, &#39;Ctrl+Alt+D&#39;) | Out-Null
+
+$psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add(&#39;Find in opened files&#39;, {Find-InOpenedFiles}, &#39;Control+Alt+F&#39;) | Out-Null&lt;/pre&gt;
+
+&lt;p&gt;Since we are VMware guys (aren&amp;#8217;t we?), we need a hotkey for setting PowerCLI properties and connecting to multiple vCenter/vCloud servers (a couple of VIProperties as a bonus):&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;VMware&#34;&gt;$psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.Add( &#39;Connect to vCenter/vCloud servers&#39;, {
+    Add-PSSnapin VMware*
+    Set-PowerCLIConfiguration -DefaultVIServerMode Multiple -Scope User -InvalidCertificateAction Ignore -Confirm:$false `
+    -VMConsoleWindowBrowser &#39;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&#39; | Out-Null    
+    Connect-VIServer &#39;vcenter-server-default&#39; -Force -wa SilentlyContinue -AllLinked | ft @{N=&#39;vCenter connected (default)&#39;; E={$_.Name}}
+    Connect-VIServer &#39;vcenter-server-nondefault&#39; -Force -NotDefault -wa SilentlyContinue | ft @{N=&#39;vCenter connected (nondefault)&#39;; E={$_.Name}}
+    Connect-CIServer &#39;vcloud-server-default&#39; | ft @{N=&#39;vCloud connected (default)&#39;; E={$_.Name}}
+    Connect-CIServer &#39;vcloud-server-nondefault&#39; -NotDefault | ft @{N=&#39;vCloud connected (nondefault)&#39;; E={$_.Name}}
+    New-VIProperty -Name VIServerName -ObjectType VIObjectCore -Value { if ( $args[0].UId -match &#39;/VIserver=[\w]+@(.*):.*&#39; ) { $Matches[1] } } | Out-Null
+    New-VIProperty -Name ToolsVersion -ObjectType VirtualMachine -ValueFromExtensionProperty ‘Config.Tools.ToolsVersion’ | Out-Null
+}, &#39;Control+Alt+V&#39;) | Out-Null&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Certificate&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Also you may need the certificate in hand to sign the scripts you write. If it&amp;#8217;s been already imported in the cert store on your machine, just push it to the variable with:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:ps decode:true crayon-inline&#34;&gt;$CodeSigningCert = gi Cert:\LocalMachine\my&amp;lt;thumbprint&amp;gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;To sign a script using the cert and publicly available timestamp server run&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:ps decode:true  crayon-inline &#34;&gt;Set-AuthenticodeSignature -Certificate $CodeSigningCert -FilePath &amp;#8220;$ScriptDir\PurpleScreen.psm1&amp;#8221; -TimestampServer &lt;a href=&#34;http://timestamp.globalsign.com/scripts/timestamp.dll&#34;&gt;http://timestamp.globalsign.com/scripts/timestamp.dll&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remote sessions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Need to connect to an interactive remote session / load cmdlets from remote session with a hotkey? That&amp;#8217;s pretty easy (more on remote sessions, configurations, CredSSP, etc. in the separate post):&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Remote session&#34;&gt;$psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.Add( &#39;Open remote session to COMPUTER&#39;, {
+    $CurrentTab = $psISE.CurrentPowerShellTab
+    if (&#39;COMPUTER&#39; -notin @($psISE.PowerShellTabs.DisplayName)) {
+        $psISE.PowerShellTabs.Add().DisplayName = &#39;COMPUTER&#39;
+    }
+    $RemoteTab = $psISE.PowerShellTabs | ? DisplayName -eq COMPUTER
+    while (-not $RemoteTab.CanInvoke) { Sleep 1 }
+    $RemoteTab.Invoke({ Enter-PSSession -ComputerName COMPUTER -ConfigurationName SA -Authentication Credssp -Credential $Cred })
+    $psISE.PowerShellTabs.SetSelectedPowerShellTab($CurrentTab)
+}, &#39;Control+Alt+R&#39;) | Out-Null
+
+$psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.Add( &#39;Import EMC Storage Integrator cmdlets&#39;, {
+    switch ($ESIPSToolkitSession.State) {
+        $null {
+            $ESIPSToolkitSession = New-PSSession -ComputerName COMPUTER -Credential $Cred -ConfigurationName ESI.Implicit -Authentication Credssp
+            Import-PSSession $ESIPSToolkitSession -DisableNameChecking -Module ESIPSToolkit -ea SilentlyContinue -wa SilentlyContinue -AllowClobber
+        }
+        Opened { Disconnect-PSSession $ESIPSToolkitSession }
+        Disconnected { Connect-PSSession $ESIPSToolkitSession }
+        Broken { Get-PSSession | ? State -eq Broken | Remove-PSSession; $ESIPSToolkitSession = $null }
+    }
+}, &#39;Control+Alt+E&#39;) | Out-Null&lt;/pre&gt;
+
+&lt;p&gt;You can see some handling of opened tabs here. The main thing I was missing was keeping the session state between ISE reloads. I&amp;#8217;d like to pick up the things from where I left off by auto-loading all opened tabs and files from my previous session. This part was successfully implemented with Save-ISEState and Load-ISEState functions (stay in touch for PurpleScreen module).&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Save/load ISE state&#34;&gt;$psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add(&#39;Save ISE state&#39;, {Save-ISEState}, &#39;Control+Shift+S&#39;) | Out-Null
+if ($psISE.PowerShellTabs.Count -eq 1) {
+    $psISE.PowerShellTabs[0].DisplayName = &#39;LOCAL SESSION&#39;
+    Load-ISEState
+    $psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus + $psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.SubMenus | ? { -not $_.SubMenus.Count } |
+    Select @{N=&#39;Command&#39;; E={$_.DisplayName}}, @{N=&#39;Shortcut&#39;; E={ ($_.Shortcut.Modifiers.ToString().Split().TrimEnd(&#39;,&#39;) | Sort -Descending), $_.Shortcut.Key }}
+}&lt;/pre&gt;
+
+&lt;p&gt;It will also show all currently available command shortcuts for convenience.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GitHub&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;And in the end some really neat feature &amp;#8211; GitHub integration! Press Ctrl+Alt+G to open GitHub tab with your project&amp;#8217;s local repository (needs GitHub desktop app installed and repository configured)&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34;&gt;$psISE.CurrentPowerShellTab.AddOnsMenu.SubMenus.Add( &#39;Open GitHub tab&#39;, {
+    $CurrentTab = $psISE.CurrentPowerShellTab
+    if (&#39;GitHub&#39; -notin @($psISE.PowerShellTabs.DisplayName)) {
+        $psISE.PowerShellTabs.Add().DisplayName = &#39;GitHub&#39;
+    }
+    $GitTab = $psISE.PowerShellTabs | ? DisplayName -eq GitHub
+    while (-not $GitTab.CanInvoke) { Sleep 1 }
+    $GitTab.Invoke({
+        cd $ProjectPath
+        &amp; &#34;c:\Users\$env:USERNAME\AppData\Local\GitHub\shell.ps1&#34;
+        $WindowTitle = $Host.UI.RawUI.WindowTitle
+        &amp; &#34;$env:github_posh_git\profile.example.ps1&#34;
+        $Host.UI.RawUI.WindowTitle = $WindowTitle
+    })
+    $psISE.PowerShellTabs.SetSelectedPowerShellTab($CurrentTab)
+}, &#39;Control+Alt+G&#39;) | Out-Null&lt;/pre&gt;
+
+&lt;p&gt;That&amp;#8217;s all for now!&lt;/p&gt;
+
+&lt;p&gt;Stay tuned and remember to follow the main rule &amp;#8211; once written, share with a community!&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>The power of Get-View</title>
+          <link>https://purple-screen.com/2014/02/05/the-power-of-get-view/</link>
+          <pubDate>Wed, 05 Feb 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/02/05/the-power-of-get-view/</guid>
+          <description>&lt;p&gt;Today we&amp;#8217;re going to discover very useful Get-View cmdlet. I&amp;#8217;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.&lt;/p&gt;
+
+&lt;p&gt;First it&amp;#8217;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly. In fact impl objects are composed of the properties of corresponding view objects.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s discover the available parameters that need to be discussed:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-VIObject, -Id&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;View object can be retrieved by MoRef (-Id) or by passing the impl object (-VIObject) to cmdlet. Don&amp;#8217;t forget to use -Server parameter when retrieving objects by MoRef if you are working with multiple &lt;em&gt;default&lt;/em&gt; vCenter servers since MoRef are not unique across different vCenter servers.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-Property&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This parameter allows you to limit the object properties to be retrieved that can significantly speed up the query execution. Going ahead, one interesting thing you may wonder while using this parameter together with -Filter: does the property that objects are filtered by need to be specified here? The answer is no, they don&amp;#8217;t.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-Filter&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This parameter accepts the hash table:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:default decode:true  crayon-inline crayon-selected&#34;&gt;@{Name=&amp;#8217;^TestVM[1-9]$&amp;#8217;; &amp;#8216;Config.Version&amp;#8217;=&amp;#8217;7&amp;#8217;; &amp;#8216;Snapshot&amp;#8217;=&amp;#8221;}&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;where both keys and values represent the strings and imply that for any object returned every specified key must match the corresponding value. The key can be any nested property but not the property of linked object &amp;#8211; for linked objects use -SearchRoot parameter (more on that later). You can use the power of regular expressions for value strings. You may wonder how to test whether the property exists for the object? Just specify this property with the empty value. The example above will filter all vms with name matching &amp;#8216;TestVM&amp;#8217;, hardware version equal to &amp;#8216;vmx-07&amp;#8217; and for which at least one snapshot exists.&lt;/p&gt;
+
+&lt;p&gt;Filtering on the server side prevents the objects that don&amp;#8217;t satisfy the specified criteria to be transfered to the client thus it again increases the performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-ViewType&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Unfortunately cmdlet implementation is missing the list of possible values for this parameter (any reason this can&amp;#8217;t be implemented?). You can find out accepted viewtypes by calling Get-View with any incorrect string. Having the list it&amp;#8217;s easy to understand which type to use in a query. To learn more about types, inheritance and so on go to &lt;a title=&#34;API reference guide&#34; href=&#34;http://pubs.vmware.com/vsphere-55/index.jsp?topic=%2Fcom.vmware.wssdk.apiref.doc%2Fright-pane.html&#34; target=&#34;_blank&#34;&gt;API reference guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Another really useful objects that can be retrieved by Get-View are different types of managers. The full list can be obtained with &amp;#8216;(Get-View ServiceInstance).Content&amp;#8217; call.&lt;/p&gt;
+
+&lt;p&gt;One can use them to manipulate alarms (Get-View AlarmManager), tasks (Get-View TaskManager), files and so on. So it&amp;#8217;s very useful stuff too.&lt;/p&gt;
+
+&lt;p&gt;Ok, this part is done. Now let&amp;#8217;s explore the base view object.&lt;/p&gt;
+
+&lt;p&gt;We have an interesting liaison here: &lt;strong&gt;UpdateViewData&lt;/strong&gt; method and &lt;strong&gt;LinkedView&lt;/strong&gt; property.&lt;/p&gt;
+
+&lt;p&gt;Until UpdateViewData is invoked the LinkedView property is empty. Parameters of UpdateViewData invocation are the (multiple) properties of current or linked object you want to obtain. Together with the property name we can specify the property object type. In some cases it&amp;#8217;s quite useful to restrict the possible values if the property is the list of object of different types. Let&amp;#8217;s see an example because the code is better than thousand words. Consider navigating through inventory folders: every time you want to get the child objects but only those of type &amp;#8216;Folder&amp;#8217;:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;LinkedView&#34;&gt;$FolderView = Get-View -ViewType Folder -Property Name -Filter @{Name=&#39;RootFolder&#39;}
+# The call will retrieve ChildEntity property for current folder. No linked views are populated
+$FolderView.UpdateViewData(&#39;ChildEntity&#39;)
+# The call below will fill the LinkedView property
+$FolderView.UpdateViewData(&#39;ChildEntity.*&#39;)
+# or you can restrict the child objects retrieved to folders with only Name and ChildEntity properties obtained
+$FolderView.UpdateViewData(&#39;[Folder]ChildEntity.Name&#39;,&#39;[Folder]ChildEntity.ChildEntity&#39;)&lt;/pre&gt;
+
+&lt;p&gt;The type restriction is neccessary when you specify the property path that include containers and this property doesn&amp;#8217;t belong to all entities container can include. Thus&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;lang:default decode:true  crayon-inline &#34;&gt;$FolderView.UpdateViewData(&amp;#8216;ChildEntity.ChildEntity&amp;#8217;)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;won&amp;#8217;t work because folder can include vm objects for which ChildEntity property isn&amp;#8217;t defined.&lt;/p&gt;
+
+&lt;p&gt;Got it? Then another example of digging even deeper:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;LinkedView&#34;&gt;$VmView = Get-View -ViewType VirtualMachine -Property Name -Filter @{Name=&#39;TestVM&#39;}
+$VmView.UpdateViewData(&#39;Runtime.Host.Datastore.Name&#39;)
+# will extract the names of all datastores connected to host where vm is currently running
+$VmView.Runtime.LinkedView.Host.LinkedView.Datastore.Name&lt;/pre&gt;
+
+&lt;p&gt;So, instead of calling Get-View multiple times leverage UpdateViewData method call. It &lt;a title=&#34;really accelerates&#34; href=&#34;http://www.vnugglets.com/2012/08/even-faster-powercli-code-with-get-view.html&#34; target=&#34;_blank&#34;&gt;really accelerates&lt;/a&gt; your scripts where you need to get nested view objects.&lt;/p&gt;
+
+&lt;p&gt;Now you are aware of the foundation of advanced PowerCLI scripting. Use Get-View in your scripts when processing the bulk of data and the speed is a vital factor.&lt;/p&gt;
+
+&lt;p&gt;When operating few objects stay with common impl-getting cmdlets not to loose the simplicity of your scripts.&lt;/p&gt;
+
+&lt;p&gt;There is another batch of interesting information I&amp;#8217;m ready to share.&lt;/p&gt;
+
+&lt;p&gt;Stay tuned!&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Fast Suspend/Resume</title>
+          <link>https://purple-screen.com/2014/01/21/fast-suspend/resume/</link>
+          <pubDate>Tue, 21 Jan 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/01/21/fast-suspend/resume/</guid>
+          <description>&lt;p&gt;Have you ever come across the term in subj? It&amp;#8217;s time to reveal what it stands for.&lt;/p&gt;
+
+&lt;p&gt;First, three examples when this action can be performed.&lt;/p&gt;
+
+&lt;p&gt;To enable &lt;a href=&#34;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1020128&#34;&gt;CBT&lt;/a&gt; for virtual machine in addition to make vm reconfiguration one need to perform so called &lt;em&gt;stun/unstun cycle&lt;/em&gt; for vm. This could be power on/off, suspend/resume, create/remove snapshot, vm migration.&lt;/p&gt;
+
+&lt;p&gt;Another example is changing the build type for running vm (release/debug/stats). This can be done in vm advanced settings tab or via command line utils. In order to BuildType change is applied FSR is performed transparently by the 5.x hypervisor (for ESXi 4.x vm is actually suspended and then resumed).&lt;/p&gt;
+
+&lt;p&gt;And the most frequent one is hot-add hardware to vm.&lt;/p&gt;
+
+&lt;p&gt;In fact Fast Suspend/Resume equals to migration to the same host &amp;#8211; that&amp;#8217;s simple.&lt;/p&gt;
+
+&lt;p&gt;Below you can find an example of CBT enabling script (most of backup tools enable it automatically).&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:default decode:true &#34; title=&#34;Enable CBT&#34; &gt;Get-View -ViewType VirtualMachine -Property Name,Config,Snapshot,Runtime | % {
+    if ([int]$_.Config.Version.Split(&#39;-&#39;)[-1] -gt 4 -and -not $_.Config.ChangeTrackingEnabled -and -not $_.Snapshot) {
+        Write-Verbose &#34;Enabling CBT for $($_.Name)&#34;
+        $VmConfigSpec = New-Object VMware.Vim.VirtualMachineConfigSpec
+    $VmConfigSpec.ChangeTrackingEnabled = $true
+        $_.ReconfigVM_Task($VmConfigSpec)
+        Write-Verbose &#34;$($_.Name) - performing Fast Suspend Resume to enable CBT&#34;
+        $_.MigrateVM_Task($null, $_.Runtime.Host, &#39;highPriority&#39;, $null)
+    }
+}&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>NetCmdlets</title>
+          <link>https://purple-screen.com/2014/01/07/netcmdlets/</link>
+          <pubDate>Tue, 07 Jan 2014 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2014/01/07/netcmdlets/</guid>
+          <description>&lt;p&gt;Use all the power of PowerShell with &lt;a href=&#34;http://www.netcmdlets.com&#34; title=&#34;NetCmdlets&#34; target=&#34;_blank&#34;&gt;NetCmdlets&lt;/a&gt;. Out of box you can: gain SSH access to ESXi 5.x hosts from PowerShell, work with multiple internet protocols (IMAP/POP/WebDAV/DNS/FTP/etc), deploy portable syslog server in seconds and much more.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Unfortunately community edition doesn&amp;#8217;t support encryption-enabled cmdlets. To use SSH, SFTP you need to upgrade to paid version.&lt;/em&gt;&lt;/p&gt;
+</description>
+        </item>
       
     
       
@@ -59,8 +758,6 @@
 &lt;p&gt;Thanks!&lt;/p&gt;
 </description>
         </item>
-      
-    
       
     
       
@@ -200,8 +897,6 @@
       
     
       
-    
-      
         <item>
           <title>What&#39;s Jekyll?</title>
           <link>https://purple-screen.com/2013/12/31/whats-jekyll/</link>
@@ -221,6 +916,465 @@
         </item>
       
     
+      
+        <item>
+          <title>PowerShell scheduled job output redirection</title>
+          <link>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</link>
+          <pubDate>Mon, 23 Dec 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</guid>
+          <description>&lt;p&gt;Scheduling the script execution is rather common task. You might know that it&amp;#8217;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&amp;#8217;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see &lt;a title=&#34;TechNet about_Redirection help topic&#34; href=&#34;http://technet.microsoft.com/en-us/library/hh847746.aspx&#34; target=&#34;_blank&#34;&gt;TechNet about_Redirection help topic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To be able to run your scripts with -Verbose option you should leverage Advanced_Functions syntax (see &lt;a href=&#34;http://technet.microsoft.com/en-us/library/hh847806.aspx&#34; title=&#34;about_Functions_Advanced&#34;&gt;another Core About topic&lt;/a&gt;). Just add couple of strings to the beginning of the script&lt;/p&gt;
+
+&lt;pre class=&#34;lang:ps decode:true&#34;&gt;[CmdletBinding()]
+Param ()&lt;/pre&gt;
+
+&lt;p&gt;and use Write-Verbose cmdlet throughout the script where chatty output is needed. At first glance it seems to be an easy task to combine all mentioned together, but in fact I saw lots of questions across the web where people struggled to make it work. Indeed it took much effort before I succeeded. I&amp;#8217;ve tested many different configuration and most of them didn&amp;#8217;t work for me too. That&amp;#8217;s what I came up with and it worked for me:&lt;/p&gt;
+
+&lt;pre class=&#34;lang:ps decode:true&#34;&gt;Register-ScheduledJob -Name Scheduled -Credential $Cred -Trigger (New-JobTrigger -Daily -At &#39;11:00 PM&#39;) -ScriptBlock { D:\Scheduled.ps1 -Verbose *&amp;gt; &#39;D:\Scheduled.log&#39; }&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Veeam slow backup</title>
+          <link>https://purple-screen.com/2013/12/01/veeam-slow-backup/</link>
+          <pubDate>Sun, 01 Dec 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/12/01/veeam-slow-backup/</guid>
+          <description>&lt;p&gt;One day I suddenly noticed that backup jobs could no longer fit the backup window. While investigating the issue I found tons of log records pointing that before processing every VM in the job Veeam tries to clean up all the snapshots created by its own for backup purposes. In some cases they were manually deleted or lost for some reason, but the records were still kept in the database.&lt;/p&gt;
+
+&lt;p&gt;So the root cause of slow backup is detected. To fix it first ensure that all backup jobs are stopped. If so, delete all snapshots with names containing &amp;#8216;VEEAM&amp;#8217; and &amp;#8216;Consolidate helper&amp;#8217; in vSphere inventory. Then go to Veeam database and clear the VmWareSnapshot table &lt;strong&gt;(DELETE FROM VmWareSnapshots)&lt;/strong&gt;. It&amp;#8217;s recommended to stop VeeamBackup service before executing the query against DB.&lt;/p&gt;
+
+&lt;p&gt;That&amp;#8217;s it. Restart your jobs and enjoy the rates you used to see!&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>vCenter Converter 5 low processing rate</title>
+          <link>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</link>
+          <pubDate>Sat, 23 Nov 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</guid>
+          <description>&lt;p&gt;If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between agent and server. To accomplish this open the file &amp;#8216;C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml&amp;#8217;, navigate to &lt;strong&gt;nfc&lt;/strong&gt; section of xml and set false in &lt;strong&gt;useSSL&lt;/strong&gt; tag. Restarting &amp;#8216;Converter Worker&amp;#8217; service is required. Hope this&amp;#8217;ll help!&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Esxcli namespace tree</title>
+          <link>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</link>
+          <pubDate>Sun, 27 Oct 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</guid>
+          <description>&lt;p&gt;Every time a new ESXi version released I wonder what the functionality was added to &lt;em&gt;esxcli&lt;/em&gt;. As you know all available namespaces and commands can be retrieved by typing &lt;em&gt;esxcli command list&lt;/em&gt; in the console. To make the output look pretty I&amp;#8217;ve written a couple of lines of PoSH code that generates the handy namespaces tree view.&lt;/p&gt;
+
+&lt;pre class=&#34;lang:ps decode:true &#34; title=&#34;esxcli&#34; &gt;$esxcli = Get-VMHost $Name | Get-EsxCli
+$EsxcliNamespaceFile = [IO.File]::CreateText(&#39;D:\esxcli.txt&#39;)
+$EsxcliNamespaceTree = $esxcli.esxcli.command.list()
+$Commands = @()
+foreach ($Namespace in $EsxcliNamespaceTree) {
+    $Commands += @{Path = $Namespace.Namespace.Split(&#39;.&#39;); Operation = $Namespace.Command }
+}
+ 
+function Expand-Tree ($Tree, $TabNum = 0) {
+    $Tree | Group -Property {@($_.Path)[0]} | Sort Name | % {
+        if ($_.Group.Path -eq $null) { $EsxcliNamespaceFile.Write(&#34; $(($_.Group.Operation | Sort) -join &#39;,&#39;)&#34;); return }
+        $EsxcliNamespaceFile.Write(&#34;`n$(if ($TabNum) { 1..$TabNum | % { &#34;`t&#34; } })$($_.Name)&#34;)
+        $_.Group | % { $_.Path = $_.Path | Select -Skip 1 }
+        Expand-Tree -Tree ($_.Group | Sort @{E={$_.Path.Count}}) -TabNum ($TabNum + 1)
+    }
+}
+Expand-Tree -Tree $Commands
+$EsxcliNamespaceFile.Close()&lt;/pre&gt;
+
+&lt;p&gt;The reason I&amp;#8217;ve used the .NET class instead of Add-Content / Out-File cmdlets is that the latter append the new line.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dl.dropboxusercontent.com/u/2398632/namespace.txt&#34; title=&#34;EsxcliNamespaceTree&#34; target=&#34;_blank&#34;&gt;Here&lt;/a&gt; is for the latest version 5.5.&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>OmniTracker automation</title>
+          <link>https://purple-screen.com/2013/09/29/omnitracker-automation/</link>
+          <pubDate>Sun, 29 Sep 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/09/29/omnitracker-automation/</guid>
+          <description>&lt;p&gt;Few words outside the virtualization world yet PoSH scripting related.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;ve been working for a while in the company that uses &lt;a href=&#34;http://www.omninet.de/index.php&#34; title=&#34;Omnitracker&#34; target=&#34;_blank&#34;&gt;Omnitracker&lt;/a&gt; as a helpdesk and incident management solution. Using its web interface as well as thick client isn&amp;#8217;t the best experience. And when it comes to do it on a regular basis it turns to a nightmare especially for a scripting guy like me. So what should we do in this situation? Yep, exactly! Automate it!&lt;/p&gt;
+
+&lt;p&gt;As others the first thing I&amp;#8217;ve tried is to call Google for help. What was my surprise when I saw nothing relevant at all in the first few pages except the Linkedin profile of a guy who should have the desired skills. Wow, the power of social networks in action! Take a challenge!&lt;/p&gt;
+
+&lt;p&gt;Looking through the manuals I&amp;#8217;ve stumbled on the doc describing the automation interface. Good catch! C# there, so the PoSH isn&amp;#8217;t far away. It turned out simple enough and after few tries I&amp;#8217;ve managed to get it work. Couple of functions produced can be found below. As Omnitracker heavily relies on cusmomization most likely you won&amp;#8217;t find it working in your environment but this functions should give you a tip how to handle the objects in OT.&lt;/p&gt;
+
+&lt;pre class=&#34;lang:ps decode:true &#34; title=&#34;OmniTracker&#34; &gt;function Set-OtTicket {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory)]
+        [string[]] $TicketN,
+        [Parameter(Mandatory)]
+        [ValidateSet(&#39;Rejected&#39;,&#39;InfoRequest&#39;,&#39;InProgress&#39;,&#39;Solved&#39;)]
+        [string] $Status,
+        [string] $Server,
+        [int] $Port = 5085,
+        [System.Management.Automation.PSCredential] $Credential = Get-Credential,
+        [string] $Folder
+    )
+    DynamicParam {
+        switch -Regex ($Status) {
+            &#39;Rejected|InfoRequest&#39; {
+                Add-DynamicParam -ParameterName Comment -ParameterType string -Mandatory
+            }
+            &#39;InProgress&#39; {
+                Add-DynamicParam -ParameterName EndDate -ParameterType DateTime -Mandatory |
+                Add-DynamicParam -ParameterName Comment -ParameterType string
+            }
+            &#39;Solved&#39; {
+                Add-DynamicParam -ParameterName Solution -ParameterType string -Mandatory `
+                -Options @{ValidateNotNullOrEmpty = $null} |
+                Add-DynamicParam -ParameterName Effort -ParameterType float -Mandatory |
+                Add-DynamicParam -ParameterName Comment -ParameterType string
+            }
+        }
+    }
+    Begin {
+        $otApp = New-Object -ComObject OtAut.OtApplication
+        $otSession = $otApp.MakeSession($Server, $Port, $Credential.UserName, $Credential.GetNetworkCredential().Password)
+    }
+    Process {
+        $otFolders = $otSession.RequestFolders
+        $otFolder = ($otFolders | ? Path -eq $Folder)
+        $otFilter = $otFolder.MakeFilter()
+        $otFilter.SetSearchExpression(&#34;Number:I-$TicketN&#34;)
+        $otFilter.Save()
+        $otRequests = $otFolder.Search($otFilter, $true) # recursive
+        $OtRequest = $otRequests.Item(0)
+        $OtRequest.Unlock()
+ 
+        $StatusHt = @{Rejected=&#39;Rejected&#39;; InfoRequest=&#39;Запрос информации&#39;}
+ 
+        $State = $otRequest.UserFields | ? { $_.Definition.Label -eq &#39;State&#39; }
+        switch -Regex ($Status) {
+            &#39;Rejected|InfoRequest&#39; {                
+                $State.Value = $StatusHt.$Status
+            }
+            &#39;InProgress&#39; {
+                $State.Value = &#39;In progress&#39;
+                $Terms = $otRequest.UserFields | ? { $_.Definition.Label -eq &#39;Срок решения&#39; }
+                $Terms.Value = $PSBoundParameters.EndDate.ToShortDateString()
+            }
+            &#39;Solved&#39; {
+                $State.Value = &#39;In progress&#39;
+                $Terms = $otRequest.UserFields | ? { $_.Definition.Label -eq &#39;Срок решения&#39; }
+                $Terms.Value = (Get-Date).AddDays(1).ToShortDateString()
+ 
+                $otRequest.Save($true, $null, $true)
+ 
+                $Solution_ = $otRequest.UserFields | ? { $_.Definition.Label -eq &#39;Solution Description&#39;}
+                $Solution_.Value = $PSBoundParameters.Solution # formatted text
+                $Effort_ = $otRequest.UserFields | ? { $_.Definition.Label -eq &#39;Effort&#39;}
+                $Effort_.Value = $PSBoundParameters.Effort
+       
+                $Terms.Value = (Get-Date).ToShortDateString()
+                $State.Value = &#39;Solved&#39;
+            }
+            &#39;.*&#39; {
+                if ($PSBoundParameters.Comment) {
+                    $Comments = $otRequest.UserFields | ? { $_.Definition.Label -eq &#39;Comments&#39; }
+                    $OtMemoSections = $Comments.TValue
+                    $OtMemoSections.Add($PSBoundParameters.Comment)
+                    $Comments.TValue = $OtMemoSections
+                }
+            }
+        }
+        $otRequest.Save($true, $null, $true)
+    }
+    End { $otSession.Logoff() }
+}&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Dynamic parameters</title>
+          <link>https://purple-screen.com/2013/09/08/dynamic-parameters/</link>
+          <pubDate>Sun, 08 Sep 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/09/08/dynamic-parameters/</guid>
+          <description>&lt;p&gt;Today we gonna touch on dynamic parameters available in advanced functions. These are parameters that are added at run-time depending on the environment. The great example is the parameters that are dynamically exposed to the current parameter set of Get-Item cmdlet based on PS provider (FileSystem, Registry) used.&lt;/p&gt;
+
+&lt;p&gt;Faced it once you should have found out that simply adding such a parameter to the function means writing a bunch of code. Let&amp;#8217;s make a life easier! I&amp;#8217;d like to share with you short yet useful function I will actively utilize in my forthcoming scripts. Here it is:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true&#34; title=&#34;Add-DynamicParam&#34;&gt;function Add-DynamicParam {
+    Param (
+        [Parameter(ValueFromPipeline,HelpMessage=&#39;Dictionary to add created dynamic parameter&#39;)]
+        [System.Management.Automation.RuntimeDefinedParameterDictionary] $ParamDictionary,
+        [Parameter(Mandatory)]
+        [string] $ParameterName,
+        [Parameter(Mandatory)]
+        [type] $ParameterType,
+        [string[]] $ParameterSetName = &#39;__AllParameterSets&#39;,
+        [ValidateScript({
+            $AcceptedValues = (&#39;Alias&#39;,&#39;AllowNull&#39;,&#39;AllowEmptyString&#39;,&#39;AllowEmptyCollection&#39;,`
+                               &#39;ValidateCount&#39;,&#39;ValidateLength&#39;,&#39;ValidatePattern&#39;,&#39;ValidateRange&#39;,`
+                               &#39;ValidateScript&#39;,&#39;ValidateSet&#39;,&#39;ValidateNotNull&#39;,&#39;ValidateNotNullOrEmpty&#39;)
+            -not (Compare @($_.Keys) $AcceptedValues | ? SideIndicator -eq &#39;&amp;lt;=&#39;)
+        })]
+        [hashtable] $Options,
+        [int] $Position,
+        [string] $HelpMessage,
+        [switch] $ValueFromPipeline,
+        [switch] $ValueFromPipelineByPropertyName,        
+        [switch] $Mandatory
+    )
+    $ParamAttribute = [System.Management.Automation.ParameterAttribute]@{
+        ParameterSetName = $ParameterSetName; Mandatory = $Mandatory.IsPresent;
+        ValueFromPipeline = $ValueFromPipeline.IsPresent;
+        ValueFromPipelineByPropertyName = $ValueFromPipelineByPropertyName.IsPresent
+    }
+    if ($HelpMessage) { $ParamAttribute.HelpMessage = $HelpMessage }
+    if ($Position) { $ParamAttribute.Position = $Position }
+    $ParamAttributeCollection = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
+    $ParamAttributeCollection.Add($ParamAttribute)
+    if ($Options) {
+        foreach ($Option in $Options.GetEnumerator()) {
+            $ParamOptions = New-Object System.Management.Automation.$($Option.Name)Attribute -ArgumentList $Option.Value
+            $ParamAttributeCollection.Add($ParamOptions)
+        }
+    }
+    $Param = New-Object System.Management.Automation.RuntimeDefinedParameter($ParameterName, $ParameterType, $ParamAttributeCollection)
+    if (-not $ParamDictionary) { $ParamDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary }
+    $ParamDictionary.Add($ParameterName, $Param)
+    $ParamDictionary
+}&lt;/pre&gt;
+
+&lt;p&gt;One note is that parameters created with this function are not available in script&amp;#8217;s body using the parameter&amp;#8217;s name but are exposed via $PSBoundParameters variable.&lt;/p&gt;
+
+&lt;p&gt;All the parameter attributes can be set by passing its values in hashtable to &lt;em&gt;-Options&lt;/em&gt;. Other common attributes (&amp;#8216;mandatory&amp;#8217; switch, position, accepting values from pipeline) are also available. To add multiple dynamic parameters you should pipe one function call to another. Braindead simple! Here is an example:&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true &#34; title=&#34;DynamicParam usage&#34;&gt;DynamicParam {
+    if ($Status -eq &#39;Solved&#39;) {
+        Add-DynamicParam -ParameterName Solution -ParameterType string -Mandatory -Options @{ValidateNotNullOrEmpty = $null} |
+        Add-DynamicParam -ParameterName Effort -ParameterType int -Mandatory -Options @{ValidateSet = (1,2,3)}
+    }
+}
+Process {
+    $PSBoundParameters.Solution; $PSBoundParameters.Effort
+}&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Enumerating through hashtable in PoSH</title>
+          <link>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</link>
+          <pubDate>Sun, 21 Jul 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</guid>
+          <description>&lt;pre class=&#34;expand:true lang:ps decode:true &#34; &gt;$ht = @{a=1; b=2; c=3}
+$ht.GetEnumerator() | % { $_.key; $_.value }&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Join-Object</title>
+          <link>https://purple-screen.com/2013/07/20/join-object/</link>
+          <pubDate>Sat, 20 Jul 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/07/20/join-object/</guid>
+          <description>&lt;p&gt;If you ever wrote SQL queries and now use PowerShell for scripting maybe you missed &amp;#8216;Join&amp;#8217; possibility in PoSH. Here it is!&lt;/p&gt;
+
+&lt;p&gt;Nothing special. I just tried to create Join-Object with the same functionality as inner/outer Join statements in SQL. My version of Join-Object uses standalone Merge-Object function for merging 2 arrays of custom objects / hashtables. Resulting object is an array of objects that contains all properties from joined objects except the ones with the same name, which are discarded. If you also want to include the property on which you join the collections use $IncludeJoinProperty switch. The expression for specifying the property to join on is that simple:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;minimize:true lang:ps decode:true  crayon-inline &#34; &gt;-On {$Left.&amp;#8217;propertyName&amp;#8217; -eq $Right.&amp;#8217;propertyName&amp;#8217;}&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Collections to be joined must contain objects of the same type otherwise the error is generated. Also function throws an error in case of the values of join property in collection (left or right) are not unique. Merge and Join aliases added by default.&lt;/p&gt;
+
+&lt;p&gt;If you have any questions drop me a line in comments. Use it on your own risk :)&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true &#34; title=&#34;Join-Object&#34; &gt;function Merge-Object {
+    Param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [Object] $First,
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [Object] $Second
+    )
+    if ($First -is [HashTable] -and $Second -is [HashTable]) { $First + $Second; return }
+    if ($First -is [HashTable]) { $First = New-Object PSObject -Property $First }
+    if ($Second -is [HashTable]) { $First = New-Object PSObject -Property $Second }
+    $FirstProperties = ($First | gm -MemberType Properties).Name
+    $Merged = $First | Select $FirstProperties
+    $Second | gm -MemberType Properties | ? Name -notin $FirstProperties |
+    % { $Merged | Add-Member -MemberType NoteProperty -Name $_.Name -Value $Second.($_.Name) }
+    $Merged
+}
+if (-not (Test-Path Alias:\Merge)) { New-Alias Merge Merge-Object }
+ 
+function Join-Object {
+    Param (
+        [Parameter(Mandatory)]
+        [Object[]] $Left,
+        [Parameter(Mandatory)]
+        [Object[]] $Right,
+        [Parameter(Mandatory)]
+        [ValidateSet(&#39;Inner&#39;,&#39;OuterLeft&#39;,&#39;OuterRight&#39;,&#39;Outer&#39;)]
+        [string] $Type,
+        [Parameter(Mandatory)]
+        [ScriptBlock] $On,
+        [switch] $IncludeJoinProperty
+    )
+    if (($Left | % { $_.GetType() } | Select -Unique).Count -gt 1) { throw &#39;Left array is not homogeneous&#39; }
+    if (($Right | % { $_.GetType() } | Select -Unique).Count -gt 1) { throw &#39;Right array is not homogeneous&#39; }
+    # get properties names to join on
+    if ($On.ToString() -match &#34;[\$]Left\.(\S+)&#34;) { $LeftProperty = $Matches[1] }
+    if ($On.ToString() -match &#34;[\$]Right\.(\S+)&#34;) { $RightProperty = $Matches[1] }
+    # ensure the properties&#39; values are unique
+    if (@($Left.$LeftProperty | Select -Unique).Count -lt $Left.Count) {
+        throw &#34;Specified property&#39;s values in left array are not unique&#34; }
+    if (@($Right.$RightProperty | Select -Unique).Count -lt $Right.Count) {
+        throw &#34;Specified property&#39;s values in right array are not unique&#34; }
+    $Result = @()
+    # convert hashtables to psobjects
+    if ($Left[0] -is [HashTable]) { for ($i = 0; $i -lt $Left.Count; $i++) { $Left[$i] = New-Object PSObject -Property $Left[$i] } }
+    if ($Right[0] -is [HashTable]) { for ($i = 0; $i -lt $Right.Count; $i++) { $Right[$i] = New-Object PSObject -Property $Right[$i] } }
+    # stub objects for outer joins
+    $Properties = New-Object System.Collections.Hashtable
+    ($Left[0] | gm -MemberType Properties).Name | % { $Properties.Add($_, $null) }
+    $LeftStubObj = New-Object PSObject -Property $Properties
+ 
+    $Properties = New-Object System.Collections.Hashtable
+    ($Right[0] | gm -MemberType Properties).Name | % { $Properties.Add($_, $null) }
+    $RightStubObj = New-Object PSObject -Property $Properties
+ 
+    if ($Type -eq &#39;OuterRight&#39;) {
+        # swap objects and properties
+        Join $Right $Left OuterLeft ([ScriptBlock]::Create(&#34;`$Left.$RightProperty -eq `$Right.$LeftProperty&#34;)) `
+        -IncludeJoinProperty:($IncludeJoinProperty.IsPresent)
+        return
+    }
+ 
+    foreach ($LeftObj in $Left) {
+        $Found = $false
+        foreach ($RightObj in $Right) {
+            if (&amp; ([ScriptBlock]::Create(($On.ToString() -replace &#34;[\$]Left(.*)[\$]Right(.*)&#34;,&#34;`$LeftObj`$1`$RightObj`$2&#34;)))) {
+                if ($Type -match &#34;Outer*&#34;) { $Found = $true }
+                $Result += $LeftObj | Merge $RightObj | Select -ExcludeProperty $LeftProperty, $RightProperty `
+                $(if ($IncludeJoinProperty.IsPresent) { &#39;*&#39;, @{N=&#39;JOIN&#39;;E={$_.($LeftProperty)}} } Else { &#39;*&#39; } )
+                $Right = $Right -ne $RightObj
+                break
+            }
+        }
+        if (!$Found -and $Type -match &#34;Outer*&#34;) {
+            $Result += $LeftObj | Merge $RightStubObj | Select -ExcludeProperty $RightProperty, $LeftProperty `
+            $(if ($IncludeJoinProperty.IsPresent) { &#39;*&#39;, @{N=&#39;JOIN&#39;;E={$_.($LeftProperty)}} } else { &#39;*&#39; } )
+        }
+    }
+    if ($Type -eq &#39;Outer&#39;) {
+        $Right | % { $Result += $_ | Merge $LeftStubObj | Select -ExcludeProperty $LeftProperty, $RightProperty `
+        $(if ($IncludeJoinProperty.IsPresent) { &#39;*&#39;, @{N=&#39;JOIN&#39;;E={$_.($RightProperty)}} } else { &#39;*&#39; } )
+        }
+    }
+    $Result
+}
+if (-not (Test-Path Alias:\Join)) { New-Alias Join Join-Object }&lt;/pre&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Must read PoSH book</title>
+          <link>https://purple-screen.com/2013/07/19/must-read-posh-book/</link>
+          <pubDate>Fri, 19 Jul 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/07/19/must-read-posh-book/</guid>
+          <description>&lt;p&gt;If you start learning PowerShell then reading &lt;a href=&#34;http://www.amazon.com/Windows-PowerShell-Action-Second-Edition/dp/1935182137&#34; title=&#34;Windows PowerShell in Action, 2nd Edition&#34; target=&#34;_blank&#34;&gt;Windows PowerShell in Action, 2nd Edition&lt;/a&gt; by Bruce Payette is a must! He is among the principal members of PowerShell team and explain guts of the language in detail.&lt;/p&gt;
+
+&lt;p&gt;Again, MUST READ!&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>ForEach: cmdlet vs keyword</title>
+          <link>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</link>
+          <pubDate>Sat, 15 Jun 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</guid>
+          <description>&lt;p&gt;Here is a little note about the difference of these two loop constructions.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;foreach&lt;/em&gt; is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop &lt;em&gt;$foreach&lt;/em&gt; automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (.MoveNext() method).&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;ForEach-Object&lt;/em&gt; is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&amp;#8217;t created at the start of processing. When the last is long-time operation using the cmdlet you can achieve much better overall performance than using its brother-keyword. In other case one should consider using the keyword for higher execution speed.&lt;/p&gt;
+
+&lt;p&gt;Since both have the same alias foreach the PoSH parser is smart enough to select the appropriate construction depending on the place it is used.&lt;/p&gt;
+</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>VMware UUIDs</title>
+          <link>https://purple-screen.com/2013/05/31/vmware-uuids/</link>
+          <pubDate>Fri, 31 May 2013 00:00:00 UTC</pubDate>
+          <author>Mark Otto</author>
+          <guid>https://purple-screen.com/2013/05/31/vmware-uuids/</guid>
+          <description>&lt;p&gt;Hi everybody! My first post is about UUIDs &amp;#8211; identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;uuid.bios&lt;/li&gt;
+&lt;li&gt;uuid.location&lt;/li&gt;
+&lt;li&gt;vc.uuid&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&amp;#8217;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&amp;#8217;d like to share with you.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;uuid.bios&lt;/strong&gt; &amp;#8211; this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export VM, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value:&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&#34;padding-left: 10%&#34;&gt;&lt;em&gt;uuid.action = &amp;#8220;keep&amp;#8221;&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;It prevents player/workstation from asking whether you moved or copied VM with default answer &amp;#8220;I moved it&amp;#8221;. If the valid uuid.bios line is present in config file it will be preserved and the software license will be OK. Another option for uuid.action is &amp;#8220;change&amp;#8221;. In this case VMware will generate the value when you power on VM in new location (host or even folder). You can read &lt;a href=&#34;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1541&#34;&gt;this KB article&lt;/a&gt; to learn more about it. So the uuid.bios setting is done. Let&amp;#8217;s look through others two.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;uuid.location&lt;/strong&gt; is generated every time VM is vMotion&amp;#8217;ed to another host/storage. I guess it&amp;#8217;s used by vCenter for some internal purposes like ..&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;vc.uuid&lt;/strong&gt; is used by vCenter to identify VM together with MoRef ID you&amp;#8217;ve seen while working with PowerCLI. It&amp;#8217;s unique and is generated when you add VM to inventory (or create VM). If the value is already present in config file (and there is no duplicate in current inventory) it&amp;#8217;s left intact.&lt;/p&gt;
+
+&lt;p&gt;That&amp;#8217;s enough for the first post. In the end &amp;#8211; a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&amp;#8217;s. It guarantees the persistence of all licenses that depends on GUID.&lt;/p&gt;
+
+&lt;pre class=&#34;expand:true lang:ps decode:true &#34; title=&#34;Keep BIOS UUID for exported VM&#34; &gt;function Keep-BiosUuid {
+    Param (
+        [Parameter(Mandatory,HelpMessage=&#39;VM name&#39;,ValueFromPipelineByPropertyName)]
+        [string[]] $Name,
+        [Parameter(Mandatory)]
+        [string] $Datacenter,
+        [Parameter(Mandatory)]
+        [string] $ExportedPath
+    )
+    foreach ($VmName in $Name) {
+        $VM = Get-VM $VmName
+        $VmConfig = Copy-DatastoreItem -Destination $env:TEMP -PassThru `
+        -Item &#34;vmstore:\\$Datacenter\\$($VM.ExtensionData.Config.Files.VmPathName -replace &#39;\\[([^\\]]+)\\] ([^/]+)/(.*)&#39;,&#39;$1\\$2\\$3&#39;)&#34;
+        Add-Content &#34;$ExportedPath\\$VmName\\$VmName.vmx&#34; ((cat $VmConfig | sls &#39;uuid.bios&#39;), &#39;uuid.action = &#34;keep&#34;&#39;)
+        rm $VmConfig -Confirm:$False
+    }
+}&lt;/pre&gt;
+
+&lt;p&gt;Hope you&amp;#8217;ll find it useful. Stay tuned, keep learning!&lt;/p&gt;
+</description>
+        </item>
       
     
 

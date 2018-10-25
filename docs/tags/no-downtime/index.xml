@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>No Downtime on Blog</title>
+    <link>https://purple-screen.com/tags/no-downtime/</link>
+    <description>Recent content in No Downtime on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Jul 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/tags/no-downtime/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Expand RDM in virtual compatibility mode</title>
+      <link>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</link>
+      <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</guid>
+      <description>As opposed to the physical RDM mode with the virtual one after expanding the LUN on the storage array side and rescanning HBA vm still can&amp;#8217;t see the increased capacity. The official VMware tutorial says to shutdown vm and re-add RDM. This isn&amp;#8217;t acceptable. The hint to make it happen with no downtime is to vMotion vm after rescanning HBA on the destination host. That&amp;#8217;s it!</description>
+    </item>
+    
+  </channel>
+</rss>

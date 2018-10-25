@@ -7,12 +7,62 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/2014/01/02/introducing-lanyon/</loc>
-    <lastmod>2014-01-02T00:00:00+00:00</lastmod>
+    <loc>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/posts/2014-01-02-introducing-lanyon/</loc>
+    <loc>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</loc>
+    <lastmod>2014-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</loc>
+    <lastmod>2014-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/04/15/restarting-managements-agents/</loc>
+    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/03/10/tuning-your-ise/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/02/05/the-power-of-get-view/</loc>
+    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/01/21/fast-suspend/resume/</loc>
+    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/01/07/netcmdlets/</loc>
+    <lastmod>2014-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2014/01/02/introducing-lanyon/</loc>
     <lastmod>2014-01-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -22,23 +72,86 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/posts/2014-01-01-example-content/</loc>
-    <lastmod>2014-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/2013/12/31/whats-jekyll/</loc>
     <lastmod>2013-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/posts/2013-12-31-whats-jekyll/</loc>
-    <lastmod>2013-12-31T00:00:00+00:00</lastmod>
+    <loc>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</loc>
+    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/12/01/veeam-slow-backup/</loc>
+    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</loc>
+    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</loc>
+    <lastmod>2013-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/09/29/omnitracker-automation/</loc>
+    <lastmod>2013-09-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/09/08/dynamic-parameters/</loc>
+    <lastmod>2013-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</loc>
+    <lastmod>2013-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/07/20/join-object/</loc>
+    <lastmod>2013-07-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/07/19/must-read-posh-book/</loc>
+    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</loc>
+    <lastmod>2013-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/2013/05/31/vmware-uuids/</loc>
+    <lastmod>2013-05-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/add/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/add-on/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://purple-screen.com/</loc>
-    <lastmod>2014-01-02T00:00:00+00:00</lastmod>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/book/</loc>
+    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -48,24 +161,379 @@
   </url>
   
   <url>
+    <loc>https://purple-screen.com/tags/cbt/</loc>
+    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/cdp/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/certificate/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/changed-block-tracking/</loc>
+    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/code-signing/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/connector/</loc>
+    <lastmod>2014-05-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/categories/esxi/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/expand/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/extend/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/extract/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/fast-suspend-resume/</loc>
+    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/filter/</loc>
+    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://purple-screen.com/fixed/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/post/</loc>
-    <lastmod>2014-01-02T00:00:00+00:00</lastmod>
+    <loc>https://purple-screen.com/tags/fsr/</loc>
+    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/posts/</loc>
-    <lastmod>2014-01-02T00:00:00+00:00</lastmod>
+    <loc>https://purple-screen.com/tags/get-view/</loc>
+    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/github/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/hba/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/ise/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/join-object/</loc>
+    <lastmod>2013-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/linkedview/</loc>
+    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/lldp/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/management-agents/</loc>
+    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/manager/</loc>
+    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/merge-object/</loc>
+    <lastmod>2013-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/mysql/</loc>
+    <lastmod>2014-05-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/net/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/no-downtime/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/object-by-name/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/obn/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/omnitracker/</loc>
+    <lastmod>2013-09-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/output-redirection/</loc>
+    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/payette/</loc>
+    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/post/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/powercli/</loc>
+    <lastmod>2013-05-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/categories/powercli/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/powershell/</loc>
+    <lastmod>2013-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/categories/powershell/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/prdm/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/rdm/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/remote-session/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/rescan/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/restart/</loc>
+    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/scheduled-task/</loc>
+    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/categories/scripting/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/slow/</loc>
+    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/snapshot/</loc>
+    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/snippet/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/ssl/</loc>
+    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/store-password/</loc>
+    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://purple-screen.com/tags/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/transformation/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/updateviewdata/</loc>
+    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/uuid/</loc>
+    <lastmod>2013-05-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/vcenter-converter/</loc>
+    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/veeam/</loc>
+    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/verbose/</loc>
+    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/virtual-compatibility-mode/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/vmnic/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/vmotion/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/vpxa/</loc>
+    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/vrdm/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/categories/vsphere/</loc>
+    <lastmod>2014-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/zip/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
