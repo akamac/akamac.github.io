@@ -4,6 +4,7 @@ title = "Blog"
 theme = "lanyon"
 canonifyurls = true
 pygmentsuseclasses = true
+publishDir = "docs"
 [permalinks]
     post = ":year/:month/:day/:title/"
     fixed = ":title/"
