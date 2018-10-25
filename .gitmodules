@@ -1,0 +1,9 @@
+[submodule "themes/hyde"]
+	path = themes/hyde
+	url = https://github.com/spf13/hyde.git
+[submodule "themes/lanyon"]
+	path = themes/lanyon
+	url = https://github.com/tummychow/lanyon-hugo.git
+[submodule "themes/pixyll"]
+	path = themes/pixyll
+	url = https://github.com/azmelanar/hugo-theme-pixyll.git

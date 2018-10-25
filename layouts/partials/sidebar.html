@@ -1,0 +1,30 @@
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Blog about IT</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item {{ if eq .URL "/" }} active {{ end }}" href="/">Home</a>
+    <a class="sidebar-nav-item {{ if eq .URL "/post/" }} active {{ end }}" href="/post">Posts</a>
+
+    {{ $thisperma := .Permalink }}
+    {{ range .Site.Pages.ByWeight }}
+      {{ if isset .Params "sidebar" }}
+        <a class="sidebar-nav-item {{ if eq .Permalink $thisperma }} active {{ end }}" href="{{ .Permalink }}">{{ .Title }}</a>
+      {{ end }}
+    {{ end }}
+
+    <span class="sidebar-nav-item">Currently on {{ .Site.Params.Github.Head }}</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+    <p>&copy; {{ .Site.LastChange.Year }}</p>
+  </div>
+</div>

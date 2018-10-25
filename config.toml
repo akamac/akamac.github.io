@@ -1,0 +1,13 @@
+baseURL = "https://purple-screen.com/"
+languageCode = "en-us"
+title = "Blog"
+theme = "lanyon"
+canonifyurls = true
+pygmentsuseclasses = true
+[permalinks]
+    post = ":year/:month/:day/:title/"
+    fixed = ":title/"
+[params]
+    Title = "PurpleScreen"
+    #linkedinName = 'alexeymiasoedov'
+    Tagline = "blog about open source"
