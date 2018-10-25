@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog </title>
-    <link>https://purple-screen.com/</link>
+    <link>https://akamac.github.io/purple-screen/</link>
     <language>en-us</language>
     <author>Mark Otto</author>
     <rights>(C) 2014</rights>
@@ -14,10 +14,10 @@
       
         <item>
           <title>Introducing Lanyon</title>
-          <link>https://purple-screen.com/2014/01/02/introducing-lanyon/</link>
+          <link>https://akamac.github.io/purple-screen/2014/01/02/introducing-lanyon/</link>
           <pubDate>Thu, 02 Jan 2014 00:00:00 UTC</pubDate>
           <author>Mark Otto</author>
-          <guid>https://purple-screen.com/2014/01/02/introducing-lanyon/</guid>
+          <guid>https://akamac.github.io/purple-screen/2014/01/02/introducing-lanyon/</guid>
           <description>
 
 &lt;p&gt;Lanyon is an unassuming &lt;a href=&#34;http://jekyllrb.com&#34;&gt;Jekyll&lt;/a&gt; theme that places content first by tucking away navigation in a hidden drawer. It&amp;rsquo;s based on &lt;a href=&#34;http://getpoole.com&#34;&gt;Poole&lt;/a&gt;, the Jekyll butler.&lt;/p&gt;
@@ -27,7 +27,7 @@
 &lt;p&gt;Poole is the Jekyll Butler, serving as an upstanding and effective foundation for Jekyll themes by &lt;a href=&#34;https://twitter.com/mdo&#34;&gt;@mdo&lt;/a&gt;. Poole, and every theme built on it (like Lanyon here) includes the following:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Complete Jekyll setup included (layouts, config, &lt;a href=&#34;https://purple-screen.com/404&#34;&gt;404&lt;/a&gt;, &lt;a href=&#34;https://purple-screen.com/index.xml&#34;&gt;RSS feed&lt;/a&gt;, posts, and &lt;a href=&#34;https://purple-screen.com/about&#34;&gt;example page&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Complete Jekyll setup included (layouts, config, &lt;a href=&#34;https://akamac.github.io/purple-screen/404&#34;&gt;404&lt;/a&gt;, &lt;a href=&#34;https://akamac.github.io/purple-screen/index.xml&#34;&gt;RSS feed&lt;/a&gt;, posts, and &lt;a href=&#34;https://akamac.github.io/purple-screen/about&#34;&gt;example page&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;Mobile friendly design and development&lt;/li&gt;
 &lt;li&gt;Easily scalable text and component sizing with &lt;code&gt;rem&lt;/code&gt; units in the CSS&lt;/li&gt;
 &lt;li&gt;Support for a wide gamut of HTML elements&lt;/li&gt;
@@ -66,10 +66,10 @@
       
         <item>
           <title>Example content</title>
-          <link>https://purple-screen.com/2014/01/01/example-content/</link>
+          <link>https://akamac.github.io/purple-screen/2014/01/01/example-content/</link>
           <pubDate>Wed, 01 Jan 2014 00:00:00 UTC</pubDate>
           <author>Mark Otto</author>
-          <guid>https://purple-screen.com/2014/01/01/example-content/</guid>
+          <guid>https://akamac.github.io/purple-screen/2014/01/01/example-content/</guid>
           <description>
 
 &lt;div class=&#34;message&#34;&gt;
@@ -204,10 +204,10 @@
       
         <item>
           <title>What&#39;s Jekyll?</title>
-          <link>https://purple-screen.com/2013/12/31/whats-jekyll/</link>
+          <link>https://akamac.github.io/purple-screen/2013/12/31/whats-jekyll/</link>
           <pubDate>Tue, 31 Dec 2013 00:00:00 UTC</pubDate>
           <author>Mark Otto</author>
-          <guid>https://purple-screen.com/2013/12/31/whats-jekyll/</guid>
+          <guid>https://akamac.github.io/purple-screen/2013/12/31/whats-jekyll/</guid>
           <description>&lt;p&gt;&lt;a href=&#34;http://jekyllrb.com&#34;&gt;Jekyll&lt;/a&gt; is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From &lt;a href=&#34;https://github.com/mojombo/jekyll/blob/master/README.markdown&#34;&gt;the project&amp;rsquo;s readme&lt;/a&gt;:&lt;/p&gt;
 
 &lt;blockquote&gt;
