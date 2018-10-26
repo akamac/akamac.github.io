@@ -62,26 +62,6 @@ Add-Type -Path &#39;C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assem
     </item>
     
     <item>
-      <title>Tuning your ISE</title>
-      <link>https://purple-screen.com/2014/03/10/tuning-your-ise/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/03/10/tuning-your-ise/</guid>
-      <description>After being silent for a while it&amp;#8217;s time to explode with some really great stuff!
-Let&amp;#8217;s start with the environment you develop the scripts in. There are several options out of there: free PowerGUI &amp;#8211; very popular IDE but doesn&amp;#8217;t look nice for me, Sapiens PowerShell Studio &amp;#8211; seems to be a powerful tool but costs 389$ at the moment. So I look back to the ISE that is bundled with WMF 4.</description>
-    </item>
-    
-    <item>
-      <title>NetCmdlets</title>
-      <link>https://purple-screen.com/2014/01/07/netcmdlets/</link>
-      <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/07/netcmdlets/</guid>
-      <description>Use all the power of PowerShell with NetCmdlets. Out of box you can: gain SSH access to ESXi 5.x hosts from PowerShell, work with multiple internet protocols (IMAP/POP/WebDAV/DNS/FTP/etc), deploy portable syslog server in seconds and much more.
-Unfortunately community edition doesn&amp;#8217;t support encryption-enabled cmdlets. To use SSH, SFTP you need to upgrade to paid version.</description>
-    </item>
-    
-    <item>
       <title>PowerShell scheduled job output redirection</title>
       <link>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</link>
       <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>

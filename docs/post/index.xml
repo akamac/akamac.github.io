@@ -77,17 +77,7 @@ Add-Type -Path &#39;C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assem
       
       <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
       <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
-Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
-    </item>
-    
-    <item>
-      <title>Tuning your ISE</title>
-      <link>https://purple-screen.com/2014/03/10/tuning-your-ise/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/03/10/tuning-your-ise/</guid>
-      <description>After being silent for a while it&amp;#8217;s time to explode with some really great stuff!
-Let&amp;#8217;s start with the environment you develop the scripts in. There are several options out of there: free PowerGUI &amp;#8211; very popular IDE but doesn&amp;#8217;t look nice for me, Sapiens PowerShell Studio &amp;#8211; seems to be a powerful tool but costs 389$ at the moment. So I look back to the ISE that is bundled with WMF 4.</description>
+Get-View -ViewType HostSystem ` -Filter @{&amp;#39;Summary.QuickStats.Uptime&amp;#39;=&amp;#39;^0$&amp;#39;} ` -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&amp;#39;vpxa&amp;#39;) } 2&amp;gt;$null </description>
     </item>
     
     <item>
@@ -98,59 +88,6 @@ Let&amp;#8217;s start with the environment you develop the scripts in. There 
       <guid>https://purple-screen.com/2014/02/05/the-power-of-get-view/</guid>
       <description>Today we&amp;#8217;re going to discover very useful Get-View cmdlet. I&amp;#8217;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.
 First it&amp;#8217;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly.</description>
-    </item>
-    
-    <item>
-      <title>Fast Suspend/Resume</title>
-      <link>https://purple-screen.com/2014/01/21/fast-suspend/resume/</link>
-      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/21/fast-suspend/resume/</guid>
-      <description>Have you ever come across the term in subj? It&amp;#8217;s time to reveal what it stands for.
-First, three examples when this action can be performed.
-To enable CBT for virtual machine in addition to make vm reconfiguration one need to perform so called stun/unstun cycle for vm. This could be power on/off, suspend/resume, create/remove snapshot, vm migration.
-Another example is changing the build type for running vm (release/debug/stats). This can be done in vm advanced settings tab or via command line utils.</description>
-    </item>
-    
-    <item>
-      <title>NetCmdlets</title>
-      <link>https://purple-screen.com/2014/01/07/netcmdlets/</link>
-      <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/07/netcmdlets/</guid>
-      <description>Use all the power of PowerShell with NetCmdlets. Out of box you can: gain SSH access to ESXi 5.x hosts from PowerShell, work with multiple internet protocols (IMAP/POP/WebDAV/DNS/FTP/etc), deploy portable syslog server in seconds and much more.
-Unfortunately community edition doesn&amp;#8217;t support encryption-enabled cmdlets. To use SSH, SFTP you need to upgrade to paid version.</description>
-    </item>
-    
-    <item>
-      <title>Introducing Lanyon</title>
-      <link>https://purple-screen.com/2014/01/02/introducing-lanyon/</link>
-      <pubDate>Thu, 02 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/02/introducing-lanyon/</guid>
-      <description>Lanyon is an unassuming Jekyll theme that places content first by tucking away navigation in a hidden drawer. It&amp;rsquo;s based on Poole, the Jekyll butler.
-Built on Poole Poole is the Jekyll Butler, serving as an upstanding and effective foundation for Jekyll themes by @mdo. Poole, and every theme built on it (like Lanyon here) includes the following:
- Complete Jekyll setup included (layouts, config, 404, RSS feed, posts, and example page) Mobile friendly design and development Easily scalable text and component sizing with rem units in the CSS Support for a wide gamut of HTML elements Related posts (time-based, because Jekyll) below each post Syntax highlighting, courtesy Pygments (the Python-based code snippet highlighter)  Lanyon features In addition to the features of Poole, Lanyon adds the following:</description>
-    </item>
-    
-    <item>
-      <title>Example content</title>
-      <link>https://purple-screen.com/2014/01/01/example-content/</link>
-      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/01/example-content/</guid>
-      <description>Howdy! This is an example blog post that shows several types of HTML content supported in this theme.  Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.
- Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo.</description>
-    </item>
-    
-    <item>
-      <title>What&#39;s Jekyll?</title>
-      <link>https://purple-screen.com/2013/12/31/whats-jekyll/</link>
-      <pubDate>Tue, 31 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2013/12/31/whats-jekyll/</guid>
-      <description>Jekyll is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From the project&amp;rsquo;s readme:
- Jekyll is a simple, blog aware, static site generator. It takes a template directory [&amp;hellip;] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.</description>
     </item>
     
     <item>

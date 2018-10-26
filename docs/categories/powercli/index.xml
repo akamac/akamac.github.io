@@ -39,7 +39,7 @@ Keep in mind that (some) devices return MAC instead of the management IP in LL
       
       <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
       <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
-Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
+Get-View -ViewType HostSystem ` -Filter @{&amp;#39;Summary.QuickStats.Uptime&amp;#39;=&amp;#39;^0$&amp;#39;} ` -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&amp;#39;vpxa&amp;#39;) } 2&amp;gt;$null </description>
     </item>
     
     <item>
@@ -50,18 +50,6 @@ Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39
       <guid>https://purple-screen.com/2014/02/05/the-power-of-get-view/</guid>
       <description>Today we&amp;#8217;re going to discover very useful Get-View cmdlet. I&amp;#8217;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.
 First it&amp;#8217;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly.</description>
-    </item>
-    
-    <item>
-      <title>Fast Suspend/Resume</title>
-      <link>https://purple-screen.com/2014/01/21/fast-suspend/resume/</link>
-      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/21/fast-suspend/resume/</guid>
-      <description>Have you ever come across the term in subj? It&amp;#8217;s time to reveal what it stands for.
-First, three examples when this action can be performed.
-To enable CBT for virtual machine in addition to make vm reconfiguration one need to perform so called stun/unstun cycle for vm. This could be power on/off, suspend/resume, create/remove snapshot, vm migration.
-Another example is changing the build type for running vm (release/debug/stats). This can be done in vm advanced settings tab or via command line utils.</description>
     </item>
     
     <item>

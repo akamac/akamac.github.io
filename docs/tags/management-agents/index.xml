@@ -18,7 +18,7 @@
       
       <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
       <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
-Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
+Get-View -ViewType HostSystem ` -Filter @{&amp;#39;Summary.QuickStats.Uptime&amp;#39;=&amp;#39;^0$&amp;#39;} ` -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&amp;#39;vpxa&amp;#39;) } 2&amp;gt;$null </description>
     </item>
     
   </channel>

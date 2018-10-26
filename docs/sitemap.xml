@@ -42,38 +42,8 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/2014/03/10/tuning-your-ise/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/2014/02/05/the-power-of-get-view/</loc>
     <lastmod>2014-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/01/21/fast-suspend/resume/</loc>
-    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/01/07/netcmdlets/</loc>
-    <lastmod>2014-01-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/01/02/introducing-lanyon/</loc>
-    <lastmod>2014-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/01/01/example-content/</loc>
-    <lastmod>2014-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2013/12/31/whats-jekyll/</loc>
-    <lastmod>2013-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -138,12 +108,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/add-on/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/</loc>
     <lastmod>2014-07-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -161,32 +125,8 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/cbt/</loc>
-    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/cdp/</loc>
     <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/certificate/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/changed-block-tracking/</loc>
-    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/code-signing/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -221,12 +161,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/fast-suspend-resume/</loc>
-    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/filter/</loc>
     <lastmod>2014-02-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -238,32 +172,14 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/fsr/</loc>
-    <lastmod>2014-01-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/get-view/</loc>
     <lastmod>2014-02-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/github/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/hba/</loc>
     <lastmod>2014-07-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/ise/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -394,12 +310,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/remote-session/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/rescan/</loc>
     <lastmod>2014-07-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -436,20 +346,8 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/snippet/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/ssl/</loc>
     <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/store-password/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

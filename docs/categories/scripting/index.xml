@@ -68,17 +68,7 @@ Add-Type -Path &#39;C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assem
       
       <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
       <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
-Get-View -ViewType HostSystem -Filter @{&#39;Summary.QuickStats.Uptime&#39;=&#39;^0$&#39;} -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&#39;vpxa&#39;) } 2&amp;gt;$null &amp;nbsp;</description>
-    </item>
-    
-    <item>
-      <title>NetCmdlets</title>
-      <link>https://purple-screen.com/2014/01/07/netcmdlets/</link>
-      <pubDate>Tue, 07 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2014/01/07/netcmdlets/</guid>
-      <description>Use all the power of PowerShell with NetCmdlets. Out of box you can: gain SSH access to ESXi 5.x hosts from PowerShell, work with multiple internet protocols (IMAP/POP/WebDAV/DNS/FTP/etc), deploy portable syslog server in seconds and much more.
-Unfortunately community edition doesn&amp;#8217;t support encryption-enabled cmdlets. To use SSH, SFTP you need to upgrade to paid version.</description>
+Get-View -ViewType HostSystem ` -Filter @{&amp;#39;Summary.QuickStats.Uptime&amp;#39;=&amp;#39;^0$&amp;#39;} ` -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&amp;#39;vpxa&amp;#39;) } 2&amp;gt;$null </description>
     </item>
     
     <item>
