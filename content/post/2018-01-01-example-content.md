@@ -1,8 +1,8 @@
-{
-    "title": "Example content",
-    "date": "2014-01-01"
-}
-
+---
+title: Example content
+date: 2018-01-01
+draft: true
+---
 
 <div class="message">
   Howdy! This is an example blog post that shows several types of HTML content supported in this theme.

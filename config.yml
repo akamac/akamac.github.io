@@ -3,7 +3,9 @@ languageCode: en-us
 title: Blog
 theme: lanyon
 canonifyurls: true
-pygmentsuseclasses: true
+#pygmentsCodeFences: true
+#pygmentsUseClassic: true
+#pygmentsUseClasses: true
 publishDir: docs
 permalinks:
     post: ":year/:month/:day/:title/"

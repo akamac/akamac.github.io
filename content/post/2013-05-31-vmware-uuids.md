@@ -27,22 +27,4 @@ It prevents player/workstation from asking whether you moved or copied VM with d
 
 That&#8217;s enough for the first post. In the end &#8211; a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&#8217;s. It guarantees the persistence of all licenses that depends on GUID.
 
-<pre class="expand:true lang:ps decode:true " title="Keep BIOS UUID for exported VM" >function Keep-BiosUuid {
-    Param (
-        [Parameter(Mandatory,HelpMessage='VM name',ValueFromPipelineByPropertyName)]
-        [string[]] $Name,
-        [Parameter(Mandatory)]
-        [string] $Datacenter,
-        [Parameter(Mandatory)]
-        [string] $ExportedPath
-    )
-    foreach ($VmName in $Name) {
-        $VM = Get-VM $VmName
-        $VmConfig = Copy-DatastoreItem -Destination $env:TEMP -PassThru `
-        -Item "vmstore:\\$Datacenter\\$($VM.ExtensionData.Config.Files.VmPathName -replace '\\[([^\\]]+)\\] ([^/]+)/(.*)','$1\\$2\\$3')"
-        Add-Content "$ExportedPath\\$VmName\\$VmName.vmx" ((cat $VmConfig | sls 'uuid.bios'), 'uuid.action = "keep"')
-        rm $VmConfig -Confirm:$False
-    }
-}</pre>
-
-Hope you&#8217;ll find it useful. Stay tuned, keep learning!
+Stay tuned, keep learning!

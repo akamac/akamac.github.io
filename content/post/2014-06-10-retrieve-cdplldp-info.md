@@ -17,29 +17,3 @@ It relies on ObnTransformation from my <a title="OBN transformation" href="http:
 Keep in mind that (some) devices return MAC instead of the management IP in LLDP info.
   
 By default all vmnics are queried.
-
-<pre class="expand:true lang:ps decode:true" title="Get LLDP/CDP information">function Get-DiscoveryProtocolInfo {
-    [CmdletBinding()]
-    Param (
-        [Parameter(Mandatory,ValueFromPipeline)]
-        [PSObject[]] $VMHost,
-        [Parameter(ValueFromPipelineByPropertyName)]
-        [string[]] $vmnic,
-        [string[]] $VIServer = $global:DefaultVIServers
-    )
-    Process {
-        ObnTransform -Object $VMHost -ObjectType VMHost -View -Properties Name,ConfigManager -VIServer $VIServer | % {
-            $View = $_
-            $NetConfig = Get-View $View.ConfigManager.NetworkSystem -Server $View.Client.ServiceUrl.Split('/')[2]
-            $Device = ?? {$vmnic} {$NetConfig.NetworkInfo.Pnic.Device}
-            $NetConfig.QueryNetworkHint($Device) | % {
-                $Dev = $_.Device
-                $_ | Select @{N='VMHost'; E={$View.Name}}, @{N='Pnic'; E={$Dev}}, @{N='UplinkSwitch'; E={$_.ConnectedSwitchPort.DevId}},
-                @{N='ObservedVlans'; E={$_.Subnet.VlanId | Sort}}, @{N='Address'; E={ ?? {$_.ConnectedSwitchPort.Address} {$_.LldpInfo.ChassisId} }},
-                @{N='PortId'; E={ ?? {$_.ConnectedSwitchPort.PortId} {$_.LldpInfo.PortId} }} # HardwarePlatform, SoftwareVersion, FullDuplex, Mtu, VLAN (Native)
-            }
-        }
-    }
-}</pre>
-
-&nbsp;
