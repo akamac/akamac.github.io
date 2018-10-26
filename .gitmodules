@@ -7,3 +7,6 @@
 [submodule "themes/pixyll"]
 	path = themes/pixyll
 	url = https://github.com/azmelanar/hugo-theme-pixyll.git
+[submodule "join-object"]
+	path = content/post/2013-07-20-join-object/gist
+	url = git@gist.github.com:ab449697d8f1cf57db8b149752062dfd.git
