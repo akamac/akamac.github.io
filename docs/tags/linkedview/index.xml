@@ -17,8 +17,8 @@
       <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2014/02/05/the-power-of-get-view/</guid>
-      <description>Today we&amp;#8217;re going to discover very useful Get-View cmdlet. I&amp;#8217;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.
-First it&amp;#8217;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly.</description>
+      <description>Today we&amp;rsquo;re going to discover very powerful Get-View cmdlet. I&amp;rsquo;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.
+First, it&amp;rsquo;s worth mentioning that getting implementation objects (those produced by Get-VM, Get-VMHost, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly.</description>
     </item>
     
   </channel>

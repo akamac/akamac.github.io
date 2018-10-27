@@ -17,26 +17,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/2014/06/10/obn-object-by-name-transformation/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/06/10/retrieve-cdp/lldp-info/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/05/10/convert-psobject-to-hashtable/</loc>
-    <lastmod>2014-05-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2014/05/09/mysql-database-manipulation-from-powershell/</loc>
-    <lastmod>2014-05-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/2014/04/15/restarting-managements-agents/</loc>
     <lastmod>2014-04-15T00:00:00+00:00</lastmod>
   </url>
@@ -52,23 +32,8 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/2013/12/01/veeam-slow-backup/</loc>
-    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</loc>
     <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2013/10/27/esxcli-namespace-tree/</loc>
-    <lastmod>2013-10-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2013/09/29/omnitracker-automation/</loc>
-    <lastmod>2013-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -77,18 +42,8 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/2013/07/21/enumerating-through-hashtable-in-posh/</loc>
-    <lastmod>2013-07-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/2013/07/20/join-object/</loc>
     <lastmod>2013-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/2013/07/19/must-read-posh-book/</loc>
-    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -114,25 +69,7 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/book/</loc>
-    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/cdp/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/connector/</loc>
-    <lastmod>2014-05-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -196,12 +133,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/lldp/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/management-agents/</loc>
     <lastmod>2014-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -220,12 +151,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/mysql/</loc>
-    <lastmod>2014-05-09T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/net/</loc>
     <lastmod>2014-06-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -238,32 +163,8 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/object-by-name/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/obn/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/omnitracker/</loc>
-    <lastmod>2013-09-29T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/output-redirection/</loc>
     <lastmod>2013-12-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/payette/</loc>
-    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -281,7 +182,7 @@
   
   <url>
     <loc>https://purple-screen.com/categories/powercli/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -335,13 +236,7 @@
   
   <url>
     <loc>https://purple-screen.com/tags/slow/</loc>
-    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/snapshot/</loc>
-    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
+    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -353,12 +248,6 @@
   
   <url>
     <loc>https://purple-screen.com/tags/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/transformation/</loc>
     <lastmod>2014-06-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -382,12 +271,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/veeam/</loc>
-    <lastmod>2013-12-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/verbose/</loc>
     <lastmod>2013-12-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -396,12 +279,6 @@
   <url>
     <loc>https://purple-screen.com/tags/virtual-compatibility-mode/</loc>
     <lastmod>2014-07-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/vmnic/</loc>
-    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -158,50 +158,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
 
   </nav>
 
@@ -231,66 +187,25 @@
 <div class="post">
   <h1 class="post-title">Dynamic parameters</h1>
   <span class="post-date">Sep 8 2013</span>
-  <p>Today we gonna touch on dynamic parameters available in advanced functions. These are parameters that are added at run-time depending on the environment. The great example is the parameters that are dynamically exposed to the current parameter set of Get-Item cmdlet based on PS provider (FileSystem, Registry) used.</p>
+  <p>Today we&rsquo;re going to touch on dynamic parameters available in advanced functions. These are parameters that are added at run-time depending on the environment. The great example is the parameters that are dynamically exposed to the current parameter set of <code>Get-Item</code> cmdlet based on PS provider (FileSystem, Registry) used.</p>
 
-<p>Faced it once you should have found out that simply adding such a parameter to the function means writing a bunch of code. Let&#8217;s make a life easier! I&#8217;d like to share with you short yet useful function I will actively utilize in my forthcoming scripts. Here it is:</p>
+<p>Faced it once, you should have found out that simply adding such a parameter to the function means writing a bunch of code. Let&rsquo;s make a life easier!</p>
 
-<pre class="expand:true lang:ps decode:true" title="Add-DynamicParam">function Add-DynamicParam {
-    Param (
-        [Parameter(ValueFromPipeline,HelpMessage='Dictionary to add created dynamic parameter')]
-        [System.Management.Automation.RuntimeDefinedParameterDictionary] $ParamDictionary,
-        [Parameter(Mandatory)]
-        [string] $ParameterName,
-        [Parameter(Mandatory)]
-        [type] $ParameterType,
-        [string[]] $ParameterSetName = '__AllParameterSets',
-        [ValidateScript({
-            $AcceptedValues = ('Alias','AllowNull','AllowEmptyString','AllowEmptyCollection',`
-                               'ValidateCount','ValidateLength','ValidatePattern','ValidateRange',`
-                               'ValidateScript','ValidateSet','ValidateNotNull','ValidateNotNullOrEmpty')
-            -not (Compare @($_.Keys) $AcceptedValues | ? SideIndicator -eq '&lt;=')
-        })]
-        [hashtable] $Options,
-        [int] $Position,
-        [string] $HelpMessage,
-        [switch] $ValueFromPipeline,
-        [switch] $ValueFromPipelineByPropertyName,        
-        [switch] $Mandatory
-    )
-    $ParamAttribute = [System.Management.Automation.ParameterAttribute]@{
-        ParameterSetName = $ParameterSetName; Mandatory = $Mandatory.IsPresent;
-        ValueFromPipeline = $ValueFromPipeline.IsPresent;
-        ValueFromPipelineByPropertyName = $ValueFromPipelineByPropertyName.IsPresent
-    }
-    if ($HelpMessage) { $ParamAttribute.HelpMessage = $HelpMessage }
-    if ($Position) { $ParamAttribute.Position = $Position }
-    $ParamAttributeCollection = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
-    $ParamAttributeCollection.Add($ParamAttribute)
-    if ($Options) {
-        foreach ($Option in $Options.GetEnumerator()) {
-            $ParamOptions = New-Object System.Management.Automation.$($Option.Name)Attribute -ArgumentList $Option.Value
-            $ParamAttributeCollection.Add($ParamOptions)
-        }
-    }
-    $Param = New-Object System.Management.Automation.RuntimeDefinedParameter($ParameterName, $ParameterType, $ParamAttributeCollection)
-    if (-not $ParamDictionary) { $ParamDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary }
-    $ParamDictionary.Add($ParameterName, $Param)
-    $ParamDictionary
-}</pre>
+<script type="application/javascript" src="//gist.github.com/akamac/bc0e5f2981f6b1327f0c60a64b2e26b6.js"></script>
 
-<p>One note is that parameters created with this function are not available in script&#8217;s body using the parameter&#8217;s name but are exposed via $PSBoundParameters variable.</p>
+<p>Parameters created with this function are not available in script&rsquo;s body using the parameter&rsquo;s name but are exposed via <code>$PSBoundParameters</code> variable.</p>
 
-<p>All the parameter attributes can be set by passing its values in hashtable to <em>-Options</em>. Other common attributes (&#8216;mandatory&#8217; switch, position, accepting values from pipeline) are also available. To add multiple dynamic parameters you should pipe one function call to another. Braindead simple! Here is an example:</p>
+<p>All the parameter attributes can be set by passing its values in hashtable to <code>-Options</code>. Other common attributes (<code>mandatory</code> switch, <code>position</code>, accepting values from pipeline) are also available. To add multiple dynamic parameters you should pipe one function call to another. Braindead simple! Here is an example:</p>
 
-<pre class="expand:true lang:ps decode:true " title="DynamicParam usage">DynamicParam {
-    if ($Status -eq 'Solved') {
-        Add-DynamicParam -ParameterName Solution -ParameterType string -Mandatory -Options @{ValidateNotNullOrEmpty = $null} |
-        Add-DynamicParam -ParameterName Effort -ParameterType int -Mandatory -Options @{ValidateSet = (1,2,3)}
-    }
-}
-Process {
-    $PSBoundParameters.Solution; $PSBoundParameters.Effort
-}</pre>
+<pre><code class="language-powershell">New-DynamicParam -ParameterName Solution `
+                 -ParameterType string `
+                 -Mandatory `
+                 -Options @{ValidateNotNullOrEmpty = $null} |
+New-DynamicParam -ParameterName Effort `
+                 -ParameterType int `
+                 -Mandatory `
+                 -Options @{ValidateSet = (1,2,3)}
+</code></pre>
 
 </div>
 

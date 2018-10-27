@@ -17,7 +17,7 @@
       <pubDate>Sat, 20 Jul 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2013/07/20/join-object/</guid>
-      <description>If you ever wrote SQL queries and now use PowerShell for scripting maybe you missed &amp;#8216;Join&amp;#8217; possibility in PoSH. Here it is!
+      <description>If you ever wrote SQL queries and now use PowerShell for scripting maybe you missed &amp;#8216;Join&amp;rsquo; possibility in PoSH. Here it is!
 Nothing special. I just tried to create Join-Object with the same functionality as inner/outer Join statements in SQL. My version of Join-Object uses standalone Merge-Object function for merging 2 arrays of custom objects / hashtables. Resulting object is an array of objects that contains all properties from joined objects except the ones with the same name, which are discarded.</description>
     </item>
     

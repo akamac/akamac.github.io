@@ -17,8 +17,8 @@
       <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2014/06/10/manage-zip-archives-with-powershell/</guid>
-      <description>I know there are lots of examples and function implementations out there (for instance, the one from jaykul), nonetheless I&amp;#8217;d like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.
-For instance, to extract vmware.xml file from the archive&amp;#8217;s root and all the files from the vib folder stored in root also (yep, we&amp;#8217;re expanding metadata.</description>
+      <description>I know there are lots of examples and function implementations out there (for instance, the one from jaykul), nonetheless I&amp;rsquo;d like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.
+For instance, to extract vmware.xml file from the archive&amp;rsquo;s root and all the files from the vib folder stored in root also (yep, we&amp;rsquo;re expanding metadata.</description>
     </item>
     
   </channel>

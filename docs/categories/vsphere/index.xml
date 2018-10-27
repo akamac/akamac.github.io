@@ -17,16 +17,7 @@
       <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</guid>
-      <description>As opposed to the physical RDM mode with the virtual one after expanding the LUN on the storage array side and rescanning HBA vm still can&amp;#8217;t see the increased capacity. The official VMware tutorial says to shutdown vm and re-add RDM. This isn&amp;#8217;t acceptable. The hint to make it happen with no downtime is to vMotion vm after rescanning HBA on the destination host. That&amp;#8217;s it!</description>
-    </item>
-    
-    <item>
-      <title>Veeam slow backup</title>
-      <link>https://purple-screen.com/2013/12/01/veeam-slow-backup/</link>
-      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2013/12/01/veeam-slow-backup/</guid>
-      <description>One day I suddenly noticed that backup jobs could no longer fit the backup window. While investigating the issue I found tons of log records pointing that before processing every VM in the job Veeam tries to clean up all the snapshots created by its own for backup purposes. In some cases they were manually deleted or lost for some reason, but the records were still kept in the database.</description>
+      <description>If you cannot see a new capacity after increasing the LUN backing vRDM (known bug), the solution will be to vMotion a vm after rescanning HBA on the destination host. That&amp;rsquo;s easy.</description>
     </item>
     
     <item>
@@ -35,7 +26,8 @@
       <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</guid>
-      <description>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between agent and server. To accomplish this open the file &amp;#8216;C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml&amp;#8217;, navigate to nfc section of xml and set false in useSSL tag. Restarting &amp;#8216;Converter Worker&amp;#8217; service is required. Hope this&amp;#8217;ll help!</description>
+      <description>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml and disable SSL:
+&amp;lt;nfc&amp;gt; &amp;lt;useSsl&amp;gt;false&amp;lt;/useSsl&amp;gt; &amp;lt;/nfc&amp;gt;  Restarting Converter Worker service is required. Hope this helps!</description>
     </item>
     
   </channel>

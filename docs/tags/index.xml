@@ -21,33 +21,6 @@
     </item>
     
     <item>
-      <title>Book</title>
-      <link>https://purple-screen.com/tags/book/</link>
-      <pubDate>Fri, 19 Jul 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/book/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cdp</title>
-      <link>https://purple-screen.com/tags/cdp/</link>
-      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/cdp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Connector</title>
-      <link>https://purple-screen.com/tags/connector/</link>
-      <pubDate>Fri, 09 May 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/connector/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Expand</title>
       <link>https://purple-screen.com/tags/expand/</link>
       <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
@@ -120,15 +93,6 @@
     </item>
     
     <item>
-      <title>Lldp</title>
-      <link>https://purple-screen.com/tags/lldp/</link>
-      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/lldp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Management Agents</title>
       <link>https://purple-screen.com/tags/management-agents/</link>
       <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
@@ -156,15 +120,6 @@
     </item>
     
     <item>
-      <title>Mysql</title>
-      <link>https://purple-screen.com/tags/mysql/</link>
-      <pubDate>Fri, 09 May 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Net</title>
       <link>https://purple-screen.com/tags/net/</link>
       <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
@@ -183,47 +138,11 @@
     </item>
     
     <item>
-      <title>Object by Name</title>
-      <link>https://purple-screen.com/tags/object-by-name/</link>
-      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/object-by-name/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Obn</title>
-      <link>https://purple-screen.com/tags/obn/</link>
-      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/obn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Omnitracker</title>
-      <link>https://purple-screen.com/tags/omnitracker/</link>
-      <pubDate>Sun, 29 Sep 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/omnitracker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Output Redirection</title>
       <link>https://purple-screen.com/tags/output-redirection/</link>
       <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/tags/output-redirection/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Payette</title>
-      <link>https://purple-screen.com/tags/payette/</link>
-      <pubDate>Fri, 19 Jul 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/payette/</guid>
       <description></description>
     </item>
     
@@ -293,18 +212,9 @@
     <item>
       <title>Slow</title>
       <link>https://purple-screen.com/tags/slow/</link>
-      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/tags/slow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Snapshot</title>
-      <link>https://purple-screen.com/tags/snapshot/</link>
-      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/snapshot/</guid>
       <description></description>
     </item>
     
@@ -314,15 +224,6 @@
       <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/tags/ssl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Transformation</title>
-      <link>https://purple-screen.com/tags/transformation/</link>
-      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/transformation/</guid>
       <description></description>
     </item>
     
@@ -354,15 +255,6 @@
     </item>
     
     <item>
-      <title>Veeam</title>
-      <link>https://purple-screen.com/tags/veeam/</link>
-      <pubDate>Sun, 01 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/veeam/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Verbose</title>
       <link>https://purple-screen.com/tags/verbose/</link>
       <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
@@ -377,15 +269,6 @@
       <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/tags/virtual-compatibility-mode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Vmnic</title>
-      <link>https://purple-screen.com/tags/vmnic/</link>
-      <pubDate>Tue, 10 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/tags/vmnic/</guid>
       <description></description>
     </item>
     

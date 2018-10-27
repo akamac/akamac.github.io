@@ -158,50 +158,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
 
   </nav>
 
@@ -231,7 +187,7 @@
 <div class="post">
   <h1 class="post-title">Restarting managements agents</h1>
   <span class="post-date">Apr 15 2014</span>
-  <p>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:</p>
+  <p>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. This snippet will fix the issue:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Get-View -ViewType HostSystem `
          -Filter @{<span style="color:#e6db74">&#39;Summary.QuickStats.Uptime&#39;</span>=<span style="color:#e6db74">&#39;^0$&#39;</span>} `

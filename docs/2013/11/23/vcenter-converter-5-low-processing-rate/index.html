@@ -158,50 +158,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
 
   </nav>
 
@@ -231,7 +187,14 @@
 <div class="post">
   <h1 class="post-title">vCenter Converter 5 low processing rate</h1>
   <span class="post-date">Nov 23 2013</span>
-  <p>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between agent and server. To accomplish this open the file &#8216;C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml&#8217;, navigate to <strong>nfc</strong> section of xml and set false in <strong>useSSL</strong> tag. Restarting &#8216;Converter Worker&#8217; service is required. Hope this&#8217;ll help!</p>
+  <p>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file <code>C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml</code> and disable SSL:</p>
+
+<pre><code class="language-xml">&lt;nfc&gt;
+  &lt;useSsl&gt;false&lt;/useSsl&gt;
+&lt;/nfc&gt;
+</code></pre>
+
+<p>Restarting <em>Converter Worker</em> service is required. Hope this helps!</p>
 
 </div>
 

@@ -17,7 +17,7 @@
       <pubDate>Wed, 23 Jul 2014 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2014/07/23/expand-rdm-in-virtual-compatibility-mode/</guid>
-      <description>As opposed to the physical RDM mode with the virtual one after expanding the LUN on the storage array side and rescanning HBA vm still can&amp;#8217;t see the increased capacity. The official VMware tutorial says to shutdown vm and re-add RDM. This isn&amp;#8217;t acceptable. The hint to make it happen with no downtime is to vMotion vm after rescanning HBA on the destination host. That&amp;#8217;s it!</description>
+      <description>If you cannot see a new capacity after increasing the LUN backing vRDM (known bug), the solution will be to vMotion a vm after rescanning HBA on the destination host. That&amp;rsquo;s easy.</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2014/04/15/restarting-managements-agents/</guid>
-      <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
+      <description>You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. This snippet will fix the issue:
 Get-View -ViewType HostSystem ` -Filter @{&amp;#39;Summary.QuickStats.Uptime&amp;#39;=&amp;#39;^0$&amp;#39;} ` -Property Name,ConfigManager | % { (Get-View $_.ConfigManager.ServiceSystem).RestartService(&amp;#39;vpxa&amp;#39;) } 2&amp;gt;$null </description>
     </item>
     

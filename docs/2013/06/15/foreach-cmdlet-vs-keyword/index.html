@@ -158,50 +158,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
 
   </nav>
 
@@ -233,9 +189,9 @@
   <span class="post-date">Jun 15 2013</span>
   <p>Here is a little note about the difference of these two loop constructions.</p>
 
-<p><em>foreach</em> is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop <em>$foreach</em> automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (.MoveNext() method).</p>
+<p><strong>foreach</strong> is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop <code>$foreach</code> automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (<code>.MoveNext()</code> method).</p>
 
-<p><em>ForEach-Object</em> is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&#8217;t created at the start of processing. When the last is long-time operation using the cmdlet you can achieve much better overall performance than using its brother-keyword. In other case one should consider using the keyword for higher execution speed.</p>
+<p><strong>ForEach-Object</strong> is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&rsquo;t created at the start of processing. When the last is long-time operation using the cmdlet you can achieve much better overall performance than using its brother-keyword. In other case one should consider using the keyword for higher execution speed.</p>
 
 <p>Since both have the same alias foreach the PoSH parser is smart enough to select the appropriate construction depending on the place it is used.</p>
 
