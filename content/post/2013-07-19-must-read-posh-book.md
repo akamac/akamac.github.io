@@ -8,8 +8,10 @@ tags:
   - book
   - payette
   - powershell
-layout: aside  
+type: aside
+draft: true
 ---
-If you start learning PowerShell then reading <a href="http://www.amazon.com/Windows-PowerShell-Action-Second-Edition/dp/1935182137" title="Windows PowerShell in Action, 2nd Edition" target="_blank">Windows PowerShell in Action, 2nd Edition</a> by Bruce Payette is a must! He is among the principal members of PowerShell team and explain guts of the language in detail.
+
+If you start learning PowerShell then reading [Windows PowerShell in Action, 2nd Edition](http://www.amazon.com/Windows-PowerShell-Action-Second-Edition/dp/1935182137) by Bruce Payette is a must! He is among the principal members of PowerShell team and explain guts of the language in detail.
   
 Again, MUST READ!

@@ -10,3 +10,9 @@
 [submodule "join-object"]
 	path = content/post/2013-07-20-join-object/gist
 	url = git@gist.github.com:ab449697d8f1cf57db8b149752062dfd.git
+[submodule "zip-powershell"]
+	path = content/post/2014-06-10-manage-zip-archives-with-powershell/gist
+	url = git@gist.github.com:a65a6d8bfe62f0d3b954298f2880511d.git
+[submodule "dynamic-param"]
+	path = content/post/2013-09-08-dynamic-parameters/gist
+	url = git@gist.github.com:bc0e5f2981f6b1327f0c60a64b2e26b6.git

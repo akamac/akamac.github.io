@@ -4,10 +4,13 @@ date: 2014-05-10
 categories:
   - PowerShell
   - Scripting
-layout: aside
+type: aside
+draft: true
 ---
-<pre class="expand:true lang:ps decode:true crayon-selected" title="Convert PSObject to hashtable">function ConvertTo-Hashtable {
-    Param (
+
+{{< highlight powershell >}}
+function ConvertTo-Hashtable {
+    param(
         [Parameter(Mandatory,ValueFromPipeline)]
         [PSObject[]] $Object
     )
@@ -20,6 +23,5 @@ layout: aside
             $ht
         }
     }
-}</pre>
-
-&nbsp;
+}
+{{< /highlight >}}

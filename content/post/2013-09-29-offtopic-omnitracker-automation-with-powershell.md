@@ -5,16 +5,19 @@ categories:
   - PowerShell
 tags:
   - omnitracker
+draft: true
 ---
+
 Few words outside the virtualization world yet PoSH scripting related.
   
-I&#8217;ve been working for a while in the company that uses <a href="http://www.omninet.de/index.php" title="Omnitracker" target="_blank">Omnitracker</a> as a helpdesk and incident management solution. Using its web interface as well as thick client isn&#8217;t the best experience. And when it comes to do it on a regular basis it turns to a nightmare especially for a scripting guy like me. So what should we do in this situation? Yep, exactly! Automate it!
+I've been working for a while in the company that uses [Omnitracker](http://www.omninet.de/index.php) as a helpdesk and incident management solution. Using its web interface as well as thick client isn't the best experience. And when it comes to do it on a regular basis it turns to a nightmare especially for a scripting guy like me. So what should we do in this situation? Yep, exactly! Automate it!
   
-As others the first thing I&#8217;ve tried is to call Google for help. What was my surprise when I saw nothing relevant at all in the first few pages except the Linkedin profile of a guy who should have the desired skills. Wow, the power of social networks in action! Take a challenge!
+As others the first thing I've tried is to call Google for help. What was my surprise when I saw nothing relevant at all in the first few pages except the Linkedin profile of a guy who should have the desired skills. Wow, the power of social networks in action! Take a challenge!
   
-Looking through the manuals I&#8217;ve stumbled on the doc describing the automation interface. Good catch! C# there, so the PoSH isn&#8217;t far away. It turned out simple enough and after few tries I&#8217;ve managed to get it work. Couple of functions produced can be found below. As Omnitracker heavily relies on cusmomization most likely you won&#8217;t find it working in your environment but this functions should give you a tip how to handle the objects in OT. 
+Looking through the manuals I've stumbled on the doc describing the automation interface. Good catch! C# there, so the PoSH isn't far away. It turned out simple enough and after few tries I've managed to get it work. Couple of functions produced can be found below. As Omnitracker heavily relies on cusmomization most likely you won't find it working in your environment but this functions should give you a tip how to handle the objects in OT. 
 
-<pre class="lang:ps decode:true " title="OmniTracker" >function Set-OtTicket {
+```powershell
+function Set-OtTicket {
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory)]
@@ -97,4 +100,5 @@ Looking through the manuals I&#8217;ve stumbled on the doc describing the automa
         $otRequest.Save($true, $null, $true)
     }
     End { $otSession.Logoff() }
-}</pre>
+}
+```

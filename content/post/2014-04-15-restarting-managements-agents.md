@@ -11,7 +11,8 @@ tags:
   - restart
   - vpxa
 ---
-You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. A simple two-liner to fix the issue at your disposal:
+
+You know the situation when the host stops reporting its performance counters, do you? CPU and RAM load are showing nils.. This snippet will fix the issue:
 
 {{< highlight powershell >}}
 Get-View -ViewType HostSystem `
