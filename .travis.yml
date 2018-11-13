@@ -5,7 +5,7 @@ git:
   depth: 1
 branches:
   only:
-    - master
+    - develop
   
 install:
   - go get github.com/gohugoio/hugo
@@ -22,5 +22,6 @@ deploy:
   keep-history: true
   fqdn: purple-screen.com
   allow-empty-commit: false
+  committer-from-gh: true
   on:
-    branch: master
+    branch: develop
