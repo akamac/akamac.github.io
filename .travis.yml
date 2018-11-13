@@ -1,0 +1,26 @@
+language: go
+go: master
+#dist: xenial
+git:
+  depth: 1
+branches:
+  only:
+    - master
+  
+install:
+  - go get github.com/gohugoio/hugo --tags extended
+
+script:
+  - hugo
+  
+deploy:
+  provider: pages
+  skip-cleanup: true
+  local_dir: docs
+  target-branch: master
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  fqdn: purple-screen.com
+  allow-empty-commit: false
+  on:
+    branch: master
