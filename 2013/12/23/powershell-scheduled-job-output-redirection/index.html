@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      PowerShell scheduled job output redirection &middot; PurpleScreen
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://purple-screen.com/css/poole.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/syntax.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://purple-screen.com/css/custom.css">
+  
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://purple-screen.com/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://purple-screen.com/assets/favicon.png">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://purple-screen.com/atom.xml">
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-47057839-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+
+
+  
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Blog about IT</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://purple-screen.com/">Home</a>
+    <a class="sidebar-nav-item " href="https://purple-screen.com/post">Posts</a>
+
+    
+    
+      
+        <a class="sidebar-nav-item " href="https://purple-screen.com/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://cloudflare.com">CloudFlare</a>.</p>
+    <p>&copy; 2014</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://purple-screen.com/" title="Home">PurpleScreen</a>
+            <small>blog about open source</small>
+            
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">PowerShell scheduled job output redirection</h1>
+  <span class="post-date">Dec 23 2013</span>
+  <p>Scheduling the script execution is rather common task. You might know that it&rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection">TechNet about_Redirection help topic</a>.</p>
+
+<p>To be able to run your scripts with <code>-Verbose</code> option you should leverage <em>Advanced_Functions</em> syntax (see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced">another Core About topic</a>). Just add couple of strings to the beginning of the script:</p>
+
+<pre><code class="language-powershell">[CmdletBinding()]
+param()
+</code></pre>
+
+<p>and use <code>Write-Verbose</code> cmdlet throughout the script where chatty output is needed. At first glance it seems to be an easy task to combine all the mentioned together, but in fact I saw lots of questions across the web where people struggled to make it work. Indeed, it took much effort before I succeeded. I&rsquo;ve tested many different configuration and most of them didn&rsquo;t work for me too. That&rsquo;s what I came up with and it worked for me:</p>
+
+<pre><code class="language-powershell">Register-ScheduledJob .. -ScriptBlock { C:\Scheduled.ps1 -Verbose *&gt; 'C:\Scheduled.log' }
+</code></pre>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+  repo="akamac/purple-screen"
+  issue-term="pathname"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  </body>
+</html>
+

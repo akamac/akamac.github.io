@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Blog</title>
+    <link>https://purple-screen.com/tags/</link>
+    <description>Recent content in Tags on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Feb 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Filter</title>
+      <link>https://purple-screen.com/tags/filter/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/filter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Get View</title>
+      <link>https://purple-screen.com/tags/get-view/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/get-view/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linkedview</title>
+      <link>https://purple-screen.com/tags/linkedview/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/linkedview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Management Agents</title>
+      <link>https://purple-screen.com/tags/management-agents/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/management-agents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Manager</title>
+      <link>https://purple-screen.com/tags/manager/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/manager/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Output Redirection</title>
+      <link>https://purple-screen.com/tags/output-redirection/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/output-redirection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Powercli</title>
+      <link>https://purple-screen.com/tags/powercli/</link>
+      <pubDate>Fri, 31 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/powercli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Restart</title>
+      <link>https://purple-screen.com/tags/restart/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/restart/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scheduled Task</title>
+      <link>https://purple-screen.com/tags/scheduled-task/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/scheduled-task/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Slow</title>
+      <link>https://purple-screen.com/tags/slow/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/slow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ssl</title>
+      <link>https://purple-screen.com/tags/ssl/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/ssl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Updateviewdata</title>
+      <link>https://purple-screen.com/tags/updateviewdata/</link>
+      <pubDate>Wed, 05 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/updateviewdata/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Uuid</title>
+      <link>https://purple-screen.com/tags/uuid/</link>
+      <pubDate>Fri, 31 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/uuid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vcenter Converter</title>
+      <link>https://purple-screen.com/tags/vcenter-converter/</link>
+      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vcenter-converter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Verbose</title>
+      <link>https://purple-screen.com/tags/verbose/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/verbose/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vpxa</title>
+      <link>https://purple-screen.com/tags/vpxa/</link>
+      <pubDate>Tue, 15 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/tags/vpxa/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

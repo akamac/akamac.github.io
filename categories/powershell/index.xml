@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Powershell on Blog</title>
+    <link>https://purple-screen.com/categories/powershell/</link>
+    <description>Recent content in Powershell on Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Dec 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://purple-screen.com/categories/powershell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PowerShell scheduled job output redirection</title>
+      <link>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</link>
+      <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</guid>
+      <description>Scheduling the script execution is rather common task. You might know that it&amp;rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&amp;rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see TechNet about_Redirection help topic.
+To be able to run your scripts with -Verbose option you should leverage Advanced_Functions syntax (see another Core About topic).</description>
+    </item>
+    
+    <item>
+      <title>ForEach: cmdlet vs keyword</title>
+      <link>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</link>
+      <pubDate>Sat, 15 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</guid>
+      <description>Here is a little note about the difference of these two loop constructions.
+foreach is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop $foreach automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (.MoveNext() method).
+ForEach-Object is a cmdlet doing almost the same thing but the difference is the usecase.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+	<meta name="generator" content="Hugo 0.52-DEV" />
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      PurpleScreen &middot; blog about open source
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://purple-screen.com/css/poole.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/syntax.css">
+  <link rel="stylesheet" href="https://purple-screen.com/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  <link rel="stylesheet" href="https://purple-screen.com/css/custom.css">
+  
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://purple-screen.com/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://purple-screen.com/assets/favicon.png">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://purple-screen.com/atom.xml">
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-47057839-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+
+
+  
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Blog about IT</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item  active " href="https://purple-screen.com/">Home</a>
+    <a class="sidebar-nav-item " href="https://purple-screen.com/post">Posts</a>
+
+    
+    
+      
+        <a class="sidebar-nav-item " href="https://purple-screen.com/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://cloudflare.com">CloudFlare</a>.</p>
+    <p>&copy; 2014</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://purple-screen.com/" title="Home">PurpleScreen</a>
+            <small>blog about open source</small>
+            
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+
+
+
+<div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://purple-screen.com/2014/02/05/the-power-of-get-view/">The power of Get-View</a></h1>
+        <span class="post-date">Feb 5 2014</span>
+        
+
+<p>Today we&rsquo;re going to discover very powerful Get-View cmdlet. I&rsquo;m sure most of you have seen it in many scripts found across the web. This cmdlet returns .NET view objects thus exposing API methods and properties to PowerShell environment. This is crucial in advanced manipulating with vSphere infrastructure.</p>
+
+<p>First, it&rsquo;s worth mentioning that getting implementation objects (those produced by <code>Get-VM</code>, <code>Get-VMHost</code>, etc) takes more time than getting view objects, though in the last versions I found the gap decreased significantly. Let&rsquo;s discover the available parameters that need to be discussed:</p>
+
+<h3 id="viobject-id">-VIObject, -Id</h3>
+
+<p>View object can be retrieved by MoRef <code>-Id</code> or by passing the impl object <code>-VIObject</code> to the cmdlet. Don&rsquo;t forget to use <code>-Server</code> parameter when retrieving objects by MoRef if you are working with multiple default vCenter servers since MoRefs are not unique across different vCenter servers.</p>
+
+<h3 id="property">-Property</h3>
+
+<p>This parameter allows you to limit the object properties to be retrieved and can significantly speed up the query execution. Going ahead, one interesting thing you may wonder while using this parameter together with <code>-Filter</code>: does the property that objects are filtered by need to be specified here? The answer is no, they do not.</p>
+
+<h3 id="filter">-Filter</h3>
+
+<p>This parameter accepts a hash table: <code>@{Name='^TestVM[1-9]$'; 'Config.Version'='7'; 'Snapshot'=''}</code>, where both keys and values represent the strings and imply that for any object returned every specified key must match the corresponding value. The key can be any nested property but not the property of linked object - for linked objects use <code>-SearchRoot</code> parameter (more on that later). You can use the power of regular expressions for value strings. You may wonder how to test whether the property exists for the object? Just specify this property with the empty value. The example above will filter all vms with name matching <code>TestVM</code>, hardware version equal to <code>vmx-07</code> and for which at least one snapshot exists.</p>
+
+<p>Filtering on the server side prevents the objects that don&rsquo;t satisfy the specified criteria to be transfered to the client, thus it again increases the performance.</p>
+
+<h3 id="viewtype">-ViewType</h3>
+
+<p>The parameter allows you to query for object of a specific type. To learn more about types, inheritance and so on go to <a href="https://code.vmware.com/apis/449/vsphere">API reference guide</a>.</p>
+
+<p>Another really useful types of objects that can be retrieved by Get-View are different types of managers. The full list can be obtained with <code>(Get-View ServiceInstance).Content</code> call.</p>
+
+<p>One can use them to manipulate alarms (<code>Get-View AlarmManager</code>), tasks (<code>Get-View TaskManager</code>), files and so on. So it&rsquo;s very useful stuff too.</p>
+
+<hr />
+
+<p>Ok, this part is done. Now let&rsquo;s explore the base view object. We have an interesting liaison here: <code>UpdateViewData()</code> method and <code>.LinkedView</code> property.</p>
+
+<p>Until <code>UpdateViewData()</code> is invoked, the <code>.LinkedView</code> property is empty. Parameters of <code>UpdateViewData()</code> invocation are (multiple) properties of the current or linked object you want to obtain. Together with a property name, we can specify a property object type. In some cases it&rsquo;s quite useful to restrict the possible values, if the property is the list of object of different types. Let&rsquo;s see an example: consider navigating through inventory folders - every time you want to get the child objects, but only those of type <em>Folder</em>:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$FolderView = Get-View -ViewType Folder -Property Name -Filter @{Name=<span style="color:#e6db74">&#39;RootFolder&#39;</span>}
+<span style="color:#75715e"># The call will retrieve ChildEntity property for the current folder. No linked views are populated</span>
+$FolderView.UpdateViewData(<span style="color:#e6db74">&#39;ChildEntity&#39;</span>)
+<span style="color:#75715e"># The call below will fill the LinkedView property</span>
+$FolderView.UpdateViewData(<span style="color:#e6db74">&#39;ChildEntity.*&#39;</span>)
+<span style="color:#75715e"># or you can restrict the child objects retrieved to folders with only Name and ChildEntity properties obtained</span>
+$FolderView.UpdateViewData(<span style="color:#e6db74">&#39;[Folder]ChildEntity.Name&#39;</span>,<span style="color:#e6db74">&#39;[Folder]ChildEntity.ChildEntity&#39;</span>)&lt;/pre&gt;</code></pre></div>
+
+<p>The type restriction is neccessary when you specify the property path that include containers and this property doesn&rsquo;t belong to all entities a container can include. Thus <code>$FolderView.UpdateViewData('ChildEntity.ChildEntity')</code> won&rsquo;t work because folder can include vm objects for which <code>ChildEntity</code> property isn&rsquo;t defined.</p>
+
+<p>Got it? Then another example of digging even deeper:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$VmView = Get-View -ViewType VirtualMachine -Property Name -Filter @{Name=<span style="color:#e6db74">&#39;TestVM&#39;</span>}
+$VmView.UpdateViewData(<span style="color:#e6db74">&#39;Runtime.Host.Datastore.Name&#39;</span>)
+<span style="color:#75715e"># will extract the names of all datastores connected to host where vm is currently running</span>
+$VmView.Runtime.LinkedView.Host.LinkedView.Datastore.Name</code></pre></div>
+
+<p>So, instead of calling Get-View multiple times you can leverage <code>UpdateViewData()</code> method call. It <a href="http://www.vnugglets.com/2012/08/even-faster-powercli-code-with-get-view.html">really accelerates</a> your scripts where you need to get nested view objects.</p>
+
+<p>Now that you are aware of the foundation of advanced PowerCLI scripting, use <code>Get-View</code> in your scripts when processing the bulk of data and the speed is a vital factor. When operating few objects stay with common impl-getting cmdlets not to loose the simplicity of your scripts.</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/">PowerShell scheduled job output redirection</a></h1>
+        <span class="post-date">Dec 23 2013</span>
+        <p>Scheduling the script execution is rather common task. You might know that it&rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection">TechNet about_Redirection help topic</a>.</p>
+
+<p>To be able to run your scripts with <code>-Verbose</code> option you should leverage <em>Advanced_Functions</em> syntax (see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced">another Core About topic</a>). Just add couple of strings to the beginning of the script:</p>
+
+<pre><code class="language-powershell">[CmdletBinding()]
+param()
+</code></pre>
+
+<p>and use <code>Write-Verbose</code> cmdlet throughout the script where chatty output is needed. At first glance it seems to be an easy task to combine all the mentioned together, but in fact I saw lots of questions across the web where people struggled to make it work. Indeed, it took much effort before I succeeded. I&rsquo;ve tested many different configuration and most of them didn&rsquo;t work for me too. That&rsquo;s what I came up with and it worked for me:</p>
+
+<pre><code class="language-powershell">Register-ScheduledJob .. -ScriptBlock { C:\Scheduled.ps1 -Verbose *&gt; 'C:\Scheduled.log' }
+</code></pre>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/">vCenter Converter 5 low processing rate</a></h1>
+        <span class="post-date">Nov 23 2013</span>
+        <p>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file <code>C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml</code> and disable SSL:</p>
+
+<pre><code class="language-xml">&lt;nfc&gt;
+  &lt;useSsl&gt;false&lt;/useSsl&gt;
+&lt;/nfc&gt;
+</code></pre>
+
+<p>Restarting <em>Converter Worker</em> service is required. Hope this helps!</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/">ForEach: cmdlet vs keyword</a></h1>
+        <span class="post-date">Jun 15 2013</span>
+        <p>Here is a little note about the difference of these two loop constructions.</p>
+
+<p><strong>foreach</strong> is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop <code>$foreach</code> automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (<code>.MoveNext()</code> method).</p>
+
+<p><strong>ForEach-Object</strong> is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&rsquo;t created at the start of processing. When the last is long-time operation using the cmdlet you can achieve much better overall performance than using its brother-keyword. In other case one should consider using the keyword for higher execution speed.</p>
+
+<p>Since both have the same alias foreach the PoSH parser is smart enough to select the appropriate construction depending on the place it is used.</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://purple-screen.com/2013/05/31/vmware-uuids/">VMware UUIDs</a></h1>
+        <span class="post-date">May 31 2013</span>
+        <p>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:</p>
+
+<ul>
+<li>uuid.bios</li>
+<li>uuid.location</li>
+<li>vc.uuid</li>
+</ul>
+
+<p>Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&rsquo;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&rsquo;d like to share with you.</p>
+
+<p><strong>uuid.bios</strong> - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export VM, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: <code>uuid.action = &quot;keep&quot;</code></p>
+
+<p>It prevents player/workstation from asking whether you moved or copied VM with default answer <em>I moved it</em>. If the valid uuid.bios line is present in config file it will be preserved and the software license will be OK. Another option for uuid.action is <em>change</em>. In this case VMware will generate the value when you power on VM in new location (host or even folder). You can read <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1541">this KB article</a> to learn more about it. So the uuid.bios setting is done. Let&rsquo;s look through others two.</p>
+
+<p><strong>uuid.location</strong> is generated every time VM is vMotion&rsquo;ed to another host/storage. I guess it&rsquo;s used by vCenter for some internal purposes like ..</p>
+
+<p><strong>vc.uuid</strong> is used by vCenter to identify VM together with MoRef ID you&rsquo;ve seen while working with PowerCLI. It&rsquo;s unique and is generated when you add VM to inventory (or create VM). If the value is already present in config file (and there is no duplicate in current inventory) it&rsquo;s left intact.</p>
+
+<p>That&rsquo;s enough for the first post. In the end - a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&rsquo;s. It guarantees the persistence of all licenses that depends on GUID.</p>
+
+<p>Stay tuned, keep learning!</p>
+
+    </div>
+  
+</div>
+
+<div class="pagination">
+  
+  <span class="pagination-item older">Older</span>
+  
+
+  
+  <span class="pagination-item newer">Newer</span>
+  
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  </body>
+</html>
+
