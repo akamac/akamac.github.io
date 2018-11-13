@@ -10,6 +10,7 @@ tags:
   - extract
   - NET
   - zip
+draft: true
 ---
 
 I know there are lots of examples and function implementations out there (for instance, the one [from jaykul](http://huddledmasses.org/a-new-way-to-zip-and-unzip-in-powershell-3-and-net-4-5)), nonetheless I'd like to add my 2 cents. Even 5c, since my version is more powerful :) It allows you to set compression level, append/replace files to/in existing archives and extract only necessary files from archive.

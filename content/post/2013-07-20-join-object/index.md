@@ -7,10 +7,12 @@ tags:
   - join-object
   - merge-object
   - powershell
+draft: true
 ---
+
 If you ever wrote SQL queries and now use PowerShell for scripting maybe you missed &#8216;Join' possibility in PoSH. Here it is!
   
-Nothing special. I just tried to create Join-Object with the same functionality as inner/outer Join statements in SQL. My version of Join-Object uses standalone Merge-Object function for merging 2 arrays of custom objects / hashtables. Resulting object is an array of objects that contains all properties from joined objects except the ones with the same name, which are discarded. If you also want to include the property on which you join the collections use $IncludeJoinProperty switch. The expression for specifying the property to join on is that simple:
+Nothing special. I just tried to create Join-Object with the same functionality as inner/outer Join statements in SQL. My version of Join-Object uses standalone Merge-Object function for merging 2 arrays of custom objects / hashtables. Resulting object is an array of objects that contains all properties from joined objects except the ones with the same name, which are discarded. If you also want to include the property on which you join the collections, use `-IncludeJoinProperty` switch. The expression for specifying the property to join on is that simple:
   
 `-On {$Left.'propertyName' -eq $Right.'propertyName'}`
   

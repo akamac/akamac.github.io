@@ -4,6 +4,7 @@ date: 2013-09-08
 categories:
   - PowerShell
   - Scripting
+draft: true
 ---
 
 Today we're going to touch on dynamic parameters available in advanced functions. These are parameters that are added at run-time depending on the environment. The great example is the parameters that are dynamically exposed to the current parameter set of `Get-Item` cmdlet based on PS provider (FileSystem, Registry) used.
