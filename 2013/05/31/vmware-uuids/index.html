@@ -119,16 +119,6 @@ if (!doNotTrack) {
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
 
   </nav>
 
@@ -158,7 +148,7 @@ if (!doNotTrack) {
 <div class="post">
   <h1 class="post-title">VMware UUIDs</h1>
   <span class="post-date">May 31 2013</span>
-  <p>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:</p>
+  <p>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in <code>*.vmx</code> config file you could see 3 different lines containing 128-bit hex numbers. They are:</p>
 
 <ul>
 <li>uuid.bios</li>
@@ -166,19 +156,15 @@ if (!doNotTrack) {
 <li>vc.uuid</li>
 </ul>
 
-<p>Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&rsquo;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&rsquo;d like to share with you.</p>
+<p>Because of having some issues with software licensing inside guest OS I decided to explore what every value is responsible for. Web didn&rsquo;t give me the complete answer about the meaning of all of these parameters, so my investigations led me to the following conclusion I&rsquo;d like to share with you.</p>
 
-<p><strong>uuid.bios</strong> - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export VM, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: <code>uuid.action = &quot;keep&quot;</code></p>
+<p><strong>uuid.bios</strong> - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export vm, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: <code>uuid.action = &quot;keep&quot;</code></p>
 
-<p>It prevents player/workstation from asking whether you moved or copied VM with default answer <em>I moved it</em>. If the valid uuid.bios line is present in config file it will be preserved and the software license will be OK. Another option for uuid.action is <em>change</em>. In this case VMware will generate the value when you power on VM in new location (host or even folder). You can read <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1541">this KB article</a> to learn more about it. So the uuid.bios setting is done. Let&rsquo;s look through others two.</p>
+<p>It prevents player/workstation from asking whether you moved or copied vm with the default answer <em>I moved it</em>. If the valid uuid.bios line is present in config file, it will be preserved and the software license will be okay. Another option for uuid.action is <code>&quot;change&quot;</code>. In this case VMware will generate the value when you power on the vm in new location (host or even folder). You can read <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1541">this KB article</a> to learn more about it. So the <code>uuid.bios</code> setting is done. Let&rsquo;s look through others two.</p>
 
-<p><strong>uuid.location</strong> is generated every time VM is vMotion&rsquo;ed to another host/storage. I guess it&rsquo;s used by vCenter for some internal purposes like ..</p>
+<p><strong>uuid.location</strong> is generated every time vm is vMotion&rsquo;ed to another host/storage. I guess it&rsquo;s used by vCenter for some internal purposes like ..</p>
 
-<p><strong>vc.uuid</strong> is used by vCenter to identify VM together with MoRef ID you&rsquo;ve seen while working with PowerCLI. It&rsquo;s unique and is generated when you add VM to inventory (or create VM). If the value is already present in config file (and there is no duplicate in current inventory) it&rsquo;s left intact.</p>
-
-<p>That&rsquo;s enough for the first post. In the end - a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&rsquo;s. It guarantees the persistence of all licenses that depends on GUID.</p>
-
-<p>Stay tuned, keep learning!</p>
+<p><strong>vc.uuid</strong> is used by vCenter to identify vm together with MoRef ID you&rsquo;ve seen while working with PowerCLI. It&rsquo;s unique and is generated when you add a vm to inventory (or create a vm). If the value is already present in the config file (and there is no duplicate in the current inventory), it&rsquo;s left intact.</p>
 
 </div>
 

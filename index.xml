@@ -85,7 +85,7 @@ $VmView.Runtime.LinkedView.Host.LinkedView.Datastore.Name&lt;/code&gt;&lt;/pre&g
           <pubDate>Mon, 23 Dec 2013 00:00:00 UTC</pubDate>
           <author>Mark Otto</author>
           <guid>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</guid>
-          <description>&lt;p&gt;Scheduling the script execution is rather common task. You might know that it&amp;rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&amp;rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see &lt;a href=&#34;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection&#34;&gt;TechNet about_Redirection help topic&lt;/a&gt;.&lt;/p&gt;
+          <description>&lt;p&gt;Scheduling the script execution is rather common task. You might know that it&amp;rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task ran successfully or not it&amp;rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see &lt;a href=&#34;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection&#34;&gt;TechNet about_Redirection help topic&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;To be able to run your scripts with &lt;code&gt;-Verbose&lt;/code&gt; option you should leverage &lt;em&gt;Advanced_Functions&lt;/em&gt; syntax (see &lt;a href=&#34;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced&#34;&gt;another Core About topic&lt;/a&gt;). Just add couple of strings to the beginning of the script:&lt;/p&gt;
 
@@ -103,25 +103,6 @@ param()
     
       
         <item>
-          <title>vCenter Converter 5 low processing rate</title>
-          <link>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</link>
-          <pubDate>Sat, 23 Nov 2013 00:00:00 UTC</pubDate>
-          <author>Mark Otto</author>
-          <guid>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</guid>
-          <description>&lt;p&gt;If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file &lt;code&gt;C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml&lt;/code&gt; and disable SSL:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;nfc&amp;gt;
-  &amp;lt;useSsl&amp;gt;false&amp;lt;/useSsl&amp;gt;
-&amp;lt;/nfc&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Restarting &lt;em&gt;Converter Worker&lt;/em&gt; service is required. Hope this helps!&lt;/p&gt;
-</description>
-        </item>
-      
-    
-      
-        <item>
           <title>ForEach: cmdlet vs keyword</title>
           <link>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</link>
           <pubDate>Sat, 15 Jun 2013 00:00:00 UTC</pubDate>
@@ -129,11 +110,11 @@ param()
           <guid>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</guid>
           <description>&lt;p&gt;Here is a little note about the difference of these two loop constructions.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;foreach&lt;/strong&gt; is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop &lt;code&gt;$foreach&lt;/code&gt; automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (&lt;code&gt;.MoveNext()&lt;/code&gt; method).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;foreach&lt;/strong&gt; is a reserved keyword in PowerShell that allows you to loop through a collection of objects and make some action on every item. Inside the foreach loop &lt;code&gt;$foreach&lt;/code&gt; automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (&lt;code&gt;.MoveNext()&lt;/code&gt; method).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;ForEach-Object&lt;/strong&gt; is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&amp;rsquo;t created at the start of processing. When the last is long-time operation using the cmdlet you can achieve much better overall performance than using its brother-keyword. In other case one should consider using the keyword for higher execution speed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ForEach-Object&lt;/strong&gt; is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&amp;rsquo;t created at the start of processing. When the latter is long-time operation, using the cmdlet you can achieve much better overall performance than using its sibling keyword. In other cases one should consider using the keyword for higher execution speed.&lt;/p&gt;
 
-&lt;p&gt;Since both have the same alias foreach the PoSH parser is smart enough to select the appropriate construction depending on the place it is used.&lt;/p&gt;
+&lt;p&gt;Since both have the same alias &lt;code&gt;foreach&lt;/code&gt;, PowerShell parser is smart enough to choose the appropriate construction depending on the place it is used.&lt;/p&gt;
 </description>
         </item>
       
@@ -145,7 +126,7 @@ param()
           <pubDate>Fri, 31 May 2013 00:00:00 UTC</pubDate>
           <author>Mark Otto</author>
           <guid>https://purple-screen.com/2013/05/31/vmware-uuids/</guid>
-          <description>&lt;p&gt;Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:&lt;/p&gt;
+          <description>&lt;p&gt;Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in &lt;code&gt;*.vmx&lt;/code&gt; config file you could see 3 different lines containing 128-bit hex numbers. They are:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;uuid.bios&lt;/li&gt;
@@ -153,19 +134,15 @@ param()
 &lt;li&gt;vc.uuid&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&amp;rsquo;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&amp;rsquo;d like to share with you.&lt;/p&gt;
+&lt;p&gt;Because of having some issues with software licensing inside guest OS I decided to explore what every value is responsible for. Web didn&amp;rsquo;t give me the complete answer about the meaning of all of these parameters, so my investigations led me to the following conclusion I&amp;rsquo;d like to share with you.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;uuid.bios&lt;/strong&gt; - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export VM, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: &lt;code&gt;uuid.action = &amp;quot;keep&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;uuid.bios&lt;/strong&gt; - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export vm, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: &lt;code&gt;uuid.action = &amp;quot;keep&amp;quot;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;It prevents player/workstation from asking whether you moved or copied VM with default answer &lt;em&gt;I moved it&lt;/em&gt;. If the valid uuid.bios line is present in config file it will be preserved and the software license will be OK. Another option for uuid.action is &lt;em&gt;change&lt;/em&gt;. In this case VMware will generate the value when you power on VM in new location (host or even folder). You can read &lt;a href=&#34;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1541&#34;&gt;this KB article&lt;/a&gt; to learn more about it. So the uuid.bios setting is done. Let&amp;rsquo;s look through others two.&lt;/p&gt;
+&lt;p&gt;It prevents player/workstation from asking whether you moved or copied vm with the default answer &lt;em&gt;I moved it&lt;/em&gt;. If the valid uuid.bios line is present in config file, it will be preserved and the software license will be okay. Another option for uuid.action is &lt;code&gt;&amp;quot;change&amp;quot;&lt;/code&gt;. In this case VMware will generate the value when you power on the vm in new location (host or even folder). You can read &lt;a href=&#34;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1541&#34;&gt;this KB article&lt;/a&gt; to learn more about it. So the &lt;code&gt;uuid.bios&lt;/code&gt; setting is done. Let&amp;rsquo;s look through others two.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;uuid.location&lt;/strong&gt; is generated every time VM is vMotion&amp;rsquo;ed to another host/storage. I guess it&amp;rsquo;s used by vCenter for some internal purposes like ..&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;uuid.location&lt;/strong&gt; is generated every time vm is vMotion&amp;rsquo;ed to another host/storage. I guess it&amp;rsquo;s used by vCenter for some internal purposes like ..&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;vc.uuid&lt;/strong&gt; is used by vCenter to identify VM together with MoRef ID you&amp;rsquo;ve seen while working with PowerCLI. It&amp;rsquo;s unique and is generated when you add VM to inventory (or create VM). If the value is already present in config file (and there is no duplicate in current inventory) it&amp;rsquo;s left intact.&lt;/p&gt;
-
-&lt;p&gt;That&amp;rsquo;s enough for the first post. In the end - a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&amp;rsquo;s. It guarantees the persistence of all licenses that depends on GUID.&lt;/p&gt;
-
-&lt;p&gt;Stay tuned, keep learning!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;vc.uuid&lt;/strong&gt; is used by vCenter to identify vm together with MoRef ID you&amp;rsquo;ve seen while working with PowerCLI. It&amp;rsquo;s unique and is generated when you add a vm to inventory (or create a vm). If the value is already present in the config file (and there is no duplicate in the current inventory), it&amp;rsquo;s left intact.&lt;/p&gt;
 </description>
         </item>
       

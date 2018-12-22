@@ -37,18 +37,8 @@ First, it&amp;rsquo;s worth mentioning that getting implementation objects (thos
       <pubDate>Mon, 23 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/</guid>
-      <description>Scheduling the script execution is rather common task. You might know that it&amp;rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&amp;rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see TechNet about_Redirection help topic.
+      <description>Scheduling the script execution is rather common task. You might know that it&amp;rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task ran successfully or not it&amp;rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see TechNet about_Redirection help topic.
 To be able to run your scripts with -Verbose option you should leverage Advanced_Functions syntax (see another Core About topic).</description>
-    </item>
-    
-    <item>
-      <title>vCenter Converter 5 low processing rate</title>
-      <link>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</link>
-      <pubDate>Sat, 23 Nov 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</guid>
-      <description>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml and disable SSL:
-&amp;lt;nfc&amp;gt; &amp;lt;useSsl&amp;gt;false&amp;lt;/useSsl&amp;gt; &amp;lt;/nfc&amp;gt;  Restarting Converter Worker service is required. Hope this helps!</description>
     </item>
     
     <item>
@@ -58,7 +48,7 @@ To be able to run your scripts with -Verbose option you should leverage Advanced
       
       <guid>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</guid>
       <description>Here is a little note about the difference of these two loop constructions.
-foreach is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop $foreach automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (.MoveNext() method).
+foreach is a reserved keyword in PowerShell that allows you to loop through a collection of objects and make some action on every item. Inside the foreach loop $foreach automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (.MoveNext() method).
 ForEach-Object is a cmdlet doing almost the same thing but the difference is the usecase.</description>
     </item>
     
@@ -68,8 +58,8 @@ ForEach-Object is a cmdlet doing almost the same thing but the difference is the
       <pubDate>Fri, 31 May 2013 00:00:00 +0000</pubDate>
       
       <guid>https://purple-screen.com/2013/05/31/vmware-uuids/</guid>
-      <description>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:
- uuid.bios uuid.location vc.uuid  Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&amp;rsquo;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&amp;rsquo;d like to share with you.</description>
+      <description>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in *.vmx config file you could see 3 different lines containing 128-bit hex numbers. They are:
+ uuid.bios uuid.location vc.uuid  Because of having some issues with software licensing inside guest OS I decided to explore what every value is responsible for. Web didn&amp;rsquo;t give me the complete answer about the meaning of all of these parameters, so my investigations led me to the following conclusion I&amp;rsquo;d like to share with you.</description>
     </item>
     
   </channel>

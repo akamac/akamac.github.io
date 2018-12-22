@@ -22,11 +22,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/</loc>
-    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/</loc>
     <lastmod>2013-06-15T00:00:00+00:00</lastmod>
   </url>
@@ -137,18 +132,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/slow/</loc>
-    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/ssl/</loc>
-    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/</loc>
     <lastmod>2014-02-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -167,12 +150,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/vcenter-converter/</loc>
-    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/tags/verbose/</loc>
     <lastmod>2013-12-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -181,12 +158,6 @@
   <url>
     <loc>https://purple-screen.com/tags/vpxa/</loc>
     <lastmod>2014-04-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/categories/vsphere/</loc>
-    <lastmod>2013-11-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

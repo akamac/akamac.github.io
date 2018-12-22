@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
   <head>
-	<meta name="generator" content="Hugo 0.52-DEV" />
+	<meta name="generator" content="Hugo 0.53-DEV" />
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -64,16 +64,6 @@ if (!doNotTrack) {
     
       
         <a class="sidebar-nav-item " href="https://purple-screen.com/about/">About</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
       
     
       
@@ -224,7 +214,7 @@ $VmView.Runtime.LinkedView.Host.LinkedView.Datastore.Name</code></pre></div>
     <div class="post">
         <h1 class="post-title"><a href="https://purple-screen.com/2013/12/23/powershell-scheduled-job-output-redirection/">PowerShell scheduled job output redirection</a></h1>
         <span class="post-date">Dec 23 2013</span>
-        <p>Scheduling the script execution is rather common task. You might know that it&rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it&rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection">TechNet about_Redirection help topic</a>.</p>
+        <p>Scheduling the script execution is rather common task. You might know that it&rsquo;s possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task ran successfully or not it&rsquo;s quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection">TechNet about_Redirection help topic</a>.</p>
 
 <p>To be able to run your scripts with <code>-Verbose</code> option you should leverage <em>Advanced_Functions</em> syntax (see <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced">another Core About topic</a>). Just add couple of strings to the beginning of the script:</p>
 
@@ -240,36 +230,22 @@ param()
     </div>
   
     <div class="post">
-        <h1 class="post-title"><a href="https://purple-screen.com/2013/11/23/vcenter-converter-5-low-processing-rate/">vCenter Converter 5 low processing rate</a></h1>
-        <span class="post-date">Nov 23 2013</span>
-        <p>If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file <code>C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml</code> and disable SSL:</p>
-
-<pre><code class="language-xml">&lt;nfc&gt;
-  &lt;useSsl&gt;false&lt;/useSsl&gt;
-&lt;/nfc&gt;
-</code></pre>
-
-<p>Restarting <em>Converter Worker</em> service is required. Hope this helps!</p>
-
-    </div>
-  
-    <div class="post">
         <h1 class="post-title"><a href="https://purple-screen.com/2013/06/15/foreach-cmdlet-vs-keyword/">ForEach: cmdlet vs keyword</a></h1>
         <span class="post-date">Jun 15 2013</span>
         <p>Here is a little note about the difference of these two loop constructions.</p>
 
-<p><strong>foreach</strong> is a reserved keyword in PoSH that allows you to loop through collection of objects and make some action on every item. Inside the foreach loop <code>$foreach</code> automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (<code>.MoveNext()</code> method).</p>
+<p><strong>foreach</strong> is a reserved keyword in PowerShell that allows you to loop through a collection of objects and make some action on every item. Inside the foreach loop <code>$foreach</code> automatic variable is available. It presents the loop enumerator and can be used, for instance, to skip the current object in collection (<code>.MoveNext()</code> method).</p>
 
-<p><strong>ForEach-Object</strong> is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&rsquo;t created at the start of processing. When the last is long-time operation using the cmdlet you can achieve much better overall performance than using its brother-keyword. In other case one should consider using the keyword for higher execution speed.</p>
+<p><strong>ForEach-Object</strong> is a cmdlet doing almost the same thing but the difference is the usecase. Since the collection is piped to the cmdlet the objects are pushed down the pipeline as soon as they are generated. It affects the performance greatly when a collection isn&rsquo;t created at the start of processing. When the latter is long-time operation, using the cmdlet you can achieve much better overall performance than using its sibling keyword. In other cases one should consider using the keyword for higher execution speed.</p>
 
-<p>Since both have the same alias foreach the PoSH parser is smart enough to select the appropriate construction depending on the place it is used.</p>
+<p>Since both have the same alias <code>foreach</code>, PowerShell parser is smart enough to choose the appropriate construction depending on the place it is used.</p>
 
     </div>
   
     <div class="post">
         <h1 class="post-title"><a href="https://purple-screen.com/2013/05/31/vmware-uuids/">VMware UUIDs</a></h1>
         <span class="post-date">May 31 2013</span>
-        <p>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in vm config file (*.vmx) you could see 3 different lines containing 128-bit hex numbers. They are:</p>
+        <p>Hi everybody! My first post is about UUIDs - identifiers used for virtual machines in vSphere infrastructure. If you ever looked in <code>*.vmx</code> config file you could see 3 different lines containing 128-bit hex numbers. They are:</p>
 
 <ul>
 <li>uuid.bios</li>
@@ -277,19 +253,15 @@ param()
 <li>vc.uuid</li>
 </ul>
 
-<p>Because of having some issues with software licensing inside guest OS I decided to explore what the every value is responsible for. Web hasn&rsquo;t gave me the complete answer about the meaning of all of these parameters so my investigations led me to the following conclusion I&rsquo;d like to share with you.</p>
+<p>Because of having some issues with software licensing inside guest OS I decided to explore what every value is responsible for. Web didn&rsquo;t give me the complete answer about the meaning of all of these parameters, so my investigations led me to the following conclusion I&rsquo;d like to share with you.</p>
 
-<p><strong>uuid.bios</strong> - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export VM, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: <code>uuid.action = &quot;keep&quot;</code></p>
+<p><strong>uuid.bios</strong> - this value acts as GUID analog in physical machine, you should keep it to make the license not to get broken. If you want to export vm, for example using vCenter Converter, and run it in VMware Player/Workstation you should also add the following line to exported vmx file together with copying the source uuid.bios value: <code>uuid.action = &quot;keep&quot;</code></p>
 
-<p>It prevents player/workstation from asking whether you moved or copied VM with default answer <em>I moved it</em>. If the valid uuid.bios line is present in config file it will be preserved and the software license will be OK. Another option for uuid.action is <em>change</em>. In this case VMware will generate the value when you power on VM in new location (host or even folder). You can read <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1541">this KB article</a> to learn more about it. So the uuid.bios setting is done. Let&rsquo;s look through others two.</p>
+<p>It prevents player/workstation from asking whether you moved or copied vm with the default answer <em>I moved it</em>. If the valid uuid.bios line is present in config file, it will be preserved and the software license will be okay. Another option for uuid.action is <code>&quot;change&quot;</code>. In this case VMware will generate the value when you power on the vm in new location (host or even folder). You can read <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1541">this KB article</a> to learn more about it. So the <code>uuid.bios</code> setting is done. Let&rsquo;s look through others two.</p>
 
-<p><strong>uuid.location</strong> is generated every time VM is vMotion&rsquo;ed to another host/storage. I guess it&rsquo;s used by vCenter for some internal purposes like ..</p>
+<p><strong>uuid.location</strong> is generated every time vm is vMotion&rsquo;ed to another host/storage. I guess it&rsquo;s used by vCenter for some internal purposes like ..</p>
 
-<p><strong>vc.uuid</strong> is used by vCenter to identify VM together with MoRef ID you&rsquo;ve seen while working with PowerCLI. It&rsquo;s unique and is generated when you add VM to inventory (or create VM). If the value is already present in config file (and there is no duplicate in current inventory) it&rsquo;s left intact.</p>
-
-<p>That&rsquo;s enough for the first post. In the end - a little piece of PowerShell code to automate the postprocessing of exported VM to ensure its uuid.bios value is the same as source vm&rsquo;s. It guarantees the persistence of all licenses that depends on GUID.</p>
-
-<p>Stay tuned, keep learning!</p>
+<p><strong>vc.uuid</strong> is used by vCenter to identify vm together with MoRef ID you&rsquo;ve seen while working with PowerCLI. It&rsquo;s unique and is generated when you add a vm to inventory (or create a vm). If the value is already present in the config file (and there is no duplicate in the current inventory), it&rsquo;s left intact.</p>
 
     </div>
   
