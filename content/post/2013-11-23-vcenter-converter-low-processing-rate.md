@@ -7,6 +7,7 @@ tags:
   - slow
   - SSL
   - vCenter Converter
+draft: true  
 ---
 
 If you experience too slow conversion speed while doing P2V migration or other conversion task and see no reason for this, the solution might be to disable SSL encryption for data transfers between the agent and the server. To accomplish this open the file `C:\ProgramData\VMware\VMware vCenter Converter Standalone\converter-worker.xml` and disable SSL:

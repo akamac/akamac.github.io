@@ -10,7 +10,7 @@ tags:
   - verbose
 ---
 
-Scheduling the script execution is rather common task. You might know that it's possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task run successfully or not it's quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see [TechNet about_Redirection help topic](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection).
+Scheduling the script execution is rather common task. You might know that it's possible to manage scheduled tasks in PowerShell with built-in ScheduledTask module cmdlets. To keep track whether the task ran successfully or not it's quite useful to redirect the output of the script to a file. PowerShell allows output redirection for all stream types (standard/error/warning/etc), see [TechNet about_Redirection help topic](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection).
   
 To be able to run your scripts with `-Verbose` option you should leverage *Advanced_Functions* syntax (see [another Core About topic](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced)). Just add couple of strings to the beginning of the script:
 
