@@ -1,6 +1,14 @@
+.tabnav-tab:focus {
+    outline: 0;
+}
+
 .sidebar-item p {
     padding: 0px;
     margin: 0px
+}
+
+.sidebar-item p:last-child {
+    margin-top: 2em
 }
 
 .bloglogo img {

@@ -32,29 +32,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/</loc>
-    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/categories/esxi/</loc>
-    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/filter/</loc>
-    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/fixed/</loc>
     <priority>0</priority>
   </url>
@@ -72,24 +49,6 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/management-agents/</loc>
-    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/manager/</loc>
-    <lastmod>2014-02-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/output-redirection/</loc>
-    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://purple-screen.com/post/</loc>
     <lastmod>2014-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -97,36 +56,18 @@
   
   <url>
     <loc>https://purple-screen.com/tags/powercli/</loc>
-    <lastmod>2013-05-31T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/categories/powercli/</loc>
     <lastmod>2014-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/categories/powershell/</loc>
+    <loc>https://purple-screen.com/tags/powershell/</loc>
     <lastmod>2013-12-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/restart/</loc>
-    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/tags/scheduled-task/</loc>
-    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://purple-screen.com/categories/scripting/</loc>
+    <loc>https://purple-screen.com/</loc>
     <lastmod>2014-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -144,14 +85,26 @@
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/uuid/</loc>
-    <lastmod>2013-05-31T00:00:00+00:00</lastmod>
+    <loc>https://purple-screen.com/tags/management-agents/</loc>
+    <lastmod>2014-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://purple-screen.com/tags/verbose/</loc>
+    <loc>https://purple-screen.com/tags/output-redirection/</loc>
     <lastmod>2013-12-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/scheduled-task/</loc>
+    <lastmod>2013-12-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://purple-screen.com/tags/uuid/</loc>
+    <lastmod>2013-05-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
