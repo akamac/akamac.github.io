@@ -1,7 +1,7 @@
 ---
 title: 'ForEach: cmdlet vs keyword'
 date: 2013-06-15
-categories:
+tags:
   - PowerShell
 ---
 

@@ -1,14 +1,9 @@
 ---
 title: Restarting managements agents
 date: 2014-04-15
-type: aside
-categories:
-  - ESXi
-  - PowerCLI
-  - Scripting
 tags:
+  - PowerCLI
   - management agents
-  - restart
   - vpxa
 ---
 

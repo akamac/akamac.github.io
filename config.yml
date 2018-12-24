@@ -1,11 +1,15 @@
 baseURL: "https://purple-screen.com/"
 languageCode: en-us
-title: Blog
+title: PurpleScreen
 theme: lanyon
 canonifyurls: true
 #pygmentsCodeFences: true
 #pygmentsUseClassic: true
 #pygmentsUseClasses: true
+preserveTaxonomyNames: true
+taxonomies:
+#  category: categories
+  tag: tags
 publishDir: docs
 googleAnalytics: UA-47057839-1
 permalinks:
@@ -14,6 +18,6 @@ permalinks:
 params:
     Title: PurpleScreen
     #linkedinName = 'alexeymiasoedov'
-    Tagline: blog about open source
+    Tagline: '>> sudo make read'
     utterances:
         repo: akamac/purple-screen

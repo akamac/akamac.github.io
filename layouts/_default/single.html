@@ -2,6 +2,7 @@
 
 <div class="post">
   <h1 class="post-title">{{ .Title }}</h1>
+  <p>{{ partial "tags.html" . }}</p>
   <span class="post-date">{{ .Site.Params.DateForm | default "Jan 2, 2006" | .Date.Format }}</span>
   {{ .Content }}
 </div>

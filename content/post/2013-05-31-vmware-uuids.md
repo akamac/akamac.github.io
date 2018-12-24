@@ -1,10 +1,8 @@
 ---
 title: VMware UUIDs
 date: 2013-05-31
-categories:
-  - PowerCLI
 tags:
-  - powercli
+  - PowerCLI
   - uuid
 ---
 

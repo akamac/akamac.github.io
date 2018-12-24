@@ -1,13 +1,10 @@
 ---
 title: The power of Get-View
 date: 2014-02-05
-categories:
-  - PowerCLI
 tags:
-  - Filter
+  - PowerCLI
   - Get-View
   - LinkedView
-  - Manager
   - UpdateViewData
 ---
 

@@ -5,12 +5,14 @@
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
-    <p>Blog about IT</p>
+    <p>Alexey Miasoedov's blog</p>
+    <p>Senior Core System Administrator @Intermedia</p>
   </div>
 
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item {{ if eq .URL "/" }} active {{ end }}" href="/">Home</a>
     <a class="sidebar-nav-item {{ if eq .URL "/post/" }} active {{ end }}" href="/post">Posts</a>
+    <a class="sidebar-nav-item {{ if eq .URL "/tags/" }} active {{ end }}" href="/tags">Tags</a>
 
     {{ $thisperma := .Permalink }}
     {{ range .Site.Pages.ByWeight }}
@@ -18,12 +20,13 @@
         <a class="sidebar-nav-item {{ if eq .Permalink $thisperma }} active {{ end }}" href="{{ .Permalink }}">{{ .Title }}</a>
       {{ end }}
     {{ end }}
-
   </nav>
 
   <div class="sidebar-item">
     <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
-    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://cloudflare.com">CloudFlare</a>.</p>
-    <p>&copy; {{ .Site.LastChange.Year }}</p>
+    <p>Built by <a href="https://travis-ci.com/">Travis CI</a>.</p>
+    <p>Hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+    <p>Accelerated by <a href="https://cloudflare.com">CloudFlare</a>.</p>
+    <p>&copy; {{ .Site.LastChange.Year }}. All rights reserved.</p>
   </div>
 </div>
